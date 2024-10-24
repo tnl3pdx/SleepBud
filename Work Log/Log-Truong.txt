@@ -1,0 +1,9 @@
+10/28/2024
+> LED Digit Display Testbench
+	+ Soldered 7 LEDs for Testing
+	+ Used test program to test LEDs
+		- All 7 LEDs work
+	(Next Steps):
+		> Create Functions to translate digits to LED display
+		> Determine Circuit Layout for LED digit
+			- Need to know to program LEDs

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "AMC312_Mini_PIR")(type "KiCad")(uri "${KIPRJMOD}/AMC312_Mini_PIR.kicad_sym")(options "")(descr ""))
+)

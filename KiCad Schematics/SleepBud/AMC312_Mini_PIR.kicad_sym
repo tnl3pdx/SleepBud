@@ -79,10 +79,10 @@
 					)
 				)
 			)
-			(pin power_out line
+			(pin bidirectional line
 				(at -2.54 -5.08 0)
 				(length 2.54)
-				(name "VOUT"
+				(name "PIR_Signal"
 					(effects
 						(font
 							(size 1.27 1.27)

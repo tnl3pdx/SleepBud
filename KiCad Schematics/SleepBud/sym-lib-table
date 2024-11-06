@@ -1,4 +1,7 @@
 (sym_lib_table
   (version 7)
   (lib (name "AMC312_Mini_PIR")(type "KiCad")(uri "${KIPRJMOD}/AMC312_Mini_PIR.kicad_sym")(options "")(descr ""))
+  (lib (name "Boot Option")(type "KiCad")(uri "${KIPRJMOD}/Boot Option.kicad_sym")(options "")(descr ""))
+  (lib (name "JTAG Pads")(type "KiCad")(uri "${KIPRJMOD}/JTAG Pads.kicad_sym")(options "")(descr ""))
+  (lib (name "UART Pads")(type "KiCad")(uri "${KIPRJMOD}/UART Pads.kicad_sym")(options "")(descr ""))
 )

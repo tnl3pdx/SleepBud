@@ -2,12 +2,12 @@
 	(version 20231120)
 	(generator "kicad_symbol_editor")
 	(generator_version "8.0")
-	(symbol "AM312"
+	(symbol "Boot_Option"
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "U"
-			(at 2.54 1.27 0)
+			(at 0 0 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15,7 +15,7 @@
 			)
 		)
 		(property "Value" ""
-			(at 2.54 1.27 0)
+			(at 0 0 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23,7 +23,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 2.54 1.27 0)
+			(at 0 0 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32,7 +32,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 2.54 1.27 0)
+			(at 0 0 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -41,7 +41,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 2.54 1.27 0)
+			(at 0 0 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -49,22 +49,24 @@
 				(hide yes)
 			)
 		)
-		(symbol "AM312_1_1"
+		(symbol "Boot_Option_0_1"
 			(rectangle
-				(start 0 0)
-				(end 7.62 -10.16)
+				(start -2.54 -1.27)
+				(end 2.54 -8.89)
 				(stroke
 					(width 0)
 					(type default)
 				)
 				(fill
-					(type background)
+					(type none)
 				)
 			)
-			(pin power_in line
-				(at -2.54 -1.27 0)
+		)
+		(symbol "Boot_Option_1_1"
+			(pin input line
+				(at -5.08 -3.81 0)
 				(length 2.54)
-				(name "VCC"
+				(name "Input"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -79,26 +81,8 @@
 					)
 				)
 			)
-			(pin power_out line
-				(at -2.54 -5.08 0)
-				(length 2.54)
-				(name "VOUT"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
 			(pin power_in line
-				(at -2.54 -8.89 0)
+				(at -5.08 -6.35 0)
 				(length 2.54)
 				(name "GND"
 					(effects
@@ -107,7 +91,7 @@
 						)
 					)
 				)
-				(number "3"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)

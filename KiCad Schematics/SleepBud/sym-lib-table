@@ -4,4 +4,5 @@
   (lib (name "Boot Option")(type "KiCad")(uri "${KIPRJMOD}/Boot Option.kicad_sym")(options "")(descr ""))
   (lib (name "JTAG Pads")(type "KiCad")(uri "${KIPRJMOD}/JTAG Pads.kicad_sym")(options "")(descr ""))
   (lib (name "UART Pads")(type "KiCad")(uri "${KIPRJMOD}/UART Pads.kicad_sym")(options "")(descr ""))
+  (lib (name "LampSignals")(type "KiCad")(uri "${KIPRJMOD}/LampSignals.kicad_sym")(options "")(descr ""))
 )

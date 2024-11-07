@@ -1792,6 +1792,123 @@
 				)
 			)
 		)
+		(symbol "LampSignals:Lamp_Power"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Lamp_Power_0_1"
+				(rectangle
+					(start -2.54 -1.27)
+					(end 2.54 -8.89)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Lamp_Power_1_1"
+				(pin power_in line
+					(at -5.08 -2.54 0)
+					(length 2.54)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -5.08 -5.08 0)
+					(length 2.54)
+					(name "DIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -5.08 -7.62 0)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Logic_LevelTranslator:TXS0108EPW"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -6491,6 +6608,10 @@
 		(uuid "66718d1b-7525-48e6-abc0-d626f5ca6e85")
 	)
 	(no_connect
+		(at 33.02 171.45)
+		(uuid "6bc5f83b-3823-448e-8716-8abd6a2e9c5f")
+	)
+	(no_connect
 		(at 215.9 36.83)
 		(uuid "77c1ba19-f71f-4179-ad81-e0bcf47aa469")
 	)
@@ -6760,7 +6881,7 @@
 	)
 	(wire
 		(pts
-			(xy 340.36 38.1) (xy 346.71 38.1)
+			(xy 254 40.64) (xy 260.35 40.64)
 		)
 		(stroke
 			(width 0)
@@ -7010,7 +7131,7 @@
 	)
 	(wire
 		(pts
-			(xy 354.33 38.1) (xy 367.03 38.1)
+			(xy 267.97 40.64) (xy 280.67 40.64)
 		)
 		(stroke
 			(width 0)
@@ -7360,16 +7481,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 171.45) (xy 33.02 171.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "37fad2b7-80a2-498a-bc6f-ed39bef8cf18")
-	)
-	(wire
-		(pts
 			(xy 294.64 167.64) (xy 309.88 167.64)
 		)
 		(stroke
@@ -7690,7 +7801,17 @@
 	)
 	(wire
 		(pts
-			(xy 374.65 22.86) (xy 374.65 30.48)
+			(xy 15.24 168.91) (xy 15.24 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f88f062-b4f4-4c35-aeee-2521fb164ce6")
+	)
+	(wire
+		(pts
+			(xy 288.29 25.4) (xy 288.29 33.02)
 		)
 		(stroke
 			(width 0)
@@ -8437,6 +8558,16 @@
 			(type default)
 		)
 		(uuid "8f978088-b50d-4898-ae84-b0c91025e277")
+	)
+	(wire
+		(pts
+			(xy 15.24 171.45) (xy 19.05 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "907c5706-10a8-44f1-a93b-9a854de30cbc")
 	)
 	(wire
 		(pts
@@ -9570,7 +9701,7 @@
 	)
 	(wire
 		(pts
-			(xy 374.65 43.18) (xy 374.65 48.26)
+			(xy 288.29 45.72) (xy 288.29 50.8)
 		)
 		(stroke
 			(width 0)
@@ -9990,7 +10121,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 171.45) (xy 19.05 151.13)
+			(xy 15.24 161.29) (xy 15.24 140.97)
 		)
 		(stroke
 			(width 0)
@@ -10130,7 +10261,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 151.13) (xy 22.86 151.13)
+			(xy 15.24 140.97) (xy 19.05 140.97)
 		)
 		(stroke
 			(width 0)
@@ -10223,8 +10354,8 @@
 		(uuid 2e284386-c3bc-4694-8c0a-d2af40730fbd)
 	)
 	(rectangle
-		(start 370.84 19.05)
-		(end 398.78 48.26)
+		(start 284.48 21.59)
+		(end 312.42 50.8)
 		(stroke
 			(width 0)
 			(type dash_dot)
@@ -10614,7 +10745,7 @@
 	)
 	(text "Barrel Jack Power Supply 12V/3A"
 		(exclude_from_sim no)
-		(at 33.528 64.77 0)
+		(at 45.72 64.516 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10644,7 +10775,7 @@
 	)
 	(text "Buzzer"
 		(exclude_from_sim no)
-		(at 387.35 44.958 0)
+		(at 300.99 47.498 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -10704,6 +10835,16 @@
 			)
 		)
 		(uuid "b79127eb-742e-4f39-b4fc-4da729673253")
+	)
+	(text "prob change mosfet that can be smd"
+		(exclude_from_sim no)
+		(at 49.784 17.018 0)
+		(effects
+			(font
+				(size 0.508 0.508)
+			)
+		)
+		(uuid "be611871-e125-4423-ae3b-4d180cda6bca")
 	)
 	(text "Other Side of the PCB Board\n"
 		(exclude_from_sim no)
@@ -10837,7 +10978,7 @@
 		(uuid "50bd6752-0041-434f-a5a8-87d528a50ab8")
 	)
 	(label "LED Lamp"
-		(at 22.86 151.13 0)
+		(at 19.05 140.97 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10870,7 +11011,7 @@
 		(uuid "6c0d9a1b-bb29-421f-82f3-129b60704409")
 	)
 	(label "Buzzer"
-		(at 340.36 38.1 0)
+		(at 254 40.64 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11077,7 +11218,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "027aa5fb-f396-4164-af58-218b258b7d86")
 		(property "Reference" "D35"
@@ -11284,7 +11425,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "07bfcc93-3a65-4bcc-b78b-32d211bd143e")
 		(property "Reference" "D40"
@@ -11500,7 +11641,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "0cb4a5e5-cba2-490a-b3ec-3d0545ba2ad8")
 		(property "Reference" "D77"
@@ -11575,7 +11716,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "14bc9a82-a3c4-4091-a9ac-b1e8a1635965")
 		(property "Reference" "D64"
@@ -11856,7 +11997,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:AO3400A")
-		(at 372.11 38.1 0)
+		(at 285.75 40.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11865,7 +12006,7 @@
 		(fields_autoplaced yes)
 		(uuid "1e59a385-628d-4c9a-b27e-86a5141b039f")
 		(property "Reference" "Q1"
-			(at 378.46 36.8299 0)
+			(at 292.1 39.3699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11874,7 +12015,7 @@
 			)
 		)
 		(property "Value" "AO3400A"
-			(at 378.46 39.3699 0)
+			(at 292.1 41.9099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11883,7 +12024,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 377.19 40.005 0)
+			(at 290.83 42.545 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11894,7 +12035,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.aosmd.com/pdfs/datasheet/AO3400A.pdf"
-			(at 377.19 41.91 0)
+			(at 290.83 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11904,7 +12045,7 @@
 			)
 		)
 		(property "Description" "30V Vds, 5.7A Id, N-Channel MOSFET, SOT-23"
-			(at 372.11 38.1 0)
+			(at 285.75 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12142,7 +12283,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "2666483f-711b-4955-b173-e6e2bd5072d4")
 		(property "Reference" "D71"
@@ -12348,7 +12489,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "2aa0c442-ecc3-4019-a90a-b72e6120991d")
 		(property "Reference" "D39"
@@ -12489,7 +12630,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "2de12c0e-b661-4c5b-a398-36f7c156b48e")
 		(property "Reference" "D38"
@@ -12576,7 +12717,7 @@
 				)
 			)
 		)
-		(property "Value" "Mode"
+		(property "Value" "Mode Button"
 			(at 120.65 71.12 0)
 			(effects
 				(font
@@ -12584,7 +12725,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_B3S-1000"
 			(at 120.65 71.12 0)
 			(effects
 				(font
@@ -12839,7 +12980,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "343c3eec-12b2-4741-a8f3-eff338168482")
 		(property "Reference" "D55"
@@ -12989,7 +13130,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "3a03cb17-b164-4f8a-a0b9-72c6fd69b2f2")
 		(property "Reference" "D73"
@@ -13064,7 +13205,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "3a3b1f4b-81af-43ce-a236-4b030c1cadbd")
 		(property "Reference" "D47"
@@ -13337,7 +13478,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "3ea63c6a-5e84-46c5-ae0a-94256c9185ee")
 		(property "Reference" "D65"
@@ -13412,7 +13553,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "3ed63b54-f986-4389-9e45-e82d813947e1")
 		(property "Reference" "D67"
@@ -13562,7 +13703,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "43af66ee-39ee-43ce-a1d2-d49b822a563d")
 		(property "Reference" "D60"
@@ -13712,7 +13853,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "475a29d0-6d54-4c72-b6f4-cdb081560491")
@@ -13801,7 +13942,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_2x02_P1.00mm_Vertical_SMD"
 			(at 200.66 13.97 0)
 			(effects
 				(font
@@ -13921,7 +14062,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "4a3b1d0e-7ffb-45fa-9f3c-ac28fdd8841a")
 		(property "Reference" "D76"
@@ -13996,7 +14137,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "4cbe109f-43ea-4632-8c5a-ac2312dfcf80")
 		(property "Reference" "D62"
@@ -14640,7 +14781,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "527c6abe-69d2-4a4f-be8a-dfedbb4c3385")
 		(property "Reference" "D56"
@@ -14927,7 +15068,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Value" "WS2812B"
@@ -14936,7 +15076,6 @@
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
@@ -15083,7 +15222,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_B3S-1000"
 			(at 120.65 90.17 0)
 			(effects
 				(font
@@ -15198,7 +15337,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "620883cb-c6e2-4691-bfbf-69752169af82")
 		(property "Reference" "#PWR058"
 			(at 115.57 101.6 0)
@@ -15210,7 +15348,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 115.57 100.33 0)
+			(at 112.776 99.822 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15407,7 +15545,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6530edeb-af0f-4608-8750-e48b4cf2abc1")
@@ -15896,7 +16034,7 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 374.65 22.86 0)
+		(at 288.29 25.4 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15905,7 +16043,7 @@
 		(fields_autoplaced yes)
 		(uuid "6bae0906-d646-4676-a667-9ebcb1840145")
 		(property "Reference" "#PWR054"
-			(at 374.65 26.67 0)
+			(at 288.29 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15914,7 +16052,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 374.65 17.78 0)
+			(at 288.29 20.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15922,7 +16060,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 374.65 22.86 0)
+			(at 288.29 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15931,7 +16069,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 374.65 22.86 0)
+			(at 288.29 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15940,7 +16078,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 374.65 22.86 0)
+			(at 288.29 25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16171,7 +16309,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_Push"
+		(property "Value" "Switch Button"
 			(at 120.65 100.33 0)
 			(effects
 				(font
@@ -16179,7 +16317,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_B3S-1000"
 			(at 120.65 100.33 0)
 			(effects
 				(font
@@ -16248,7 +16386,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x03_P1.00mm_Vertical_SMD_Pin1Left"
 			(at 120.65 120.65 0)
 			(effects
 				(font
@@ -16299,7 +16437,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "73169915-2d4b-4aa1-8440-1c2231f3cec1")
 		(property "Reference" "D68"
@@ -16370,7 +16508,7 @@
 	)
 	(symbol
 		(lib_id "dk_Alarms-Buzzers-and-Sirens:PS1240P02BT")
-		(at 377.19 33.02 0)
+		(at 290.83 35.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16379,7 +16517,7 @@
 		(fields_autoplaced yes)
 		(uuid "745d2344-9d73-43c3-8a98-8c4c860fadb1")
 		(property "Reference" "BZ1"
-			(at 386.08 30.4799 0)
+			(at 299.72 33.0199 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16388,7 +16526,7 @@
 			)
 		)
 		(property "Value" "PS1240P02BT"
-			(at 386.08 33.0199 0)
+			(at 299.72 35.5599 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16397,7 +16535,7 @@
 			)
 		)
 		(property "Footprint" "digikey-footprints:Piezo_Transducer_THT_PS1240P02BT"
-			(at 382.27 27.94 0)
+			(at 295.91 30.48 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16407,7 +16545,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf"
-			(at 382.27 25.4 0)
+			(at 295.91 27.94 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16417,7 +16555,7 @@
 			)
 		)
 		(property "Description" "AUDIO PIEZO TRANSDUCER 30V TH"
-			(at 377.19 33.02 0)
+			(at 290.83 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16426,7 +16564,7 @@
 			)
 		)
 		(property "Digi-Key_PN" "445-2525-1-ND"
-			(at 382.27 22.86 0)
+			(at 295.91 25.4 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16436,7 +16574,7 @@
 			)
 		)
 		(property "MPN" "PS1240P02BT"
-			(at 382.27 20.32 0)
+			(at 295.91 22.86 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16446,7 +16584,7 @@
 			)
 		)
 		(property "Category" "Audio Products"
-			(at 382.27 17.78 0)
+			(at 295.91 20.32 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16456,7 +16594,7 @@
 			)
 		)
 		(property "Family" "Alarms, Buzzers, and Sirens"
-			(at 382.27 15.24 0)
+			(at 295.91 17.78 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16466,7 +16604,7 @@
 			)
 		)
 		(property "DK_Datasheet_Link" "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf"
-			(at 382.27 12.7 0)
+			(at 295.91 15.24 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16476,7 +16614,7 @@
 			)
 		)
 		(property "DK_Detail_Page" "/product-detail/en/tdk-corporation/PS1240P02BT/445-2525-1-ND/935930"
-			(at 382.27 10.16 0)
+			(at 295.91 12.7 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16486,7 +16624,7 @@
 			)
 		)
 		(property "Description_1" "AUDIO PIEZO TRANSDUCER 30V TH"
-			(at 382.27 7.62 0)
+			(at 295.91 10.16 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16496,7 +16634,7 @@
 			)
 		)
 		(property "Manufacturer" "TDK Corporation"
-			(at 382.27 5.08 0)
+			(at 295.91 7.62 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16506,7 +16644,7 @@
 			)
 		)
 		(property "Status" "Active"
-			(at 382.27 2.54 0)
+			(at 295.91 5.08 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -16602,7 +16740,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "79dd9092-5316-4ad8-9665-fa3eea121cfa")
 		(property "Reference" "D75"
@@ -16747,7 +16885,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "7ab96bdb-655e-4a9d-9279-895063a05e7f")
 		(property "Reference" "D1"
@@ -16891,7 +17029,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7bb90358-0aaa-4fe1-84cf-77c89efce5b8")
@@ -17120,7 +17258,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_2x02_P1.00mm_Vertical_SMD"
 			(at 194.31 114.3 0)
 			(effects
 				(font
@@ -17174,7 +17312,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "810b01d1-ac5c-43bb-bca5-87c113d91413")
 		(property "Reference" "D53"
@@ -17456,7 +17594,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "824c6b7d-d26c-4034-8b14-caa55d01ea57")
 		(property "Reference" "D49"
@@ -17531,7 +17669,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "86b1e4b0-81d3-4572-8655-50dfccc00def")
 		(property "Reference" "D61"
@@ -17817,7 +17955,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "8f7b3f66-2ee8-4e9d-8105-0e63baa432af")
 		(property "Reference" "D51"
@@ -18111,7 +18249,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "949ff073-1a1f-4eea-b529-7cf03262d8bc")
 		(property "Reference" "#PWR038"
 			(at 22.86 20.32 0)
@@ -18123,7 +18260,7 @@
 			)
 		)
 		(property "Value" "VBUS"
-			(at 22.86 11.43 0)
+			(at 19.304 14.224 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18337,7 +18474,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "9acb0801-0457-4d8e-a941-eb1a2cc4f256")
 		(property "Reference" "D74"
@@ -18509,7 +18646,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Battery:BatteryHolder_Keystone_1057_1x2032"
 			(at 293.37 79.756 90)
 			(effects
 				(font
@@ -18702,7 +18839,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "a017e516-11c8-47f6-9b9d-a5a0c2fea97a")
 		(property "Reference" "D43"
@@ -18779,7 +18916,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "a0c84dac-e5c5-4565-99ab-c646e7711783")
 		(property "Reference" "#PWR057"
 			(at 115.57 92.71 0)
@@ -18791,7 +18927,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 115.57 91.44 0)
+			(at 112.014 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18843,7 +18979,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "a20c2f45-a1c6-4f3f-9da3-4d922927bb4f")
 		(property "Reference" "D48"
@@ -18984,7 +19120,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "a267b3b2-0c59-4905-96e7-6956c624d155")
 		(property "Reference" "D44"
@@ -19462,7 +19598,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "a43623f1-552e-43a3-a757-be87143f0898")
 		(property "Reference" "D69"
@@ -19820,7 +19956,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "a9fb31ad-636e-43ca-8dd0-a2101ea5614e")
 		(property "Reference" "D45"
@@ -20369,7 +20505,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "b32eba06-1890-4528-90d0-8bbeacfe6fa1")
 		(property "Reference" "D58"
@@ -20444,7 +20580,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "b3418ac3-418d-48c2-b073-f153b5eb0721")
 		(property "Reference" "D46"
@@ -20579,12 +20715,78 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 19.05 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b72a2d16-d86f-4280-a076-fd186da3e020")
+		(property "Reference" "#PWR064"
+			(at 19.05 180.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 19.05 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 19.05 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 19.05 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 19.05 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "337b3899-dd13-4ab0-810b-e9fb96e814f6")
+		)
+		(instances
+			(project ""
+				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
+					(reference "#PWR064")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "LED:WS2812B")
 		(at 101.6 171.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "b8449718-fc14-4b70-86d2-4063ecade5d9")
 		(property "Reference" "D50"
@@ -20679,7 +20881,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_Tactile_SPST_NO_Straight_CK_PTS636Sx25SMTRLFS"
 			(at 100.33 31.75 0)
 			(effects
 				(font
@@ -20931,7 +21133,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 374.65 48.26 0)
+		(at 288.29 50.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20940,7 +21142,7 @@
 		(fields_autoplaced yes)
 		(uuid "be985af7-7ce7-4a89-a2ea-d59f3eaa7e32")
 		(property "Reference" "#PWR022"
-			(at 374.65 54.61 0)
+			(at 288.29 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20949,7 +21151,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 374.65 53.34 0)
+			(at 288.29 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20957,7 +21159,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 374.65 48.26 0)
+			(at 288.29 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20966,7 +21168,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 374.65 48.26 0)
+			(at 288.29 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20975,7 +21177,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 374.65 48.26 0)
+			(at 288.29 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21001,7 +21203,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "bea386a3-5da1-4235-8e8a-cc1f6ff46b2e")
 		(property "Reference" "D32"
@@ -21076,7 +21278,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bf25ac41-56aa-4392-a0bd-a371f0e8132a")
@@ -21142,7 +21344,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "bfb427b5-df65-465a-abcf-12fe4910614f")
 		(property "Reference" "D37"
@@ -21230,7 +21432,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 115.316 79.756 0)
+			(at 111.506 78.994 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21282,7 +21484,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "c0ed7bd2-b96a-4ff9-8f76-a4f098a80a72")
 		(property "Reference" "D59"
@@ -22031,7 +22233,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "cf297705-7dab-466b-a4ed-97a9d81e2f26")
 		(property "Reference" "D78"
@@ -22183,7 +22385,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "cfd8d987-c25a-435f-a434-50ae33ffb7ba")
 		(property "Reference" "D70"
@@ -22333,7 +22535,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "d044bb1f-6770-4c79-bfd7-1d6e7393b561")
 		(property "Reference" "D63"
@@ -22408,7 +22610,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "d083bf69-39d5-492f-931b-d3d205ae5489")
 		(property "Reference" "D33"
@@ -22538,6 +22740,78 @@
 			(project ""
 				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
 					(reference "#PWR024")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "LampSignals:Lamp_Power")
+		(at 24.13 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d1b726d6-ce5f-4922-81f0-78508d21a2d1")
+		(property "Reference" "U7"
+			(at 22.86 166.116 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Lamp SMD"
+			(at 21.59 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x03_P1.00mm_Vertical_SMD_Pin1Right"
+			(at 24.13 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 24.13 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 24.13 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "0aa85ddb-b908-41fb-a8fe-cffff3bce13d")
+		)
+		(pin "2"
+			(uuid "bd4d30f7-326d-4ba8-96bf-8ea0ce18507f")
+		)
+		(pin "1"
+			(uuid "f389cb1f-cae0-46d3-8002-5d0124eafc6a")
+		)
+		(instances
+			(project ""
+				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
+					(reference "U7")
 					(unit 1)
 				)
 			)
@@ -22818,7 +23092,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "d640759b-8c58-4864-9133-6d7f6149d09b")
 		(property "Reference" "D52"
@@ -22959,7 +23233,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "e0da35c3-1724-413d-b113-c0ebdb6ef947")
 		(property "Reference" "D66"
@@ -23036,7 +23310,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "e140659d-31e1-43ac-99bd-f98d6e557925")
 		(property "Reference" "D41"
@@ -23111,7 +23385,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "e22b78fa-2770-4a99-bd88-0f3834741655")
 		(property "Reference" "D57"
@@ -23263,7 +23537,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "e5190f6d-c97b-44a9-9f2f-68f90ec96a56")
 		(property "Reference" "D36"
@@ -23360,7 +23634,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_USB:USB_Micro-B_Molex-105017-0001"
 			(at 219.71 40.64 0)
 			(effects
 				(font
@@ -23440,7 +23714,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_SPST_B3S-1000"
 			(at 120.65 81.28 0)
 			(effects
 				(font
@@ -23560,7 +23834,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "e88e3827-1c3a-4779-90cc-27bf6565837d")
 		(property "Reference" "J2"
 			(at 17.78 41.91 0)
@@ -23570,15 +23843,15 @@
 				)
 			)
 		)
-		(property "Value" "12V"
-			(at 17.78 44.45 0)
+		(property "Value" "12V Barrel Jack"
+			(at 20.32 44.958 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_BarrelJack:BarrelJack_Wuerth_694108106102_2.5x5.5mm"
 			(at 19.05 51.816 0)
 			(effects
 				(font
@@ -23828,7 +24101,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "eb4f223c-769b-4a43-b2bc-9ffb5858c99c")
 		(property "Reference" "D72"
@@ -23903,7 +24176,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "ebcf0ed1-5e2a-4089-9c50-44bd599e6a2e")
 		(property "Reference" "D54"
@@ -24129,7 +24402,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SDO_SOD-123FL498_OSI"
+		(property "Footprint" "footprints:SDO_SOD-123FL498_OSI"
 			(at 22.86 27.94 0)
 			(effects
 				(font
@@ -24573,7 +24846,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 22.86 171.45 90)
+		(at 15.24 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24581,7 +24854,7 @@
 		(dnp no)
 		(uuid "f87fadf8-0e75-4c4f-ae1b-766cf5979335")
 		(property "Reference" "R2"
-			(at 22.86 165.1 90)
+			(at 19.558 160.782 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24589,7 +24862,7 @@
 			)
 		)
 		(property "Value" "470"
-			(at 22.86 167.64 90)
+			(at 17.78 160.782 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24597,7 +24870,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
-			(at 22.86 173.228 90)
+			(at 13.462 165.1 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24606,7 +24879,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 22.86 171.45 0)
+			(at 15.24 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24615,7 +24888,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 22.86 171.45 0)
+			(at 15.24 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24710,7 +24983,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "f9283616-0f24-4132-8e0d-01e441a6ca5a")
 		(property "Reference" "D42"
@@ -24856,7 +25129,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa8aac6e-d126-4632-89e5-c450c94054fd")
@@ -24992,7 +25265,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "fcd782e1-c3e3-4b22-bd12-076b9d41a278")
 		(property "Reference" "SW6"
 			(at 200.66 77.4699 90)
@@ -25003,8 +25275,8 @@
 				(justify right)
 			)
 		)
-		(property "Value" "SW_Push"
-			(at 200.66 80.0099 90)
+		(property "Value" "Reset Button"
+			(at 199.39 79.248 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25012,7 +25284,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Button_Switch_SMD:SW_Tactile_SPST_NO_Straight_CK_PTS636Sx25SMTRLFS"
 			(at 194.31 78.74 0)
 			(effects
 				(font
@@ -25056,7 +25328,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 350.52 38.1 90)
+		(at 264.16 40.64 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -25065,7 +25337,7 @@
 		(fields_autoplaced yes)
 		(uuid "fd9cee01-4dfc-4d66-8207-86ca95d39e87")
 		(property "Reference" "R16"
-			(at 350.52 31.75 90)
+			(at 264.16 34.29 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25073,7 +25345,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 350.52 34.29 90)
+			(at 264.16 36.83 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25081,7 +25353,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
-			(at 350.52 39.878 90)
+			(at 264.16 42.418 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25090,7 +25362,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 350.52 38.1 0)
+			(at 264.16 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25099,7 +25371,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 350.52 38.1 0)
+			(at 264.16 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25189,6 +25461,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 19.05 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fe5c0a3e-76af-4264-90e2-57fab924847a")
+		(property "Reference" "#PWR063"
+			(at 19.05 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 19.05 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 19.05 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 19.05 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 19.05 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "62994dbc-6d09-4cc9-b87c-987752333f56")
+		)
+		(instances
+			(project ""
+				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
+					(reference "#PWR063")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Boot Option:Boot_Option")
 		(at 113.03 53.34 0)
 		(unit 1)
@@ -25215,7 +25553,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_2x01_P1.00mm_Vertical_SMD"
 			(at 113.03 53.34 0)
 			(effects
 				(font
@@ -25263,7 +25601,7 @@
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(uuid "ff12bf0d-fee5-47fd-8876-b32184a47c60")
 		(property "Reference" "D34"

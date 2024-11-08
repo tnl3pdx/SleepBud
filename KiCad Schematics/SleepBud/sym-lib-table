@@ -5,4 +5,5 @@
   (lib (name "JTAG Pads")(type "KiCad")(uri "${KIPRJMOD}/JTAG Pads.kicad_sym")(options "")(descr ""))
   (lib (name "UART Pads")(type "KiCad")(uri "${KIPRJMOD}/UART Pads.kicad_sym")(options "")(descr ""))
   (lib (name "LampSignals")(type "KiCad")(uri "${KIPRJMOD}/LampSignals.kicad_sym")(options "")(descr ""))
+  (lib (name "WS2812B Pads")(type "KiCad")(uri "${KIPRJMOD}/WS2812B Pads.kicad_sym")(options "")(descr ""))
 )

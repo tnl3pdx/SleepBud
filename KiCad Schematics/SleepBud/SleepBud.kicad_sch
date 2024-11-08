@@ -5330,27 +5330,50 @@
 				)
 			)
 		)
-		(symbol "WS2812B Pads:WS21812B_Pads"
+		(symbol "WS2812B_1"
+			(pin_names
+				(offset 0.254)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "D"
-				(at 4.826 11.176 0)
+			(property "Reference" "D1"
+				(at 11.43 6.3186 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" ""
-				(at 0 0 0)
+			(property "Value" "WS2812B"
+				(at 11.43 3.7786 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Custom:WB2812B"
+				(at 1.27 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf"
+				(at 2.54 -9.525 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "RGB LED with integrated controller"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5359,7 +5382,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" ""
+			(property "ki_keywords" "RGB LED NeoPixel addressable"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5368,7 +5391,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" ""
+			(property "ki_fp_filters" "LED*WS2812*PLCC*5.0x5.0mm*P3.2mm*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -5377,10 +5400,21 @@
 					(hide yes)
 				)
 			)
-			(symbol "WS21812B_Pads_0_1"
-				(rectangle
-					(start 0 10)
-					(end 10 0)
+			(symbol "WS2812B_1_0_0"
+				(text "RGB"
+					(at 2.286 -4.191 0)
+					(effects
+						(font
+							(size 0.762 0.762)
+						)
+					)
+				)
+			)
+			(symbol "WS2812B_1_0_1"
+				(polyline
+					(pts
+						(xy 1.27 -3.556) (xy 1.778 -3.556)
+					)
 					(stroke
 						(width 0)
 						(type default)
@@ -5389,12 +5423,95 @@
 						(type none)
 					)
 				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 1.778 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.699 -3.556) (xy 2.667 -3.556)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 -2.54) (xy 1.27 -3.556) (xy 1.27 -3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.286 -1.524) (xy 1.27 -2.54) (xy 1.27 -2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.683 -1.016) (xy 3.683 -3.556) (xy 3.683 -4.064)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 4.699 -1.524) (xy 2.667 -1.524) (xy 3.683 -3.556) (xy 4.699 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 5.08 5.08)
+					(end -5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
 			)
-			(symbol "WS21812B_Pads_1_1"
+			(symbol "WS2812B_1_1_1"
 				(pin power_in line
-					(at -2.54 8 0)
+					(at 0 7.62 270)
 					(length 2.54)
-					(name "GND"
+					(name "VDD"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5409,10 +5526,10 @@
 						)
 					)
 				)
-				(pin input line
-					(at -2.54 5 0)
+				(pin output line
+					(at 7.62 0 180)
 					(length 2.54)
-					(name "DIN"
+					(name "DOUT"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5428,9 +5545,9 @@
 					)
 				)
 				(pin power_in line
-					(at -2.54 2 0)
+					(at 0 -7.62 90)
 					(length 2.54)
-					(name "VCC"
+					(name "VSS"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5445,10 +5562,10 @@
 						)
 					)
 				)
-				(pin power_out line
-					(at 12.7 8 180)
+				(pin input line
+					(at -7.62 0 0)
 					(length 2.54)
-					(name "GND"
+					(name "DIN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5456,42 +5573,6 @@
 						)
 					)
 					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 12.7 5 180)
-					(length 2.54)
-					(name "DOUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 12.7 2 180)
-					(length 2.54)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -14553,6 +14634,7 @@
 		)
 	)
 	(symbol
+		(lib_name "WS2812B_1")
 		(lib_id "LED:WS2812B")
 		(at 321.31 190.5 0)
 		(unit 1)
@@ -14577,7 +14659,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom:WB2812B"
 			(at 322.58 198.12 0)
 			(effects
 				(font
@@ -25725,86 +25807,6 @@
 			(project ""
 				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
 					(reference "R5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "WS2812B Pads:WS21812B_Pads")
-		(at 407.67 166.37 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fb9e089a-25c5-41a0-8e31-4279481a1157")
-		(property "Reference" "D79"
-			(at 412.75 152.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "~"
-			(at 412.75 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 407.67 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 407.67 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 407.67 166.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "a7d69a4d-dbf0-459c-be9a-dd4d6faaeda0")
-		)
-		(pin "3"
-			(uuid "a2eb0a9a-7319-4c25-86d7-ea96da73ef14")
-		)
-		(pin "2"
-			(uuid "6ac7de82-2639-44a1-a87b-416ae7291945")
-		)
-		(pin "5"
-			(uuid "8d05999a-70a6-4563-a6f9-1d605c28657a")
-		)
-		(pin "1"
-			(uuid "1d705d9f-7f61-40d5-9e74-0a7d5207ad29")
-		)
-		(pin "6"
-			(uuid "e9a74c87-43da-4d8c-a0ae-f2a60d2cd239")
-		)
-		(instances
-			(project ""
-				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
-					(reference "D79")
 					(unit 1)
 				)
 			)

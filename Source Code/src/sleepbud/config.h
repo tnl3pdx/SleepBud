@@ -15,4 +15,4 @@
 // Number of LEDS for LED arrays
 #define NDIGILEDS 7
 #define NMODELEDS 2
-#define NLAMPLEDS 40
+#define NLAMPLEDS 48

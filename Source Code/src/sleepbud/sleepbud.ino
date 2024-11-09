@@ -22,14 +22,11 @@
 //***** Defines *****//
 #define DEBUG
 
-
 //***** Function Prototypes *****//
 void genSetup();
 void wifiNTP();
-void rtcSet();
 void setLED(int num, int Rval, int Bval, int Gval, int select);
 void displayLED(int bright);
-
 
 //***** Objects *****//
 
@@ -68,27 +65,26 @@ int brightVal;
 int sleepTime[2];
 int utcOffset;
 
+//* WiFi Credentials
+const char *ssid = WIFI_SSID;
+const char *pswrd = WIFI_PASSWORD;
+
 //***** Main Program *****//
 void setup() {
+  Serial.begin(115200);
   genSetup();
 
   if (timeUpdate == 1) {
     wifiNTP();
-    rtcSet(1);
-  } else {
-    rtcSet(0);
   }
-
 }
-
 
 void loop() {
-
-
-
-
+  if(RTC.isRunning()) {
+    Serial.printf("Current Time: %d:%d:%d\n\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
+    delay(10);
+  }
 }
-
 
 void genSetup() {
   #ifdef DEBUG
@@ -96,9 +92,13 @@ void genSetup() {
   #endif
   
   //** Fetch parameters from non-volatile memory
-  nvsObj.begin("config", false);
+  
+  if (!nvsObj.begin("config", false)) {
+    Serial.printf("nvsObj object failed to start, looping...\n");
+    while(1);
+  }
 
-  if (nvsObj.isKey("config") != 1) {
+  if (nvsObj.isKey("configInit") != 1) {
     #ifdef DEBUG
     Serial.printf("Config namespace has not be initialized, creating new namespace.\n");
     #endif
@@ -110,21 +110,26 @@ void genSetup() {
     nvsObj.putInt("sleepMIN", 0);
     nvsObj.putInt("utcOffset", 0);
 
-    // Initialize Global Variables
-    timeUpdate = 1;
-    brightVal = 50;
-    sleepTime[0] = 0;
-    sleepTime[1] = 0;
-    utcOffset = 0;
-
-  } else {
-    // Obtain values from namespace
-    timeUpdate = nvsObj.getBool("timeUpdate");
-    brightVal = nvsObj.getInt("brightness");
-    sleepTime[0] = nvsObj.getInt("sleepHR");
-    sleepTime[1] = nvsObj.getInt("sleepMIN");
-    utcOffset = nvsObj.getInt("utcOffset");
+    nvsObj.putBool("configInit", 1);        // Set "already init" status for namespace
   }
+
+  #ifdef DEBUG
+  Serial.printf("Config namespace has already been created, obtaining values.\n");
+  #endif
+
+  // Obtain values from namespace
+  timeUpdate = nvsObj.getBool("timeUpdate");
+  brightVal = nvsObj.getInt("brightness");
+  sleepTime[0] = nvsObj.getInt("sleepHR");
+  sleepTime[1] = nvsObj.getInt("sleepMIN");
+  utcOffset = nvsObj.getInt("utcOffset");
+
+  #ifdef DEBUG
+  Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
+  Serial.printf("brightVal obtained is: %d\n", brightVal);
+  Serial.printf("sleepTime obtained is: %d:%d\n", sleepTime[0], sleepTime[1]);
+  Serial.printf("utcOffset obtained is: %d\n", utcOffset);
+  #endif
 
   //** FastLED Setup
 
@@ -139,24 +144,34 @@ void genSetup() {
   FastLED.addLeds<NEOPIXEL, LAMPPIN>(lampLEDS, NLAMPLEDS);
 
   //** RTC Setup
-  RTC.begin();
+  if (!RTC.begin()) {
+    Serial.printf("RTC object failed to start, looping...\n");
+    while(1);
+  }
   RTC.setHourMode(CLOCK_H24);
   RTC.enableAlarmPin();
 
   #ifdef DEBUG
-  Serial.printf("genSetup has finished successfully.\n\n");
+  Serial.printf("genSetup has finished successfully.\n");
   #endif
 }
 
-
 void wifiNTP() {
+  String formatTime;
+  char* tkn;
+  int pos = 0;
+
+
   #ifdef DEBUG
   Serial.printf("Wifi and NTP needs to be setup.\n");
   Serial.printf("Attempting WIFI connection: connecting to %s\n", ssid);
   #endif
 
   //** Start WiFi connection
-  WiFi.begin(ssid, pswrd);
+  if (!WiFi.begin(ssid, pswrd)) {
+    Serial.printf("WiFi object failed to start, looping...\n");
+    while(1);
+  }
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -172,44 +187,32 @@ void wifiNTP() {
 
   //** Start NTP Communication to fetch current time
   timeClient.begin();
+  timeClient.setTimeOffset(utcOffset);     // Set time offset from saved parameters
 
   #ifdef DEBUG
-  Serial.printf("timeClient started!\n");
+  Serial.printf("timeClient started! Time offset set is: %d\n", utcOffset);
+  Serial.printf("Stopping RTC clock for configuration\n");
   #endif
-
-  // Attempt to obtain NTP packet
-  while (!isTimeSet()) {
-    timeClient.update();
-  }
-
-  #ifdef DEBUG
-  Serial.printf("Data received from NTP server: %s\n", timeClient.getFormattedTime());
-  Serial.printf("WiFi and NTP setup successful.\n\n")
-  #endif
-}
-
-
-void rtcSet(bool getRTC) {
-  String formatTime;
-  char* tkn;
-  int pos = 0;
 
   if(RTC.isRunning()) {  // Stop clock for configuration 
     RTC.stopClock();
   }
 
-  if (getRTC) {   // Update RTC with NTP data from WiFi
-    #ifdef DEBUG
-    Serial.printf("Time fetch from time.nist.gov\n");
-    #endif
-
-    while (!isTimeSet()) {
-      timeClient.update();
-    }
+  // Attempt to obtain NTP packet
+  while (!timeClient.isTimeSet()) {
+    timeClient.update();
   }
 
   // Obtain new data from RTC module
   formatTime = timeClient.getFormattedTime();
+
+  #ifdef DEBUG
+  Serial.printf("Data received from NTP server: ");
+  Serial.println(formatTime);
+  Serial.printf("\nWiFi and NTP setup successful.\n\n");
+  #endif
+
+  // Parse string to get hour, minute, and second data
 
   tkn = strtok(strdup(formatTime.c_str()), ":");
 
@@ -226,13 +229,14 @@ void rtcSet(bool getRTC) {
 
   #ifdef DEBUG
   Serial.printf("HMS obtained from parsing function: %d:%d:%d\n", hms[0], hms[1], hms[2]);
+  Serial.printf("Setting RTC module with newly obtained time and starting up RTC again.\n");
   #endif 
 
   RTC.setTime(hms[0], hms[1], hms[2]);
+  RTC.setEpoch((time_t)timeClient.getEpochTime(), 0);     // Set epoch from NTP using non-unix epoch
   RTC.startClock();
 
 }
-
 
 void setLED(int num, int Rval, int Gval, int Bval, int select) {
   int j;

@@ -5,297 +5,6 @@
 	(uuid "976e55d6-47c8-4a6a-a3ac-d81121411704")
 	(paper "A2")
 	(lib_symbols
-		(symbol "1984772_1"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 8.89 6.35 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "1984772"
-				(at 13.97 -9.144 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" "CONN_1984772_PXC"
-				(at -5.588 8.128 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "1984772"
-				(at 13.716 4.826 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "1984772"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "CONN_1984772_PXC"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "1984772_1_1_1"
-				(polyline
-					(pts
-						(xy 5.08 -7.62) (xy 12.7 -7.62)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 2.54) (xy 5.08 -7.62)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -5.08) (xy 5.08 -5.08)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -5.08) (xy 8.89 -5.9267)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -5.08) (xy 8.89 -4.2333)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -2.54) (xy 5.08 -2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -2.54) (xy 8.89 -3.3867)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 -2.54) (xy 8.89 -1.6933)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 0) (xy 5.08 0)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 0) (xy 8.89 -0.8467)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 10.16 0) (xy 8.89 0.8467)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 12.7 -7.62) (xy 12.7 2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 12.7 2.54) (xy 5.08 2.54)
-					)
-					(stroke
-						(width 0.127)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin power_in line
-					(at 0 0 0)
-					(length 5.08)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 0 -2.54 0)
-					(length 5.08)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -5.08 0)
-					(length 5.08)
-					(name "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "2024-11-07_22-19-03:1984798"
 			(pin_names
 				(offset 0.254)
@@ -977,6 +686,245 @@
 						)
 					)
 					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "2024-11-07_22-48-53:1984769"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J6"
+				(at 13.97 0.0001 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Connector to Buzzer"
+				(at 13.97 -2.54 0)
+				(effects
+					(font
+						(size 0.889 0.889)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "1984769:CONN_1984769_PXC"
+				(at 1.27 5.588 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "1984769"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "1984769"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "CONN_1984769_PXC"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "1984769_1_1"
+				(polyline
+					(pts
+						(xy 5.08 -5.08) (xy 12.7 -5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.08 2.54) (xy 5.08 -5.08)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 -2.54) (xy 5.08 -2.54)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 -2.54) (xy 8.89 -3.3867)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 -2.54) (xy 8.89 -1.6933)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 0) (xy 5.08 0)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 0) (xy 8.89 -0.8467)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 0) (xy 8.89 0.8467)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.7 -5.08) (xy 12.7 2.54)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.7 2.54) (xy 5.08 2.54)
+					)
+					(stroke
+						(width 0.127)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin input line
+					(at 0 0 0)
+					(length 5.08)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 0 -2.54 0)
+					(length 5.08)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5197,7 +5145,7 @@
 				)
 			)
 		)
-		(symbol "UART_1"
+		(symbol "UART Pads:UART"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -5244,7 +5192,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "UART_1_1_1"
+			(symbol "UART_1_1"
 				(rectangle
 					(start -2.54 -1.27)
 					(end 3.81 -12.7)
@@ -5314,258 +5262,6 @@
 					(at -5.08 -10.16 0)
 					(length 2.54)
 					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "WS2812B_1"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "D1"
-				(at 11.43 6.3186 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "WS2812B"
-				(at 11.43 3.7786 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Custom:WB2812B"
-				(at 1.27 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf"
-				(at 2.54 -9.525 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Description" "RGB LED with integrated controller"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "RGB LED NeoPixel addressable"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "LED*WS2812*PLCC*5.0x5.0mm*P3.2mm*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "WS2812B_1_0_0"
-				(text "RGB"
-					(at 2.286 -4.191 0)
-					(effects
-						(font
-							(size 0.762 0.762)
-						)
-					)
-				)
-			)
-			(symbol "WS2812B_1_0_1"
-				(polyline
-					(pts
-						(xy 1.27 -3.556) (xy 1.778 -3.556)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -2.54) (xy 1.778 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.699 -3.556) (xy 2.667 -3.556)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.286 -2.54) (xy 1.27 -3.556) (xy 1.27 -3.048)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.286 -1.524) (xy 1.27 -2.54) (xy 1.27 -2.032)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.683 -1.016) (xy 3.683 -3.556) (xy 3.683 -4.064)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 4.699 -1.524) (xy 2.667 -1.524) (xy 3.683 -3.556) (xy 4.699 -1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start 5.08 5.08)
-					(end -5.08 -5.08)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-			)
-			(symbol "WS2812B_1_1_1"
-				(pin power_in line
-					(at 0 7.62 270)
-					(length 2.54)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 7.62 0 180)
-					(length 2.54)
-					(name "DOUT"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name "VSS"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -7.62 0 0)
-					(length 2.54)
-					(name "DIN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -7615,6 +7311,10 @@
 		(uuid "7b6d4c58-3d37-4b8e-8b27-1aee94287998")
 	)
 	(no_connect
+		(at 351.79 107.95)
+		(uuid "8180caec-ec35-4f08-84ac-a8374a233699")
+	)
+	(no_connect
 		(at 212.09 158.75)
 		(uuid "93d0d5ad-7940-4bd7-88d8-9a3e9951f432")
 	)
@@ -7637,6 +7337,10 @@
 	(no_connect
 		(at 181.61 123.19)
 		(uuid "c7c10b83-d6ad-4e4c-ac59-1966be279312")
+	)
+	(no_connect
+		(at 351.79 105.41)
+		(uuid "cbe7629d-d216-4639-aee8-a9c0ee26f6ca")
 	)
 	(no_connect
 		(at 212.09 120.65)
@@ -7693,6 +7397,16 @@
 			(type default)
 		)
 		(uuid "01615bdf-c3e9-4aca-ace9-5faf1ec445a6")
+	)
+	(wire
+		(pts
+			(xy 368.3 195.58) (xy 368.3 226.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "02d2584b-9ac6-413e-bc41-0ddbfb6fcaf4")
 	)
 	(wire
 		(pts
@@ -8376,6 +8090,16 @@
 	)
 	(wire
 		(pts
+			(xy 367.03 247.65) (xy 406.4 247.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2af20f86-efe0-47c1-acd4-fef186583cbc")
+	)
+	(wire
+		(pts
 			(xy 173.99 143.51) (xy 173.99 209.55)
 		)
 		(stroke
@@ -8476,6 +8200,16 @@
 	)
 	(wire
 		(pts
+			(xy 363.22 203.2) (xy 363.22 308.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36966383-e455-4f3f-b665-d1bbfd89f1af")
+	)
+	(wire
+		(pts
 			(xy 473.71 218.44) (xy 488.95 218.44)
 		)
 		(stroke
@@ -8523,16 +8257,6 @@
 			(type default)
 		)
 		(uuid "3a1a28a0-7b31-409b-9b70-41938d31c937")
-	)
-	(wire
-		(pts
-			(xy 400.05 308.61) (xy 406.4 308.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3a578af3-c3b8-4ecd-a5b1-682ffd511add")
 	)
 	(wire
 		(pts
@@ -8613,6 +8337,16 @@
 			(type default)
 		)
 		(uuid "3fdb910c-0a0e-465e-a4ec-99d650c19edf")
+	)
+	(wire
+		(pts
+			(xy 365.76 267.97) (xy 406.4 267.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4088f3c8-9991-411a-b114-344786589c8d")
 	)
 	(wire
 		(pts
@@ -8726,6 +8460,16 @@
 	)
 	(wire
 		(pts
+			(xy 336.55 193.04) (xy 344.17 193.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "45be6df5-6b6e-4f70-ad82-cc7bc6cfafdf")
+	)
+	(wire
+		(pts
 			(xy 212.09 128.27) (xy 220.98 128.27)
 		)
 		(stroke
@@ -8833,6 +8577,16 @@
 			(type default)
 		)
 		(uuid "4fbcff35-91e8-4337-99d2-7d7626d0a6ac")
+	)
+	(wire
+		(pts
+			(xy 367.03 196.85) (xy 367.03 247.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "516c13f1-3ede-4a42-92c6-86a9389a1808")
 	)
 	(wire
 		(pts
@@ -9006,6 +8760,16 @@
 	)
 	(wire
 		(pts
+			(xy 363.22 308.61) (xy 406.4 308.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5fb512c1-be09-4da2-923e-5dde9a778952")
+	)
+	(wire
+		(pts
 			(xy 488.95 233.68) (xy 504.19 233.68)
 		)
 		(stroke
@@ -9033,6 +8797,16 @@
 			(type default)
 		)
 		(uuid "63bbd0dc-7d57-4d9c-95a0-77f7b8a364ce")
+	)
+	(wire
+		(pts
+			(xy 336.55 195.58) (xy 342.9 195.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "643e1600-c296-4f32-9917-2d928a0edcd5")
 	)
 	(wire
 		(pts
@@ -9106,6 +8880,16 @@
 	)
 	(wire
 		(pts
+			(xy 336.55 198.12) (xy 365.76 198.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68ce0fa0-f80f-4ba4-9810-df6bc6c3c79c")
+	)
+	(wire
+		(pts
 			(xy 488.95 218.44) (xy 504.19 218.44)
 		)
 		(stroke
@@ -9133,16 +8917,6 @@
 			(type default)
 		)
 		(uuid "6bc8d76a-e0c0-4f79-80f4-db913ca1155b")
-	)
-	(wire
-		(pts
-			(xy 400.05 267.97) (xy 406.4 267.97)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6bcddf46-3295-4553-8041-7beeb9631c6f")
 	)
 	(wire
 		(pts
@@ -9306,6 +9080,16 @@
 	)
 	(wire
 		(pts
+			(xy 342.9 196.85) (xy 367.03 196.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ccd2a7d-3ae6-4563-b2bc-21d33395bfd6")
+	)
+	(wire
+		(pts
 			(xy 214.63 196.85) (xy 218.44 196.85)
 		)
 		(stroke
@@ -9396,6 +9180,16 @@
 	)
 	(wire
 		(pts
+			(xy 364.49 200.66) (xy 364.49 288.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8083758a-f34f-4917-95cb-f79bfd78bf89")
+	)
+	(wire
+		(pts
 			(xy 73.66 199.39) (xy 73.66 200.66)
 		)
 		(stroke
@@ -9446,6 +9240,16 @@
 	)
 	(wire
 		(pts
+			(xy 364.49 288.29) (xy 406.4 288.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "869b78cf-ef25-4c80-b2a2-c7d97b732e44")
+	)
+	(wire
+		(pts
 			(xy 231.14 125.73) (xy 231.14 130.81)
 		)
 		(stroke
@@ -9493,16 +9297,6 @@
 			(type default)
 		)
 		(uuid "8d4ae81e-8613-4f37-8ee2-b0c589687eaa")
-	)
-	(wire
-		(pts
-			(xy 400.05 247.65) (xy 406.4 247.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8e00ac75-0295-4b66-a5de-5f03ec74c7ec")
 	)
 	(wire
 		(pts
@@ -9746,6 +9540,16 @@
 	)
 	(wire
 		(pts
+			(xy 344.17 195.58) (xy 368.3 195.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ec336d0-9eb3-4029-b1b2-9ed99370ec1a")
+	)
+	(wire
+		(pts
 			(xy 170.18 123.19) (xy 170.18 127)
 		)
 		(stroke
@@ -9863,16 +9667,6 @@
 			(type default)
 		)
 		(uuid "a3d86056-2099-4428-8532-a28824705049")
-	)
-	(wire
-		(pts
-			(xy 400.05 288.29) (xy 406.4 288.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a40d892f-64dd-4f43-b756-5abcdca6bad9")
 	)
 	(wire
 		(pts
@@ -10026,6 +9820,16 @@
 	)
 	(wire
 		(pts
+			(xy 342.9 195.58) (xy 342.9 196.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adc88d13-de9a-46f4-a259-f1dda2538069")
+	)
+	(wire
+		(pts
 			(xy 237.49 113.03) (xy 246.38 113.03)
 		)
 		(stroke
@@ -10073,6 +9877,16 @@
 			(type default)
 		)
 		(uuid "b3e32649-fcd9-4d8d-bc29-b71a65685056")
+	)
+	(wire
+		(pts
+			(xy 336.55 200.66) (xy 364.49 200.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b52bd81e-9fce-44fe-b8f0-43bf34893d5b")
 	)
 	(wire
 		(pts
@@ -10716,6 +10530,16 @@
 	)
 	(wire
 		(pts
+			(xy 365.76 198.12) (xy 365.76 267.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dbdf7d3a-40d1-4afb-b22e-e44facb3d3cc")
+	)
+	(wire
+		(pts
 			(xy 33.02 322.58) (xy 48.26 322.58)
 		)
 		(stroke
@@ -10756,6 +10580,16 @@
 	)
 	(wire
 		(pts
+			(xy 368.3 226.06) (xy 406.4 226.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de6fc4a2-7cc4-49c0-a0d9-9fbf06216aa5")
+	)
+	(wire
+		(pts
 			(xy 77.47 199.39) (xy 73.66 199.39)
 		)
 		(stroke
@@ -10763,6 +10597,16 @@
 			(type default)
 		)
 		(uuid "e1512a71-905b-41de-8e7b-7fc7c039fc43")
+	)
+	(wire
+		(pts
+			(xy 344.17 193.04) (xy 344.17 195.58)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e19a85f5-104e-4187-b225-1850b6fdc188")
 	)
 	(wire
 		(pts
@@ -11166,16 +11010,6 @@
 	)
 	(wire
 		(pts
-			(xy 400.05 226.06) (xy 406.4 226.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f885b1a9-376d-47d9-aa4e-2dbc01e6c1cb")
-	)
-	(wire
-		(pts
 			(xy 161.29 138.43) (xy 161.29 157.48)
 		)
 		(stroke
@@ -11263,6 +11097,16 @@
 			(type default)
 		)
 		(uuid "fd2fd9bc-b0b1-4c03-82f0-f14cccd0b9d1")
+	)
+	(wire
+		(pts
+			(xy 336.55 203.2) (xy 363.22 203.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd4b92bd-1b48-4d01-9933-404d73c33d1c")
 	)
 	(wire
 		(pts
@@ -11839,6 +11683,16 @@
 		)
 		(uuid "b572b90d-d163-4ebf-9e70-90d537aa26ce")
 	)
+	(text "External from Board"
+		(exclude_from_sim no)
+		(at 358.902 113.284 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "b74c453b-0f9c-47b2-b0d3-310e6fdc6e66")
+	)
 	(text "Not Part of PCB (LEDs only) just what it\nwould the parts would be needed for the Lamp\n"
 		(exclude_from_sim no)
 		(at 111.506 398.526 0)
@@ -11959,39 +11813,6 @@
 		)
 		(uuid "26e997fa-b213-49a2-854c-a619a747cd96")
 	)
-	(label "Digit 2"
-		(at 336.55 195.58 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "4830cbfa-1819-42ed-981d-9112b5e49d23")
-	)
-	(label "Colon"
-		(at 336.55 198.12 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "50bd6752-0041-434f-a5a8-87d528a50ab8")
-	)
-	(label "Digit 1"
-		(at 336.55 193.04 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5da8a758-48a8-448b-a9da-a05c035e4b66")
-	)
 	(label "RW2-RW3"
 		(at 208.28 336.55 0)
 		(fields_autoplaced yes)
@@ -12013,28 +11834,6 @@
 			(justify left bottom)
 		)
 		(uuid "794d999a-a3cc-420c-9bb5-66bfba908a77")
-	)
-	(label "Digit 3"
-		(at 336.55 200.66 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7ffed523-57c7-4bc9-8a9f-f1146d333a81")
-	)
-	(label "Digit 4"
-		(at 336.55 203.2 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "81f6b7c5-df91-45a5-8419-a4222c9746ba")
 	)
 	(label "RW2-RW3"
 		(at 10.16 358.14 0)
@@ -12578,7 +12377,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 505.46 233.68 0)
 			(effects
 				(font
@@ -12938,7 +12737,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 505.46 316.23 0)
 			(effects
 				(font
@@ -13155,7 +12954,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 444.5 233.68 0)
 			(effects
 				(font
@@ -13477,7 +13276,6 @@
 		)
 	)
 	(symbol
-		(lib_name "1984772_1")
 		(lib_id "2024-11-07_22-38-37:1984772")
 		(at 377.19 201.93 0)
 		(unit 1)
@@ -13496,11 +13294,11 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1984772"
-			(at 391.16 205.7399 0)
+		(property "Value" "LED Lamp Connector"
+			(at 391.16 205.74 0)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.143 1.143)
 				)
 				(justify left)
 			)
@@ -13859,7 +13657,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 459.74 295.91 0)
 			(effects
 				(font
@@ -14075,7 +13873,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 505.46 255.27 0)
 			(effects
 				(font
@@ -14624,7 +14422,6 @@
 		)
 	)
 	(symbol
-		(lib_name "WS2812B_1")
 		(lib_id "LED:WS2812B")
 		(at 427.99 226.06 0)
 		(unit 1)
@@ -14649,7 +14446,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Custom:WB2812B"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 429.26 233.68 0)
 			(effects
 				(font
@@ -14799,7 +14596,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 429.26 295.91 0)
 			(effects
 				(font
@@ -14916,7 +14713,6 @@
 		)
 	)
 	(symbol
-		(lib_name "UART_1")
 		(lib_id "UART Pads:UART")
 		(at 231.14 87.63 0)
 		(unit 1)
@@ -15233,7 +15029,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 490.22 316.23 0)
 			(effects
 				(font
@@ -15308,7 +15104,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 490.22 295.91 0)
 			(effects
 				(font
@@ -15657,7 +15453,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 474.98 255.27 0)
 			(effects
 				(font
@@ -16080,7 +15876,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 444.5 275.59 0)
 			(effects
 				(font
@@ -16359,7 +16155,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 429.26 316.23 0)
 			(effects
 				(font
@@ -16500,7 +16296,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 429.26 275.59 0)
 			(effects
 				(font
@@ -16575,7 +16371,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 490.22 233.68 0)
 			(effects
 				(font
@@ -16650,7 +16446,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 444.5 295.91 0)
 			(effects
 				(font
@@ -17238,16 +17034,16 @@
 	)
 	(symbol
 		(lib_id "dk_Alarms-Buzzers-and-Sirens:PS1240P02BT")
-		(at 321.31 109.22 0)
+		(at 354.33 107.95 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
-		(on_board yes)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "745d2344-9d73-43c3-8a98-8c4c860fadb1")
 		(property "Reference" "BZ1"
-			(at 330.2 106.6799 0)
+			(at 363.22 105.4099 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17256,7 +17052,7 @@
 			)
 		)
 		(property "Value" "PS1240P02BT"
-			(at 330.2 109.2199 0)
+			(at 363.22 107.9499 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17265,7 +17061,7 @@
 			)
 		)
 		(property "Footprint" "digikey-footprints:Piezo_Transducer_THT_PS1240P02BT"
-			(at 326.39 104.14 0)
+			(at 359.41 102.87 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17275,7 +17071,7 @@
 			)
 		)
 		(property "Datasheet" "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf"
-			(at 326.39 101.6 0)
+			(at 359.41 100.33 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17285,7 +17081,7 @@
 			)
 		)
 		(property "Description" "AUDIO PIEZO TRANSDUCER 30V TH"
-			(at 321.31 109.22 0)
+			(at 354.33 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17294,7 +17090,7 @@
 			)
 		)
 		(property "Digi-Key_PN" "445-2525-1-ND"
-			(at 326.39 99.06 0)
+			(at 359.41 97.79 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17304,7 +17100,7 @@
 			)
 		)
 		(property "MPN" "PS1240P02BT"
-			(at 326.39 96.52 0)
+			(at 359.41 95.25 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17314,7 +17110,7 @@
 			)
 		)
 		(property "Category" "Audio Products"
-			(at 326.39 93.98 0)
+			(at 359.41 92.71 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17324,7 +17120,7 @@
 			)
 		)
 		(property "Family" "Alarms, Buzzers, and Sirens"
-			(at 326.39 91.44 0)
+			(at 359.41 90.17 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17334,7 +17130,7 @@
 			)
 		)
 		(property "DK_Datasheet_Link" "https://product.tdk.com/info/en/catalog/datasheets/piezoelectronic_buzzer_ps_en.pdf"
-			(at 326.39 88.9 0)
+			(at 359.41 87.63 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17344,7 +17140,7 @@
 			)
 		)
 		(property "DK_Detail_Page" "/product-detail/en/tdk-corporation/PS1240P02BT/445-2525-1-ND/935930"
-			(at 326.39 86.36 0)
+			(at 359.41 85.09 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17354,7 +17150,7 @@
 			)
 		)
 		(property "Description_1" "AUDIO PIEZO TRANSDUCER 30V TH"
-			(at 326.39 83.82 0)
+			(at 359.41 82.55 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17364,7 +17160,7 @@
 			)
 		)
 		(property "Manufacturer" "TDK Corporation"
-			(at 326.39 81.28 0)
+			(at 359.41 80.01 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -17374,7 +17170,7 @@
 			)
 		)
 		(property "Status" "Active"
-			(at 326.39 78.74 0)
+			(at 359.41 77.47 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -18202,7 +17998,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 429.26 255.27 0)
 			(effects
 				(font
@@ -18563,7 +18359,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 520.7 316.23 0)
 			(effects
 				(font
@@ -18713,7 +18509,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 444.5 316.23 0)
 			(effects
 				(font
@@ -18788,7 +18584,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 444.5 255.27 0)
 			(effects
 				(font
@@ -18988,11 +18784,11 @@
 				)
 			)
 		)
-		(property "Value" "1984798"
+		(property "Value" "Button Connector"
 			(at 147.32 144.78 0)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.143 1.143)
 				)
 			)
 		)
@@ -19311,7 +19107,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 505.46 295.91 0)
 			(effects
 				(font
@@ -19456,7 +19252,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 520.7 233.68 0)
 			(effects
 				(font
@@ -19892,7 +19688,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 459.74 233.68 0)
 			(effects
 				(font
@@ -20502,7 +20298,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 459.74 255.27 0)
 			(effects
 				(font
@@ -20577,7 +20373,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 520.7 295.91 0)
 			(effects
 				(font
@@ -21692,7 +21488,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 520.7 255.27 0)
 			(effects
 				(font
@@ -22190,7 +21986,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 490.22 255.27 0)
 			(effects
 				(font
@@ -22241,6 +22037,78 @@
 		)
 	)
 	(symbol
+		(lib_id "2024-11-07_22-48-53:1984769")
+		(at 318.77 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c4ee83cd-7d9a-4549-9d3e-3d7bf000b99c")
+		(property "Reference" "J6"
+			(at 332.74 106.6799 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Connector to Buzzer"
+			(at 332.74 109.22 0)
+			(effects
+				(font
+					(size 0.889 0.889)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "1984769:CONN_1984769_PXC"
+			(at 320.04 101.092 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "1984769"
+			(at 318.77 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 318.77 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "de144313-e96c-4ae4-950d-699c73d8d3df")
+		)
+		(pin "2"
+			(uuid "196dbb78-8c6b-4119-8013-dcb809f172c9")
+		)
+		(instances
+			(project ""
+				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "LED:WS2812B")
 		(at 473.71 288.29 0)
 		(unit 1)
@@ -22265,7 +22133,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 474.98 295.91 0)
 			(effects
 				(font
@@ -22790,11 +22658,11 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1984772"
+		(property "Value" "AM312 Connector"
 			(at 160.02 201.9299 0)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.016 1.016)
 				)
 				(justify left)
 			)
@@ -23016,7 +22884,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 474.98 233.68 0)
 			(effects
 				(font
@@ -23166,7 +23034,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 459.74 316.23 0)
 			(effects
 				(font
@@ -24096,7 +23964,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm"
+		(property "Footprint" "Custom Pads:WB2812B"
 			(at 474.98 316.23 0)
 			(effects
 				(font

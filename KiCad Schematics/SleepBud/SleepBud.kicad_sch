@@ -11530,16 +11530,6 @@
 		)
 		(uuid "179c38c5-4abf-4b60-a36a-f29fc5161513")
 	)
-	(text "can change diode if need be"
-		(exclude_from_sim no)
-		(at 70.104 156.464 0)
-		(effects
-			(font
-				(size 0.635 0.635)
-			)
-		)
-		(uuid "20422c9b-e06b-4e7e-9eb7-305bb687debe")
-	)
 	(text "AM312 Mini PIR"
 		(exclude_from_sim no)
 		(at 154.178 214.884 0)
@@ -11714,16 +11704,6 @@
 			)
 		)
 		(uuid "bb371668-67f8-4730-b865-d029af395ebc")
-	)
-	(text "prob change mosfet that can be smd"
-		(exclude_from_sim no)
-		(at 81.534 137.668 0)
-		(effects
-			(font
-				(size 0.508 0.508)
-			)
-		)
-		(uuid "be611871-e125-4423-ae3b-4d180cda6bca")
 	)
 	(text "Other Side of the PCB Board\n"
 		(exclude_from_sim no)
@@ -19185,7 +19165,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Battery:BatteryHolder_Keystone_1057_1x2032"
+		(property "Footprint" "BH74G5P:BH-74G-5-P_ADM"
 			(at 323.85 153.416 90)
 			(effects
 				(font

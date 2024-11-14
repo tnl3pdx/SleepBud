@@ -20899,7 +20899,7 @@
 				)
 			)
 		)
-		(property "Value" "AMS1117-5.0"
+		(property "Value" "AZ1084CD"
 			(at 85.09 195.58 0)
 			(effects
 				(font
@@ -20907,7 +20907,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
+		(property "Footprint" "Custom Pads:AZ1084CD"
 			(at 85.09 194.31 0)
 			(effects
 				(font

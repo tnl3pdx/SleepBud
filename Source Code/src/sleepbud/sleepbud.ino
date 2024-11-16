@@ -25,8 +25,9 @@
 //***** Function Prototypes *****//
 void genSetup();
 void wifiNTP();
-void setLED(int num, int Rval, int Bval, int Gval, int select);
-void displayLED(int bright);
+void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
+void timeDisplay(uint8_t hue, uint8_t sat);
+void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
 
 //***** Objects *****//
 
@@ -46,7 +47,7 @@ Preferences nvsObj;
 //***** Global Variables *****//
 uint8_t hms[3];
 uint8_t alrm[] = {23, 22, 0};
-int ledRef[10][7] = {
+uint8_t ledRef[10][7] = {
   {1, 1, 1, 1, 1, 1, 0},    // 0
   {0, 0, 0, 0, 1, 1, 0},    // 1
   {1, 0, 1, 1, 0, 1, 1},    // 2
@@ -61,9 +62,9 @@ int ledRef[10][7] = {
 
 //* Configuration Variables
 bool timeUpdate;
-int brightVal;
-int sleepTime[2];
-int utcOffset;
+uint8_t brightVal;
+uint8_t sleepTime[2];
+uint8_t utcOffset;
 
 //* WiFi Credentials
 const char *ssid = WIFI_SSID;
@@ -82,6 +83,10 @@ void setup() {
 void loop() {
   if(RTC.isRunning()) {
     Serial.printf("Current Time: %d:%d:%d\n\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
+    timeDisplay(0, 0);
+    setAuxLED(0, 40, 150, 100);
+    setAuxLED(1, 200, 100, 0);
+    FastLED.show();
     delay(10);
   }
 }
@@ -159,7 +164,7 @@ void genSetup() {
 void wifiNTP() {
   String formatTime;
   char* tkn;
-  int pos = 0;
+  uint8_t pos = 0;
 
 
   #ifdef DEBUG
@@ -206,6 +211,9 @@ void wifiNTP() {
   // Obtain new data from RTC module
   formatTime = timeClient.getFormattedTime();
 
+  // Turn off time
+  timeClient.end();
+
   #ifdef DEBUG
   Serial.printf("Data received from NTP server: ");
   Serial.println(formatTime);
@@ -238,33 +246,38 @@ void wifiNTP() {
 
 }
 
-void setLED(int num, int Rval, int Gval, int Bval, int select) {
-  int j;
-  if ((num >= 0 && num <= 9) && (select >= 0 && select <= 3)) {   // Configure Digit Display
+void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select) {
+  uint8_t j;
+  if ((num >= 0 && num <= 9) && (select <= 3)) {   // Configure Digit Display
     for (j = 0; j < NDIGILEDS; j++) {
       if (ledRef[num][j] == 0) {
-        digiLEDS[select][j].setRGB(0, 0 ,0);
+        digiLEDS[select][j].setHSV(0, 0 ,0);
       } else {
-        digiLEDS[select][j].setRGB(Rval, Gval, Bval);
+        digiLEDS[select][j].setHSV(hue, sat, val);
       }
     }
-  } else if (num == -1) {       // Configure Mode Color
-    fill_solid(modeLEDS, NMODELEDS, CRGB(Rval, Gval, Bval));
-  } else if (num == -2) {       // Configure Lamp Color
-    fill_solid(lampLEDS, NLAMPLEDS, CRGB(Rval, Gval, Bval));
-  } else {
-    return;
+  } 
+}
+
+void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
+  if (type == 0) {       // Configure Mode Color
+    fill_solid(modeLEDS, NMODELEDS, CHSV(hue, sat, val));
+  } else if (type == 1) {       // Configure Lamp Color
+    fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, brightVal));
+  } 
+}
+
+void timeDisplay(uint8_t hue, uint8_t sat) {
+  // Parse hour and minute data from RTC
+  uint8_t hour = RTC.getHours();
+  uint8_t min = RTC.getMinutes();
+  uint8_t partH[2] = {(int)hour/10, (int)hour%10};
+  uint8_t partM[2] = {(int)min/10, (int)min%10};;
+
+  // Set LEDs on for 7 segment displays
+  for (uint8_t i = 0; i < 2; i++) {
+    setDigitLED(partH[i], hue, sat, 127, i);
+    setDigitLED(partM[i], hue, sat, 127, i + 2);
   }
-  
-  FastLED.setBrightness(50);
-  FastLED.show();
-
 }
-
-void displayLED(int bright) {
-  FastLED.setBrightness(bright);
-  FastLED.show();
-}
-
-
 

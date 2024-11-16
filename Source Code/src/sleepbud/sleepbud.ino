@@ -82,7 +82,9 @@ void setup() {
 
 void loop() {
   if(RTC.isRunning()) {
+    #ifdef DEBUG
     Serial.printf("Current Time: %d:%d:%d\n\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
+    #endif
     timeDisplay(0, 0);
     setAuxLED(0, 40, 150, 100);
     setAuxLED(1, 200, 100, 0);
@@ -211,8 +213,9 @@ void wifiNTP() {
   // Obtain new data from RTC module
   formatTime = timeClient.getFormattedTime();
 
-  // Turn off time
+  // Turn off time and WiFi
   timeClient.end();
+  WiFi.disconnect();
 
   #ifdef DEBUG
   Serial.printf("Data received from NTP server: ");
@@ -271,8 +274,8 @@ void timeDisplay(uint8_t hue, uint8_t sat) {
   // Parse hour and minute data from RTC
   uint8_t hour = RTC.getHours();
   uint8_t min = RTC.getMinutes();
-  uint8_t partH[2] = {(int)hour/10, (int)hour%10};
-  uint8_t partM[2] = {(int)min/10, (int)min%10};;
+  uint8_t partH[2] = {(uint8_t)(hour/10), (uint8_t)(hour%10)};
+  uint8_t partM[2] = {(uint8_t)(min/10), (uint8_t)(min%10)};;
 
   // Set LEDs on for 7 segment displays
   for (uint8_t i = 0; i < 2; i++) {

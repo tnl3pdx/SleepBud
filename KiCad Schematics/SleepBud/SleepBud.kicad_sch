@@ -934,105 +934,6 @@
 				)
 			)
 		)
-		(symbol "Boot Option:Boot_Option"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Boot_Option_0_1"
-				(rectangle
-					(start -2.54 -1.27)
-					(end 2.54 -8.89)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Boot_Option_1_1"
-				(pin input line
-					(at -5.08 -3.81 0)
-					(length 2.54)
-					(name "Input"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -5.08 -6.35 0)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Connector:Barrel_Jack"
 			(pin_names
 				(offset 1.016)
@@ -11621,6 +11522,18 @@
 		(uuid 3fa309e3-c498-4ad5-9362-ef0e5596fe33)
 	)
 	(rectangle
+		(start 367.03 182.88)
+		(end 400.05 214.63)
+		(stroke
+			(width 0)
+			(type dash_dot)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 59759c98-74ac-4cd8-9ae1-4b544f9c5334)
+	)
+	(rectangle
 		(start 246.38 132.08)
 		(end 283.21 172.72)
 		(stroke
@@ -12030,13 +11943,23 @@
 	)
 	(text "LED Lamp Connector\n"
 		(exclude_from_sim no)
-		(at 387.096 198.374 0)
+		(at 382.27 187.198 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 		)
 		(uuid "5812c78f-da89-49b4-9e61-19ee591c9e0a")
+	)
+	(text "(Bottom Left Schematic)"
+		(exclude_from_sim no)
+		(at 393.7 213.614 0)
+		(effects
+			(font
+				(size 0.635 0.635)
+			)
+		)
+		(uuid "651da190-7f6b-433e-a5ee-4bb05582f3cd")
 	)
 	(text "ESP32"
 		(exclude_from_sim no)
@@ -14186,16 +14109,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 138.43 133.35 0)
+		(at 128.27 130.81 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "28dbb859-72dd-4d29-8415-c3080ccf0e95")
 		(property "Reference" "#PWR024"
-			(at 138.43 139.7 0)
+			(at 128.27 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14204,7 +14126,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 138.43 138.43 0)
+			(at 128.27 135.128 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14212,7 +14134,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 138.43 133.35 0)
+			(at 128.27 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14221,7 +14143,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 138.43 133.35 0)
+			(at 128.27 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14230,7 +14152,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 138.43 133.35 0)
+			(at 128.27 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17166,6 +17088,73 @@
 			(project ""
 				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 133.35 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "606602f7-0d74-4404-8035-a1dbb01a8a24")
+		(property "Reference" "SW7"
+			(at 132.842 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Boot Button"
+			(at 132.842 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:SW_Tactile_SPST_NO_Straight_CK_PTS636Sx25SMTRLFS"
+			(at 133.35 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.35 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 133.35 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "09e573b2-0ede-42b8-ac14-2d6a04383460")
+		)
+		(pin "2"
+			(uuid "87bcd19d-1ef6-49f2-b393-57f54d9614ff")
+		)
+		(instances
+			(project "SleepBud"
+				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
+					(reference "SW7")
 					(unit 1)
 				)
 			)
@@ -28359,75 +28348,6 @@
 			(project ""
 				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
 					(reference "#PWR040")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Boot Option:Boot_Option")
-		(at 143.51 127 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "fea33fe6-38d6-4c1e-84ae-a8b55c6c8cf6")
-		(property "Reference" "JP2"
-			(at 141.732 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Boot Option"
-			(at 138.684 136.906 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_2x01_P1.00mm_Vertical_SMD"
-			(at 143.51 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 143.51 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 143.51 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "c2108321-c02b-4fa3-a3a8-7741e4412e08")
-		)
-		(pin "1"
-			(uuid "e3ebfd26-f7d1-4b20-957a-2f2a93c49e31")
-		)
-		(instances
-			(project ""
-				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
-					(reference "JP2")
 					(unit 1)
 				)
 			)

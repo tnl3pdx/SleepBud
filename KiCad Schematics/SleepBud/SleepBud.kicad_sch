@@ -1783,6 +1783,177 @@
 				)
 			)
 		)
+		(symbol "DMG3415U-7:DMG3415U-7"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -5.3656 9.1292 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Value" "DMG3415U-7"
+				(at -4.0414 -15.3268 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Footprint" "DMG3415U-7:SOT95P240X105-3N"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "DMG3415U-7"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "OC_FARNELL" "1843688"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "OC_NEWARK" "12T2026"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "SUPPLIER" "Diodes Inc"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "PACKAGE" "SOT-23-3"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(symbol "DMG3415U-7_0_0"
+				(rectangle
+					(start -12.7 -10.16)
+					(end 12.7 5.08)
+					(stroke
+						(width 0.4064)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin power_in line
+					(at -17.78 -5.08 0)
+					(length 5.08)
+					(name "G"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -17.78 0 0)
+					(length 5.08)
+					(name "S"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 17.78 0 180)
+					(length 5.08)
+					(name "D"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "DS3231SN_:DS3231SN_"
 			(pin_names
 				(offset 1.016)
@@ -5066,301 +5237,6 @@
 				)
 			)
 		)
-		(symbol "Transistor_FET:FQP27P06"
-			(pin_names hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "Q"
-				(at 5.08 1.905 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "FQP27P06"
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-				(at 5.08 -1.905 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF"
-				(at 5.08 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Description" "-27A Id, -60V Vds, QFET P-Channel MOSFET, TO-220"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "QFET P-Channel MOSFET"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "TO?220*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "FQP27P06_0_1"
-				(polyline
-					(pts
-						(xy 0.254 0) (xy -2.54 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.254 1.905) (xy 0.254 -1.905)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 -1.27) (xy 0.762 -2.286)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 0.508) (xy 0.762 -0.508)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 2.286) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 2.54) (xy 2.54 1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.762 1.778) (xy 3.302 1.778) (xy 3.302 -1.778) (xy 0.762 -1.778)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.286 0) (xy 1.27 0.381) (xy 1.27 -0.381) (xy 2.286 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.794 -0.508) (xy 2.921 -0.381) (xy 3.683 -0.381) (xy 3.81 -0.254)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 3.302 -0.381) (xy 2.921 0.254) (xy 3.683 0.254) (xy 3.302 -0.381)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 1.651 0)
-					(radius 2.794)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.54 -1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(circle
-					(center 2.54 1.778)
-					(radius 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-			)
-			(symbol "FQP27P06_1_1"
-				(pin input line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "G"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 5.08 270)
-					(length 2.54)
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 2.54 -5.08 90)
-					(length 2.54)
-					(name "S"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "UART Pads:UART"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -7387,6 +7263,12 @@
 		(uuid "d9f83673-ac99-408f-bf1a-18f636606115")
 	)
 	(junction
+		(at 46.99 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dae63bab-1f4c-4111-b6fe-776e3d418e4d")
+	)
+	(junction
 		(at 152.4 91.44)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -8404,6 +8286,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.8 132.08) (xy 44.45 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25943822-1033-4abc-9a20-0607c1e0352d")
+	)
+	(wire
+		(pts
 			(xy 504.19 316.23) (xy 519.43 316.23)
 		)
 		(stroke
@@ -8564,16 +8456,6 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 158.75) (xy 31.75 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3449ee96-02d5-4a19-9b37-97a30de12a72")
-	)
-	(wire
-		(pts
 			(xy 58.42 146.05) (xy 63.5 146.05)
 		)
 		(stroke
@@ -8681,6 +8563,16 @@
 			(type default)
 		)
 		(uuid "3ba723d2-9de1-46cb-983a-07b0edebd5a1")
+	)
+	(wire
+		(pts
+			(xy 31.75 114.3) (xy 82.55 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3c1ce093-b7f4-4630-8a17-c47be4227c96")
 	)
 	(wire
 		(pts
@@ -8794,16 +8686,6 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 130.81) (xy 58.42 130.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "41b892fe-1d1d-4137-893f-4fde4c6497f9")
-	)
-	(wire
-		(pts
 			(xy 302.26 198.12) (xy 302.26 207.01)
 		)
 		(stroke
@@ -8831,6 +8713,16 @@
 			(type default)
 		)
 		(uuid "42a15f23-e6ff-474d-adb4-1e6dc10b4de3")
+	)
+	(wire
+		(pts
+			(xy 58.42 133.35) (xy 58.42 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42ce0fc9-bc3b-4e2c-965d-2bf066bb8b5f")
 	)
 	(wire
 		(pts
@@ -8951,6 +8843,16 @@
 			(type default)
 		)
 		(uuid "4c0fc7bb-c0d5-4694-9316-32bd404d1d7a")
+	)
+	(wire
+		(pts
+			(xy 46.99 133.35) (xy 58.42 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c337d8b-da57-4e8b-a0c6-20898b6d648f")
 	)
 	(wire
 		(pts
@@ -9144,6 +9046,16 @@
 	)
 	(wire
 		(pts
+			(xy 44.45 132.08) (xy 44.45 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5ae3cceb-d8ef-462b-895b-3a86ac5e6b95")
+	)
+	(wire
+		(pts
 			(xy 323.85 171.45) (xy 323.85 180.34)
 		)
 		(stroke
@@ -9234,6 +9146,16 @@
 	)
 	(wire
 		(pts
+			(xy 46.99 120.65) (xy 46.99 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6475c0af-b01e-4b67-92ce-1e7076e410fc")
+	)
+	(wire
+		(pts
 			(xy 137.16 110.49) (xy 139.7 110.49)
 		)
 		(stroke
@@ -9281,6 +9203,16 @@
 			(type default)
 		)
 		(uuid "6690b8f8-1693-4609-a6ae-db1e2b2222ad")
+	)
+	(wire
+		(pts
+			(xy 44.45 125.73) (xy 46.99 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "66a82424-6521-42e2-a1d1-caaba80ce2f3")
 	)
 	(wire
 		(pts
@@ -9741,6 +9673,16 @@
 			(type default)
 		)
 		(uuid "8b34bc45-1ab5-4670-b765-2a0695da6fc9")
+	)
+	(wire
+		(pts
+			(xy 31.75 114.3) (xy 31.75 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8b8c4ea6-ca3c-4672-a3b0-0df5de3bbfbd")
 	)
 	(wire
 		(pts
@@ -10324,6 +10266,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.8 139.7) (xy 50.8 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1a973c6-c694-4308-b1f9-facdeba9e22c")
+	)
+	(wire
+		(pts
 			(xy 220.98 176.53) (xy 220.98 138.43)
 		)
 		(stroke
@@ -10351,16 +10303,6 @@
 			(type default)
 		)
 		(uuid "b52bd81e-9fce-44fe-b8f0-43bf34893d5b")
-	)
-	(wire
-		(pts
-			(xy 58.42 144.78) (xy 58.42 146.05)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b5d6a86f-f661-4790-b8cc-24cc057a7a0c")
 	)
 	(wire
 		(pts
@@ -10474,6 +10416,16 @@
 	)
 	(wire
 		(pts
+			(xy 46.99 125.73) (xy 46.99 133.35)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc1d6b77-0c29-4eb0-b660-4e83c52302b1")
+	)
+	(wire
+		(pts
 			(xy 69.85 349.25) (xy 85.09 349.25)
 		)
 		(stroke
@@ -10541,16 +10493,6 @@
 			(type default)
 		)
 		(uuid "bfeb9dba-e18d-4b26-890d-2465c1e26b55")
-	)
-	(wire
-		(pts
-			(xy 58.42 130.81) (xy 58.42 134.62)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c00e5265-0f7c-49ca-9aca-4b4f40568634")
 	)
 	(wire
 		(pts
@@ -11374,6 +11316,16 @@
 	)
 	(wire
 		(pts
+			(xy 82.55 114.3) (xy 82.55 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef2768d5-a5a5-425a-8dc5-fb5a7ed692ba")
+	)
+	(wire
+		(pts
 			(xy 219.71 140.97) (xy 219.71 187.96)
 		)
 		(stroke
@@ -11717,7 +11669,7 @@
 		(uuid b9e929ba-5e6f-4807-9998-85acb2aa50a1)
 	)
 	(rectangle
-		(start 30.48 129.54)
+		(start 30.48 107.95)
 		(end 109.22 220.98)
 		(stroke
 			(width 0)
@@ -12056,7 +12008,7 @@
 		)
 		(uuid "3177795f-5b95-4d2d-b280-d24d1c865c1c")
 	)
-	(text "LED LAMP"
+	(text "LED LAMP Connector"
 		(exclude_from_sim no)
 		(at 71.882 392.43 0)
 		(effects
@@ -18974,82 +18926,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Transistor_FET:FQP27P06")
-		(at 55.88 139.7 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7ee92882-3629-47a3-a03c-f399b88313e7")
-		(property "Reference" "Q1"
-			(at 62.23 138.4299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "FQP27P06"
-			(at 62.23 140.9699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
-			(at 60.96 141.605 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/FQP27P06-D.PDF"
-			(at 60.96 143.51 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "-27A Id, -60V Vds, QFET P-Channel MOSFET, TO-220"
-			(at 55.88 139.7 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3db92cee-2110-40e5-9da6-e0d5eab564c0")
-		)
-		(pin "3"
-			(uuid "10f860c7-81d8-48f1-b84f-09d40a43e753")
-		)
-		(pin "2"
-			(uuid "8a354fff-b92e-4311-8793-c329d7887378")
-		)
-		(instances
-			(project ""
-				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
-					(reference "Q1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "JTAG Pads:JTAG_PAD")
 		(at 224.79 187.96 0)
 		(unit 1)
@@ -20569,6 +20445,128 @@
 			(project "SleepBud"
 				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
 					(reference "D74")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DMG3415U-7:DMG3415U-7")
+		(at 64.77 120.65 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9b2c0ed2-cf66-43ea-a232-246fbb9558c9")
+		(property "Reference" "Q1"
+			(at 64.77 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "DMG3415U-7"
+			(at 64.77 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "DMG3415U_7:SOT95P240X105-3N"
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MPN" "DMG3415U-7"
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "OC_FARNELL" "1843688"
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "OC_NEWARK" "12T2026"
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SUPPLIER" "Diodes Inc"
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PACKAGE" "SOT-23-3"
+			(at 64.77 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "4ecd11da-a16e-4686-9429-48fd2e44f54d")
+		)
+		(pin "1"
+			(uuid "54994bca-0661-4e48-9a88-242c9daeea00")
+		)
+		(pin "2"
+			(uuid "37b0f85b-0f42-48b9-8918-bc5edd1d9653")
+		)
+		(instances
+			(project ""
+				(path "/976e55d6-47c8-4a6a-a3ac-d81121411704"
+					(reference "Q1")
 					(unit 1)
 				)
 			)

@@ -78,6 +78,8 @@ void setup() {
   if (timeUpdate == 1) {
     wifiNTP();
   }
+
+  delay(1000);
 }
 
 void loop() {
@@ -86,8 +88,8 @@ void loop() {
     Serial.printf("Current Time: %d:%d:%d\n\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
     timeDisplay(0, 0);
-    setAuxLED(0, 40, 150, 100);
-    setAuxLED(1, 200, 100, 0);
+    setAuxLED(0, 40, 150, 255);
+    setAuxLED(1, 0, 0, 0);
     FastLED.show();
     delay(10);
   }
@@ -130,6 +132,9 @@ void genSetup() {
   sleepTime[0] = nvsObj.getInt("sleepHR");
   sleepTime[1] = nvsObj.getInt("sleepMIN");
   utcOffset = nvsObj.getInt("utcOffset");
+
+  // TEMPORARY
+  brightVal = 255;
 
   #ifdef DEBUG
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
@@ -207,7 +212,11 @@ void wifiNTP() {
 
   // Attempt to obtain NTP packet
   while (!timeClient.isTimeSet()) {
-    timeClient.update();
+    if (timeClient.update() == 0) {
+      #ifdef DEBUG
+      Serial.printf("NTP update Failed, Trying again.\n");
+      #endif
+    }
   }
 
   // Obtain new data from RTC module

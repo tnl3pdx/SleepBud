@@ -12260,6 +12260,18 @@
 		)
 		(uuid "80ec2aeb-a9e0-4d1a-a168-be72d34a040e")
 	)
+	(text "11/20/2024"
+		(exclude_from_sim no)
+		(at 509.778 403.352 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+		)
+		(uuid "82fafa87-e897-47b9-a500-774c8ea97061")
+	)
 	(text "Voltage Regulator\n"
 		(exclude_from_sim no)
 		(at 93.472 164.338 0)
@@ -20773,7 +20785,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "638efeb3-1536-4da7-bd5d-e7bc93988f24")
+			(uuid "638efeb3-1536-4da7-bd5d-e7bc93988f25")
 		)
 		(instances
 			(project ""
@@ -23959,10 +23971,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "39caac98-2237-4d27-ad95-23778d0bdf01")
+			(uuid "39caac98-2237-4d27-ad95-23778d0bdf02")
 		)
 		(pin "2"
-			(uuid "3d8634c7-3ec1-40c3-ba44-a2757b6e294e")
+			(uuid "3d8634c7-3ec1-40c3-ba44-a2757b6e294f")
 		)
 		(instances
 			(project ""
@@ -26607,10 +26619,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "03cc5632-c4af-4855-8942-4a6802601529")
+			(uuid "03cc5632-c4af-4855-8942-4a680260152a")
 		)
 		(pin "2"
-			(uuid "3e83dc6b-9c2f-426e-9ce2-592ba7166bc1")
+			(uuid "3e83dc6b-9c2f-426e-9ce2-592ba7166bc2")
 		)
 		(instances
 			(project ""

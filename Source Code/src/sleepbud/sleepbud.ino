@@ -65,6 +65,8 @@ bool timeUpdate;
 uint8_t brightVal;
 uint8_t sleepTime[2];
 uint8_t utcOffset;
+int swap = 0;
+int defDispBright = 125;
 
 //* WiFi Credentials
 const char *ssid = WIFI_SSID;
@@ -79,7 +81,7 @@ void setup() {
     wifiNTP();
   }
 
-  delay(1000);
+  delay(500);
 }
 
 void loop() {
@@ -88,18 +90,50 @@ void loop() {
     Serial.printf("Current Time: %d:%d:%d\n\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
     timeDisplay(0, 0);
-    setAuxLED(0, 40, 150, 255);
+    setAuxLED(0, 0, 0, defDispBright);
     setAuxLED(1, 0, 0, 0);
     FastLED.show();
     delay(10);
   }
+
+  /*
+  int i = 0;
+  int j = 0;
+
+  for (i = 0; i < 4; i++) {
+    for (j = 0; j < NDIGILEDS; j++) {
+      if (swap == 0) {
+        digiLEDS[i][j].setHSV(0, 0 ,0);
+      } else {
+        digiLEDS[i][j].setHSV(0, 0, 75);
+      }
+      FastLED.show();
+    }
+  }
+
+  if (swap == 0) {
+    swap = 1;
+  } else {
+    swap = 0;
+  }
+  delay(2000);
+  */
 }
+
 
 void genSetup() {
   #ifdef DEBUG
   Serial.printf("Starting general setup.\n");
   #endif
   
+  //** Set pins
+  Wire.setPins(SDAPIN, SCLPIN);
+
+  // Setup OE for logic level shifter
+  pinMode(OELED, OUTPUT);
+  digitalWrite(OELED, HIGH);
+
+
   //** Fetch parameters from non-volatile memory
   
   if (!nvsObj.begin("config", false)) {
@@ -134,7 +168,7 @@ void genSetup() {
   utcOffset = nvsObj.getInt("utcOffset");
 
   // TEMPORARY
-  brightVal = 255;
+  brightVal = defDispBright;
 
   #ifdef DEBUG
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);

@@ -4,7 +4,7 @@
     Description: This file holds pin assignments and array size data for easy access.
 */
 
-// Pin Defines
+// LED Pin Defines
 #define DIGIPIN0 13
 #define DIGIPIN1 12
 #define DIGIPIN2 10
@@ -17,9 +17,13 @@
 #define SCLPIN  35
 
 // TXS0108E Pins
-#define OELED   38
+#define TXSPIN   38
 
 // Number of LEDS for LED arrays
 #define NDIGILEDS 7
 #define NMODELEDS 2
 #define NLAMPLEDS 48
+
+// Aux Pins
+#define PIRPIN    8
+#define BUZZPIN   21

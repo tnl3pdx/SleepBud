@@ -28,6 +28,7 @@ void wifiNTP();
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
 void timeDisplay(uint8_t hue, uint8_t sat);
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
+void isrPIR();
 
 //***** Objects *****//
 
@@ -65,8 +66,10 @@ bool timeUpdate;
 uint8_t brightVal;
 uint8_t sleepTime[2];
 uint8_t utcOffset;
-int swap = 0;
 int defDispBright = 125;
+int debounceDelay = 5000;
+volatile int pirIntDelay = 0;
+volatile int disableLEDs = 0;
 
 //* WiFi Credentials
 const char *ssid = WIFI_SSID;
@@ -81,19 +84,27 @@ void setup() {
     wifiNTP();
   }
 
-  delay(500);
+  attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
 }
 
 void loop() {
   if(RTC.isRunning()) {
     #ifdef DEBUG
-    Serial.printf("Current Time: %d:%d:%d\n\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
+    Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
     timeDisplay(0, 0);
     setAuxLED(0, 0, 0, defDispBright);
     setAuxLED(1, 0, 0, 0);
+    if (disableLEDs == 1) {
+      FastLED.clear();
+    }
     FastLED.show();
-    delay(10);
+    Serial.printf("Current State of disableLEDs: %d\n\n", disableLEDs);
+  }
+
+  // Reattach Interrupt
+  if ((millis() - pirIntDelay > debounceDelay) && (!digitalRead(PIRPIN))) {
+    attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
   }
 
   /*
@@ -130,8 +141,11 @@ void genSetup() {
   Wire.setPins(SDAPIN, SCLPIN);
 
   // Setup OE for logic level shifter
-  pinMode(OELED, OUTPUT);
-  digitalWrite(OELED, HIGH);
+  pinMode(TXSPIN, OUTPUT);
+  digitalWrite(TXSPIN, HIGH);
+
+  // Setup PIR pin
+  pinMode(PIRPIN, INPUT_PULLDOWN);
 
 
   //** Fetch parameters from non-volatile memory
@@ -188,6 +202,10 @@ void genSetup() {
   // Initialize other LEDs
   FastLED.addLeds<NEOPIXEL, MODEPIN>(modeLEDS, NMODELEDS);
   FastLED.addLeds<NEOPIXEL, LAMPPIN>(lampLEDS, NLAMPLEDS);
+
+  // Reset pixel data
+  FastLED.clear();
+  FastLED.show();
 
   //** RTC Setup
   if (!RTC.begin()) {
@@ -327,3 +345,14 @@ void timeDisplay(uint8_t hue, uint8_t sat) {
   }
 }
 
+void isrPIR() {
+  pirIntDelay = millis();
+
+  if (disableLEDs == 0) {
+    disableLEDs = 1;
+  } else {
+    disableLEDs = 0;
+  }
+
+  detachInterrupt(digitalPinToInterrupt(PIRPIN));
+}

@@ -23,6 +23,9 @@
 #define DEBUG
 
 //***** Function Prototypes *****//
+void reattachInts();
+void normalLoop();
+void optionLoop(int select);
 void genSetup();
 void wifiNTP();
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
@@ -70,6 +73,7 @@ int defDispBright = 125;
 int debounceDelay = 5000;
 volatile int pirIntDelay = 0;
 volatile int disableLEDs = 0;
+volatile int menuSelect = 0;
 
 //* WiFi Credentials
 const char *ssid = WIFI_SSID;
@@ -88,6 +92,51 @@ void setup() {
 }
 
 void loop() {
+
+  reattachInts();
+
+  /* Loop Selection */
+
+  // Normal Mode (Colon is white (One Red LED if alarm is on))
+  if (menuSelect == 0) {
+    normalLoop();
+  // Set Manual Time (Colon is all yellow)
+  } else if (menuSelect == 1) {
+    optionLoop(0);
+  // Set Alarm Time (Colon is all red)
+  } else if (menuSelect == 2) {
+    optionLoop(1);
+  // Enable Alarm (Colon is all orange)
+  } else if (menuSelect == 3) {
+    optionLoop(2);
+  // Set UTC Offset (Colon is all purple)
+  } else if (menuSelect == 4) {
+    optionLoop(3);
+  // Enable WIFI boot (Colon is all blue)
+  } else if (menuSelect == 5) {
+    optionLoop(4);
+  }
+
+}
+
+void reattachInts() {
+  /* Reattach Interrupts */
+
+  // PIR Interrupt
+  if ((millis() - pirIntDelay > debounceDelay) && (!digitalRead(PIRPIN))) {
+    attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
+  }
+
+  // Button 1 Interrupt
+
+  // Button 2 Interrupt
+
+  // Button 3 Interrupt
+
+  // Button 4 Interrupt
+}
+
+void normalLoop() {
   if(RTC.isRunning()) {
     #ifdef DEBUG
     Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
@@ -106,31 +155,12 @@ void loop() {
   if ((millis() - pirIntDelay > debounceDelay) && (!digitalRead(PIRPIN))) {
     attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
   }
-
-  /*
-  int i = 0;
-  int j = 0;
-
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < NDIGILEDS; j++) {
-      if (swap == 0) {
-        digiLEDS[i][j].setHSV(0, 0 ,0);
-      } else {
-        digiLEDS[i][j].setHSV(0, 0, 75);
-      }
-      FastLED.show();
-    }
-  }
-
-  if (swap == 0) {
-    swap = 1;
-  } else {
-    swap = 0;
-  }
-  delay(2000);
-  */
 }
 
+void optionloop(int select) {
+
+
+}
 
 void genSetup() {
   #ifdef DEBUG

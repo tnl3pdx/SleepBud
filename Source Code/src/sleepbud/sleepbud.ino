@@ -47,6 +47,9 @@ unsigned long lastPressTime = 0; // Last button press time
 const unsigned long debounceInterval = 600; // 200ms debounce interval
 
 //***** Function Prototypes *****//
+void reattachInts();
+void normalLoop();
+void optionLoop(int select);
 void genSetup();
 void wifiNTP();
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
@@ -64,6 +67,9 @@ void handleMode2();
 void handleMode3();
 void handleMode4();
 
+
+// Debug Functions
+void testLEDs();
 
 //***** Objects *****//
 
@@ -106,10 +112,10 @@ bool timeUpdate;
 uint8_t brightVal;
 uint8_t sleepTime[2];
 uint8_t utcOffset;
-int defDispBright = 125;
 int debounceDelay = 5000;
 volatile int pirIntDelay = 0;
 volatile int disableLEDs = 0;
+volatile int menuSelect = 0;
 
 //* WiFi Credentials
 const char *ssid = WIFI_SSID;
@@ -148,6 +154,7 @@ void setup() {
 
 void loop() {
 
+
   // Handle mode button press
   if (modeButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
@@ -177,16 +184,41 @@ void loop() {
   }
 
 // Should this be added into mode 0????
+
+  reattachInts();
+
+  /* Loop Selection */
+  normalLoop();
+
+}
+
+void reattachInts() {
+  /* Reattach Interrupts */
+
+  // PIR Interrupt
+  if ((millis() - pirIntDelay > debounceDelay) && (!digitalRead(PIRPIN))) {
+    attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
+  }
+
+  // Button 1 Interrupt
+
+  // Button 2 Interrupt
+
+  // Button 3 Interrupt
+
+  // Button 4 Interrupt
+}
+
+void normalLoop() {
+
+
   if(RTC.isRunning()) {
     #ifdef DEBUG
     Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
     timeDisplay(0, 0);
-    setAuxLED(0, 0, 0, defDispBright);
-    setAuxLED(1, 0, 0, 0);
-    if (disableLEDs == 1) {
-      FastLED.clear();
-    }
+    setAuxLED(0, 0, 0, 204);
+    setAuxLED(1, 0, 0, 204);
     FastLED.show();
     Serial.printf("Current State of disableLEDs: %d\n\n", disableLEDs);
   }
@@ -195,36 +227,20 @@ void loop() {
   if ((millis() - pirIntDelay > debounceDelay) && (!digitalRead(PIRPIN))) {
     attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
   }
-
-  /*
-  int i = 0;
-  int j = 0;
-
-  for (i = 0; i < 4; i++) {
-    for (j = 0; j < NDIGILEDS; j++) {
-      if (swap == 0) {
-        digiLEDS[i][j].setHSV(0, 0 ,0);
-      } else {
-        digiLEDS[i][j].setHSV(0, 0, 75);
-      }
-      FastLED.show();
-    }
-  }
-
-  if (swap == 0) {
-    swap = 1;
-  } else {
-    swap = 0;
-  }
-  delay(2000);
-  */
 }
+
+void optionLoop(int select) {
+  return;
+
+}
+
 
 // ISR Functions
 void ISR_modeButton() { modeButtonPressed = true; }
 void ISR_minusButton() { minusButtonPressed = true; }
 void ISR_plusButton() { plusButtonPressed = true; }
 void ISR_selectButton() { selectButtonPressed = true; }
+
 
 void genSetup() {
   #ifdef DEBUG
@@ -274,9 +290,6 @@ void genSetup() {
   sleepTime[0] = nvsObj.getInt("sleepHR");
   sleepTime[1] = nvsObj.getInt("sleepMIN");
   utcOffset = nvsObj.getInt("utcOffset");
-
-  // TEMPORARY
-  brightVal = defDispBright;
 
   #ifdef DEBUG
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
@@ -421,7 +434,7 @@ void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
   if (type == 0) {       // Configure Mode Color
     fill_solid(modeLEDS, NMODELEDS, CHSV(hue, sat, val));
   } else if (type == 1) {       // Configure Lamp Color
-    fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, brightVal));
+    fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, val));
   } 
 }
 
@@ -434,8 +447,8 @@ void timeDisplay(uint8_t hue, uint8_t sat) {
 
   // Set LEDs on for 7 segment displays
   for (uint8_t i = 0; i < 2; i++) {
-    setDigitLED(partH[i], hue, sat, 127, i);
-    setDigitLED(partM[i], hue, sat, 127, i + 2);
+    setDigitLED(partH[i], hue, sat, 64, i);
+    setDigitLED(partM[i], hue, sat, 64, i + 2);
   }
 }
 
@@ -450,6 +463,7 @@ void isrPIR() {
 
   detachInterrupt(digitalPinToInterrupt(PIRPIN));
 }
+
 
 // Update Mode Indicator
 void updateModeIndicator() {
@@ -636,3 +650,28 @@ void adjustTimeField(uint8_t* timeArray, bool increase) {
 // Does mode 3 adjust the UTC offset correctly (check mode 0 for corrected time)
 
 // Does mode 4 manually set the time correctly (check mode 0 for time changed)
+
+void testLEDs() {
+
+  int i = 0;
+  int j = 0;
+  int k = 0;
+  float percent;
+
+  for (k = 10; k > 0; k--) {
+    percent = 1.00 - (0.05 * k);
+    Serial.printf("Percentage is %f\n\n", percent);
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < NDIGILEDS; j++) {
+        digiLEDS[i][j].setHSV(0, 0, (int)(255.0 * percent));
+      }
+    }
+  setAuxLED(0, 0, 0, (int)(255.0 * percent));
+  setAuxLED(1, 0, 0, (int)(255.0 * percent));
+
+  FastLED.show();
+  delay(7000);
+  }
+
+}
+

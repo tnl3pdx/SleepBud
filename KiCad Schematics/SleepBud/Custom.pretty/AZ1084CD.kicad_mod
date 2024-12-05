@@ -1,0 +1,113 @@
+(footprint "AZ1084CD"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "12V-5V"
+		(at 0 -15.25 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "583e5205-9833-4d79-be2c-b353a3345ba3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "AZ1084CD"
+		(at 0 -13.75 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "3f73c811-0959-4874-9781-b1839bd7a80b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 -14.75 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1a10959c-d904-4902-861e-267eefed02e0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -14.75 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3f937147-bc72-4534-a9af-7aa22fc0b04a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 -14.75 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "89a483b5-f7d6-41c9-9178-2980d05b1fdf")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_text user "${REFERENCE}"
+		(at 0 -12.25 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "516ec30d-b7b2-4354-bae7-391fb1738695")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -2.3 0)
+		(size 1.5 2.5)
+		(drill
+			(offset 0 1.25)
+		)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(thermal_bridge_angle 45)
+		(uuid "c40e590d-f8d0-4e67-b0b6-a043475f36c8")
+	)
+	(pad "2" smd rect
+		(at 0 -2.1)
+		(size 7 7)
+		(drill
+			(offset 0 -3.5)
+		)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(thermal_bridge_angle 45)
+		(uuid "f7c7877f-56b7-4452-b564-ff0ca55f53bb")
+	)
+	(pad "3" smd rect
+		(at 2.3 0)
+		(size 1.5 2.5)
+		(drill
+			(offset 0 1.25)
+		)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(thermal_bridge_angle 45)
+		(uuid "dc90065e-1f9e-40d0-bb3d-8483def306bb")
+	)
+)

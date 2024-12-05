@@ -27,3 +27,11 @@
 // Aux Pins
 #define PIRPIN    8
 #define BUZZPIN   21
+
+// Button Defines
+#define SWITCHBUTTON    7
+#define DOWNBUTTON      6
+#define UPBUTTON        5
+#define MODEBUTTON      4
+
+

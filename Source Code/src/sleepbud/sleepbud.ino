@@ -137,6 +137,7 @@ void reattachInts() {
 }
 
 void normalLoop() {
+  /*
   if(RTC.isRunning()) {
     #ifdef DEBUG
     Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
@@ -155,10 +156,32 @@ void normalLoop() {
   if ((millis() - pirIntDelay > debounceDelay) && (!digitalRead(PIRPIN))) {
     attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
   }
+  */
+
+  int i = 0;
+  int j = 0;
+  int k = 0;
+  float percent;
+
+  for (k = 10; k > 0; k--) {
+    percent = 1.00 - (0.05 * k);
+    Serial.printf("Percentage is %f\n\n", percent);
+    for (i = 0; i < 4; i++) {
+      for (j = 0; j < NDIGILEDS; j++) {
+        digiLEDS[i][j].setHSV(0, 0, (int)(255.0 * percent));
+      }
+    }
+  setAuxLED(0, 0, 0, (int)(255.0 * percent));
+  setAuxLED(1, 0, 0, (int)(255.0 * percent));
+
+  FastLED.show();
+  delay(7000);
+  }
+
 }
 
-void optionloop(int select) {
-
+void optionLoop(int select) {
+  return;
 
 }
 
@@ -357,7 +380,7 @@ void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
   if (type == 0) {       // Configure Mode Color
     fill_solid(modeLEDS, NMODELEDS, CHSV(hue, sat, val));
   } else if (type == 1) {       // Configure Lamp Color
-    fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, brightVal));
+    fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, val));
   } 
 }
 

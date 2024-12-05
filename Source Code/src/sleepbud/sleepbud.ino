@@ -22,6 +22,30 @@
 //***** Defines *****//
 #define DEBUG
 
+// Pin Definitions
+const byte modeButton = 21;  // Button 0: Mode button
+const byte minusButton = 14; // Button 1: Minus button
+const byte plusButton = 32;  // Button 2: Plus button
+const byte selectButton = 15; // Button 3: Select button
+
+// Global Variables
+volatile bool modeButtonPressed = false;
+volatile bool minusButtonPressed = false;
+volatile bool plusButtonPressed = false;
+volatile bool selectButtonPressed = false;
+int modeCounter = 0; // Modes: 0 - 3
+bool alarmSet = false; // Alarm state (off/on)
+bool alarmActive = false; // Alarm currently ringing
+uint8_t brightness = 50; // Default brightness (mode 0)
+uint8_t setDisplayTime[4] = {0, 0, 0, 0}; //displayed time // This is the global time switch to another global time????
+uint8_t alarmTime[4] = {0, 0, 0, 0}; // Alarm time (HH:MM)
+uint8_t utcOffset[4] = {0, 0, 0, 0}; // UTC Offset (HH:MM)
+uint8_t currentField = 0; // Field selector for modes 1 and 3
+
+// Timer for Debounce
+unsigned long lastPressTime = 0; // Last button press time
+const unsigned long debounceInterval = 600; // 200ms debounce interval
+
 //***** Function Prototypes *****//
 void reattachInts();
 void normalLoop();
@@ -32,11 +56,27 @@ void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select)
 void timeDisplay(uint8_t hue, uint8_t sat);
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
 void isrPIR();
+void ISR_modeButton();
+void ISR_minusButton();
+void ISR_plusButton();
+void ISR_selectButton();
+void updateModeIndicator();
+void handleMode0();
+void handleMode1();
+void handleMode2();
+void handleMode3();
+void handleMode4();
+
 
 // Debug Functions
 void testLEDs();
 
 //***** Objects *****//
+
+// // LED Definitions
+// #define NUM_LEDS 4
+// #define LED_PIN 5
+// CRGB leds[NUM_LEDS];
 
 //* LED Objects
 CRGB digiLEDS[4][NDIGILEDS];
@@ -84,6 +124,24 @@ const char *pswrd = WIFI_PASSWORD;
 //***** Main Program *****//
 void setup() {
   Serial.begin(115200);
+
+  // Initialize Buttons
+  pinMode(modeButton, INPUT_PULLUP);
+  pinMode(minusButton, INPUT_PULLUP);
+  pinMode(plusButton, INPUT_PULLUP);
+  pinMode(selectButton, INPUT_PULLUP);
+
+  attachInterrupt(digitalPinToInterrupt(modeButton), ISR_modeButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(minusButton), ISR_minusButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(plusButton), ISR_plusButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(selectButton), ISR_selectButton, FALLING);
+
+  // Where is this for you?
+  // // Initialize LEDs
+  // FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+  // FastLED.clear();
+  // FastLED.show();
+
   genSetup();
 
   if (timeUpdate == 1) {
@@ -91,9 +149,42 @@ void setup() {
   }
 
   attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
+  Serial.println("Setup complete");
 }
 
 void loop() {
+
+
+  // Handle mode button press
+  if (modeButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    modeButtonPressed = false;
+    modeCounter = (modeCounter + 1) % 5; // Cycle through modes 0-4
+    updateModeIndicator();
+    Serial.printf("Mode changed to: %d\n", modeCounter);
+  }
+
+  // Handle modes
+  switch (modeCounter) {
+    case 0:
+      handleMode0();
+      break;
+    case 1:
+      handleMode1();
+      break;
+    case 2:
+      handleMode2();
+      break;
+    case 3:
+      handleMode3();
+      break;
+    case 4:
+      handleMode4();
+      break;
+  }
+
+// Should this be added into mode 0????
+
   reattachInts();
 
   /* Loop Selection */
@@ -120,6 +211,7 @@ void reattachInts() {
 
 void normalLoop() {
 
+
   if(RTC.isRunning()) {
     #ifdef DEBUG
     Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
@@ -141,6 +233,14 @@ void optionLoop(int select) {
   return;
 
 }
+
+
+// ISR Functions
+void ISR_modeButton() { modeButtonPressed = true; }
+void ISR_minusButton() { minusButtonPressed = true; }
+void ISR_plusButton() { plusButtonPressed = true; }
+void ISR_selectButton() { selectButtonPressed = true; }
+
 
 void genSetup() {
   #ifdef DEBUG
@@ -172,7 +272,7 @@ void genSetup() {
 
     // Load config namespace with parameters
     nvsObj.putBool("timeUpdate", 1);
-    nvsObj.putInt("brightness", 50);
+    nvsObj.putInt("brightness", 50); //DOES THIS CHANGE THE BRIGHTNESS?
     nvsObj.putInt("sleepHR", 0);
     nvsObj.putInt("sleepMIN", 0);
     nvsObj.putInt("utcOffset", 0);
@@ -364,6 +464,193 @@ void isrPIR() {
   detachInterrupt(digitalPinToInterrupt(PIRPIN));
 }
 
+
+// Update Mode Indicator
+void updateModeIndicator() {
+  FastLED.clear();
+  CRGB color;
+  switch (modeCounter) {
+    case 0: color = CRGB::Black; break;  // No color
+    case 1: color = CRGB::Red; break;    // Alarm set mode
+    case 2: color = CRGB::Blue; break;   // Alarm active mode
+    case 3: color = CRGB::Green; break;  // UTC offset mode
+  }
+  modeLEDS[0] = color; // Use the first LED to indicate the mode
+  modeLEDS[1] = color; // Two mode LEDS
+  FastLED.show();
+}
+
+// Mode Handlers
+void handleMode0() {
+  if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    minusButtonPressed = false;
+    brightness = max(brightness - 10, 0);
+    FastLED.setBrightness(brightness);
+    FastLED.show();
+    Serial.printf("Brightness decreased to: %d\n", brightness);
+  }
+
+  if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    plusButtonPressed = false;
+    brightness = min(brightness + 10, 255);
+    FastLED.setBrightness(brightness);
+    FastLED.show();
+    Serial.printf("Brightness increased to: %d\n", brightness);
+  }
+
+  if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    selectButtonPressed = false;
+    alarmActive = false;
+    Serial.println("Alarm snoozed");
+    Serial.printf("Time adjusted: %02d:%02d\n", setDisplayTime[0] * 10 + setDisplayTime[1], setDisplayTime[2] * 10 + setDisplayTime[3]);
+  }
+}
+
+void handleMode1() {
+  if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    minusButtonPressed = false;
+    adjustTimeField(alarmTime, false);
+  }
+
+  if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    plusButtonPressed = false;
+    adjustTimeField(alarmTime, true);
+  }
+
+  if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    selectButtonPressed = false;
+    currentField = (currentField + 1) % 4;
+    Serial.printf("Selected field: %d\n", currentField);
+  }
+}
+
+void handleMode2() {
+  if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    selectButtonPressed = false;
+    alarmSet = !alarmSet;
+    Serial.printf("Alarm set: %s\n", alarmSet ? "ON" : "OFF");
+    modeLEDS[0] = alarmSet ? CRGB::White : CRGB::Black; // Indicate alarm set with a white LED
+    modeLEDS[1] = alarmSet ? CRGB::White : CRGB::Black; // Indicate alarm set with a white LED
+    FastLED.show();
+  }
+}
+
+// red is 0 so negative
+// neutral so 1 is white 
+// green is 2 so positive
+
+
+//short UTC_offset_array[38][3] = {-12:00, -11:00, -10:00, -09:30, -09:00, -08:00, -07:00, -06:00, -05:00, -04:00, -03:30, -03:00, -02:00, -01:00, 00:00, +01:00, +02:00, +03:00, +03:30, +04:00, +04:30, +05:00, +05:30, +05:45, +06:00, +06:30, +07:00, +08:00, +08:45, +09:00, +09:30, +10:00, +10:30, +11:00, +12:00, +12:45, +13:00, +14:00 };
+short UTC_offset_array[38][3] = 
+  {
+    {12, 0, 0},   {11, 0, 0},   {10, 0, 0},   {9, 30, 0}, 
+    {9, 0, 0},    {8, 0, 0},    {7, 0, 0},    {6, 0, 0}, 
+    {5, 0, 0},    {4, 0, 0},    {3, 30, 0},   {3, 0, 0}, 
+    {2, 0, 0},    {1, 0, 0},    {0, 0, 2},    {1, 0, 2}, 
+    {2, 0, 2},    {3, 0, 2},    {3, 30, 2},   {4, 0, 2}, 
+    {4, 30, 2},   {5, 0, 2},    {5, 30, 2},   {5, 45, 2}, 
+    {6, 0, 2},    {6, 30, 2},   {7, 0, 2},    {8, 0, 2}, 
+    {8, 45, 2},   {9, 0, 2},    {9, 30, 2},   {10, 0, 2}, 
+    {10, 30, 2},  {11, 0, 2},   {12, 0, 2},   {12, 45, 2}, 
+    {13, 0, 2},   {14, 0, 2}
+};
+
+void handleMode3() {
+// This should be an integer value that is either positive or negative or zero
+// This requires a HH:MM to a int seconds value to pass to utcoffset func
+
+  int start_UTC_array= 15; //start at 0
+
+  if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    minusButtonPressed = false;
+    //UTC_offset_array[start_UTC_array]
+
+    adjustTimeField(utcOffset, false);
+  }
+
+  if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    plusButtonPressed = false;
+    adjustTimeField(utcOffset, true);
+  }
+
+  if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    selectButtonPressed = false;
+    currentField = (currentField + 1) % 4;
+    Serial.printf("Selected field: %d\n", currentField);
+  }
+}
+
+void handleMode4() {
+  // Decrease selected field value
+  if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    minusButtonPressed = false;
+    adjustTimeField(setDisplayTime, false); // Decrease selected field
+    Serial.println("Minus button pressed: Time adjusted");
+  }
+
+  // Increase selected field value
+  if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    plusButtonPressed = false;
+    adjustTimeField(setDisplayTime, true); // Increase selected field
+    Serial.println("Plus button pressed: Time adjusted");
+  }
+
+  // Move to the next field
+  if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    selectButtonPressed = false;
+    currentField = (currentField + 1) % 4; // Cycle through fields 0 to 3
+    Serial.printf("Field selected: %d\n", currentField);
+  }
+
+  // Provide LED feedback for the selected field
+  FastLED.clear();
+  leds[currentField] = CRGB::Orange; // Highlight the current field in Orange
+  FastLED.show();
+}
+
+// Adjust Time Field Helper Function
+void adjustTimeField(uint8_t* timeArray, bool increase) {
+  if (currentField == 0) timeArray[currentField] = increase ? (timeArray[currentField] == 1 ? 0 : 1) : (timeArray[currentField] == 0 ? 1 : 0);
+  else if (currentField == 2) timeArray[currentField] = increase ? (timeArray[currentField] + 1) % 6 : (timeArray[currentField] == 0 ? 5 : timeArray[currentField] - 1);
+  else timeArray[currentField] = increase ? (timeArray[currentField] + 1) % 10 : (timeArray[currentField] == 0 ? 9 : timeArray[currentField] - 1);
+  Serial.printf("Time adjusted: %02d:%02d\n", timeArray[0] * 10 + timeArray[1], timeArray[2] * 10 + timeArray[3]);
+}
+
+
+// Things that need to be adjusted
+
+// Include the LEDs to change depending on mode (and if alarm on or off)
+// Ensure brightness can be adjusted for the lamp ( I use fast led lib)
+// Does switching modes work properly and does it interupt the time in main loop
+// Does the UTC actually work as expected?
+// Does the alarm work at the set time
+// Does the snooze work (  RTC.enableAlarmPin(); ) where it says and ensure it works
+// Check that the time is actually changed after setting it manually
+
+// Comprehensive test
+// does mode 0 adjust brightness and snooze correctly
+
+// Does mode 1 adjust the time correctly (go back to mode 0 and check)
+
+// Does mode 2 turn on the alarm correctly for the set alarm time (check mode 0 if mode lights are on and if buzzer goes off at that time)
+
+// Does mode 3 adjust the UTC offset correctly (check mode 0 for corrected time)
+
+// Does mode 4 manually set the time correctly (check mode 0 for time changed)
+
 void testLEDs() {
 
   int i = 0;
@@ -387,3 +674,4 @@ void testLEDs() {
   }
 
 }
+

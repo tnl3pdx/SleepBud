@@ -72,7 +72,6 @@ bool timeUpdate;
 uint8_t brightVal;
 uint8_t sleepTime[2];
 uint8_t utcOffset;
-int defDispBright = 125;
 int debounceDelay = 5000;
 volatile int pirIntDelay = 0;
 volatile int disableLEDs = 0;
@@ -95,30 +94,10 @@ void setup() {
 }
 
 void loop() {
-
   reattachInts();
 
   /* Loop Selection */
-
-  // Normal Mode (Colon is white (One Red LED if alarm is on))
-  if (menuSelect == 0) {
-    normalLoop();
-  // Set Manual Time (Colon is all yellow)
-  } else if (menuSelect == 1) {
-    optionLoop(0);
-  // Set Alarm Time (Colon is all red)
-  } else if (menuSelect == 2) {
-    optionLoop(1);
-  // Enable Alarm (Colon is all orange)
-  } else if (menuSelect == 3) {
-    optionLoop(2);
-  // Set UTC Offset (Colon is all purple)
-  } else if (menuSelect == 4) {
-    optionLoop(3);
-  // Enable WIFI boot (Colon is all blue)
-  } else if (menuSelect == 5) {
-    optionLoop(4);
-  }
+  normalLoop();
 
 }
 
@@ -146,11 +125,8 @@ void normalLoop() {
     Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
     timeDisplay(0, 0);
-    setAuxLED(0, 0, 0, defDispBright);
-    setAuxLED(1, 0, 0, 0);
-    if (disableLEDs == 1) {
-      FastLED.clear();
-    }
+    setAuxLED(0, 0, 0, 204);
+    setAuxLED(1, 0, 0, 204);
     FastLED.show();
     Serial.printf("Current State of disableLEDs: %d\n\n", disableLEDs);
   }
@@ -214,9 +190,6 @@ void genSetup() {
   sleepTime[0] = nvsObj.getInt("sleepHR");
   sleepTime[1] = nvsObj.getInt("sleepMIN");
   utcOffset = nvsObj.getInt("utcOffset");
-
-  // TEMPORARY
-  brightVal = defDispBright;
 
   #ifdef DEBUG
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
@@ -374,8 +347,8 @@ void timeDisplay(uint8_t hue, uint8_t sat) {
 
   // Set LEDs on for 7 segment displays
   for (uint8_t i = 0; i < 2; i++) {
-    setDigitLED(partH[i], hue, sat, 127, i);
-    setDigitLED(partM[i], hue, sat, 127, i + 2);
+    setDigitLED(partH[i], hue, sat, 64, i);
+    setDigitLED(partM[i], hue, sat, 64, i + 2);
   }
 }
 

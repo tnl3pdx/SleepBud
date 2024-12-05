@@ -12220,7 +12220,7 @@
 		)
 		(uuid "32d91ea5-c4e8-4687-829a-190a6d8f1862")
 	)
-	(text "Barrel Jack Power Supply 9V/3A"
+	(text "Barrel Jack Power Supply 5V/4A"
 		(exclude_from_sim no)
 		(at 63.5 182.626 0)
 		(effects

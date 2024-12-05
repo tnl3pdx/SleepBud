@@ -22,12 +22,6 @@
 //***** Defines *****//
 #define DEBUG
 
-// Pin Definitions
-const byte modeButton = 21;  // Button 0: Mode button
-const byte minusButton = 14; // Button 1: Minus button
-const byte plusButton = 32;  // Button 2: Plus button
-const byte selectButton = 15; // Button 3: Select button
-
 // Global Variables
 volatile bool modeButtonPressed = false;
 volatile bool minusButtonPressed = false;
@@ -126,15 +120,15 @@ void setup() {
   Serial.begin(115200);
 
   // Initialize Buttons
-  pinMode(modeButton, INPUT_PULLUP);
-  pinMode(minusButton, INPUT_PULLUP);
-  pinMode(plusButton, INPUT_PULLUP);
-  pinMode(selectButton, INPUT_PULLUP);
+  pinMode(MODEBUTTON, INPUT_PULLUP);
+  pinMode(DOWNBUTTON, INPUT_PULLUP);
+  pinMode(UPBUTTON, INPUT_PULLUP);
+  pinMode(SWITCHBUTTON, INPUT_PULLUP);
 
-  attachInterrupt(digitalPinToInterrupt(modeButton), ISR_modeButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(minusButton), ISR_minusButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(plusButton), ISR_plusButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(selectButton), ISR_selectButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(MODEBUTTON), ISR_modeButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(DOWNBUTTON), ISR_minusButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(UPBUTTON), ISR_plusButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(SWITCHBUTTON), ISR_selectButton, FALLING);
 
   // Where is this for you?
   // // Initialize LEDs

@@ -4,4 +4,7 @@
   (lib (name "Boot Option")(type "KiCad")(uri "${KIPRJMOD}/Boot Option.kicad_sym")(options "")(descr ""))
   (lib (name "JTAG Pads")(type "KiCad")(uri "${KIPRJMOD}/JTAG Pads.kicad_sym")(options "")(descr ""))
   (lib (name "UART Pads")(type "KiCad")(uri "${KIPRJMOD}/UART Pads.kicad_sym")(options "")(descr ""))
+  (lib (name "LampSignals")(type "KiCad")(uri "${KIPRJMOD}/LampSignals.kicad_sym")(options "")(descr ""))
+  (lib (name "WS2812B Pads")(type "KiCad")(uri "${KIPRJMOD}/WS2812B Pads.kicad_sym")(options "")(descr ""))
+  (lib (name "DMG3415U-7")(type "KiCad")(uri "C:/Users/Owner/Downloads/DMG3415U_7/DMG3415U-7.kicad_sym")(options "")(descr ""))
 )

@@ -528,10 +528,37 @@ void handleMode2() {
   }
 }
 
+// red is 0 so negative
+// neutral so 1 is white 
+// green is 2 so positive
+
+
+//short UTC_offset_array[38][3] = {-12:00, -11:00, -10:00, -09:30, -09:00, -08:00, -07:00, -06:00, -05:00, -04:00, -03:30, -03:00, -02:00, -01:00, 00:00, +01:00, +02:00, +03:00, +03:30, +04:00, +04:30, +05:00, +05:30, +05:45, +06:00, +06:30, +07:00, +08:00, +08:45, +09:00, +09:30, +10:00, +10:30, +11:00, +12:00, +12:45, +13:00, +14:00 };
+short UTC_offset_array[38][3] = 
+  {
+    {12, 0, 0},   {11, 0, 0},   {10, 0, 0},   {9, 30, 0}, 
+    {9, 0, 0},    {8, 0, 0},    {7, 0, 0},    {6, 0, 0}, 
+    {5, 0, 0},    {4, 0, 0},    {3, 30, 0},   {3, 0, 0}, 
+    {2, 0, 0},    {1, 0, 0},    {0, 0, 2},    {1, 0, 2}, 
+    {2, 0, 2},    {3, 0, 2},    {3, 30, 2},   {4, 0, 2}, 
+    {4, 30, 2},   {5, 0, 2},    {5, 30, 2},   {5, 45, 2}, 
+    {6, 0, 2},    {6, 30, 2},   {7, 0, 2},    {8, 0, 2}, 
+    {8, 45, 2},   {9, 0, 2},    {9, 30, 2},   {10, 0, 2}, 
+    {10, 30, 2},  {11, 0, 2},   {12, 0, 2},   {12, 45, 2}, 
+    {13, 0, 2},   {14, 0, 2}
+};
+
 void handleMode3() {
+// This should be an integer value that is either positive or negative or zero
+// This requires a HH:MM to a int seconds value to pass to utcoffset func
+
+  int start_UTC_array= 15; //start at 0
+
   if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     minusButtonPressed = false;
+    //UTC_offset_array[start_UTC_array]
+
     adjustTimeField(utcOffset, false);
   }
 

@@ -23,6 +23,7 @@ int modeCounter = 0; // Modes: 0 - 3
 bool alarmSet = false; // Alarm state (off/on)
 bool alarmActive = false; // Alarm currently ringing
 uint8_t brightness = 50; // Default brightness (mode 0)
+uint8_t setDisplayTime[4] = {0, 0, 0, 0}; //displayed time
 uint8_t alarmTime[4] = {0, 0, 0, 0}; // Alarm time (HH:MM)
 uint8_t utcOffset[4] = {0, 0, 0, 0}; // UTC Offset (HH:MM)
 uint8_t currentField = 0; // Field selector for modes 1 and 3
@@ -41,6 +42,8 @@ void handleMode0();
 void handleMode1();
 void handleMode2();
 void handleMode3();
+void handleMode4();
+
 
 void setup() {
   Serial.begin(115200);
@@ -69,7 +72,7 @@ void loop() {
   if (modeButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     modeButtonPressed = false;
-    modeCounter = (modeCounter + 1) % 4; // Cycle through modes 0-3
+    modeCounter = (modeCounter + 1) % 5; // Cycle through modes 0-3
     updateModeIndicator();
     Serial.printf("Mode changed to: %d\n", modeCounter);
   }
@@ -87,6 +90,9 @@ void loop() {
       break;
     case 3:
       handleMode3();
+      break;
+    case 4:
+      handleMode4();
       break;
   }
 }
@@ -106,6 +112,8 @@ void updateModeIndicator() {
     case 1: color = CRGB::Red; break;    // Alarm set mode
     case 2: color = CRGB::Blue; break;   // Alarm active mode
     case 3: color = CRGB::Green; break;  // UTC offset mode
+    case 4: color = CRGB::Orange; break;  // manually set time
+
   }
   leds[0] = color; // Use the first LED to indicate the mode
   FastLED.show();
@@ -136,6 +144,9 @@ void handleMode0() {
     selectButtonPressed = false;
     alarmActive = false;
     Serial.println("Alarm snoozed");
+    Serial.printf("Time adjusted: %02d:%02d\n", setDisplayTime[0] * 10 + setDisplayTime[1], setDisplayTime[2] * 10 + setDisplayTime[3]);
+
+
   }
 }
 
@@ -191,6 +202,38 @@ void handleMode3() {
     Serial.printf("Selected field: %d\n", currentField);
   }
 }
+
+void handleMode4() {
+  // Decrease selected field value
+  if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    minusButtonPressed = false;
+    adjustTimeField(setDisplayTime, false); // Decrease selected field
+    Serial.println("Minus button pressed: Time adjusted");
+  }
+
+  // Increase selected field value
+  if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    plusButtonPressed = false;
+    adjustTimeField(setDisplayTime, true); // Increase selected field
+    Serial.println("Plus button pressed: Time adjusted");
+  }
+
+  // Move to the next field
+  if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
+    lastPressTime = millis();
+    selectButtonPressed = false;
+    currentField = (currentField + 1) % 4; // Cycle through fields 0 to 3
+    Serial.printf("Field selected: %d\n", currentField);
+  }
+
+  // Provide LED feedback for the selected field
+  FastLED.clear();
+  leds[currentField] = CRGB::Orange; // Highlight the current field in Orange
+  FastLED.show();
+}
+
 
 // Adjust Time Field Helper Function
 void adjustTimeField(uint8_t* timeArray, bool increase) {

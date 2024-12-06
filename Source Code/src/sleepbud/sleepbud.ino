@@ -31,9 +31,9 @@ int modeCounter = 0; // Modes: 0 - 3
 bool alarmSet = false; // Alarm state (off/on)
 bool alarmActive = false; // Alarm currently ringing
 uint8_t brightness = 50; // Default brightness (mode 0)
-uint8_t setDisplayTime[4] = {0, 0, 0, 0}; //displayed time // This is the global time switch to another global time????
-uint8_t alarmTime[4] = {0, 0, 0, 0}; // Alarm time (HH:MM)
-uint8_t utcOffset[4] = {0, 0, 0, 0}; // UTC Offset (HH:MM)
+// uint8_t setDisplayTime[4] = {0, 0, 0, 0}; //displayed time // This is the global time switch to another global time????
+// uint8_t alarmTime[4] = {0, 0, 0, 0}; // Alarm time (HH:MM)
+// uint8_t utcOffset[4] = {0, 0, 0, 0}; // UTC Offset (HH:MM)
 uint8_t currentField = 0; // Field selector for modes 1 and 3
 
 // Timer for Debounce
@@ -118,23 +118,6 @@ const char *pswrd = WIFI_PASSWORD;
 //***** Main Program *****//
 void setup() {
   Serial.begin(115200);
-
-  // Initialize Buttons
-  pinMode(MODEBUTTON, INPUT_PULLUP);
-  pinMode(DOWNBUTTON, INPUT_PULLUP);
-  pinMode(UPBUTTON, INPUT_PULLUP);
-  pinMode(SWITCHBUTTON, INPUT_PULLUP);
-
-  attachInterrupt(digitalPinToInterrupt(MODEBUTTON), ISR_modeButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(DOWNBUTTON), ISR_minusButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(UPBUTTON), ISR_plusButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(SWITCHBUTTON), ISR_selectButton, FALLING);
-
-  // Where is this for you?
-  // // Initialize LEDs
-  // FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
-  // FastLED.clear();
-  // FastLED.show();
 
   genSetup();
 
@@ -250,6 +233,18 @@ void genSetup() {
 
   // Setup PIR pin
   pinMode(PIRPIN, INPUT_PULLDOWN);
+
+    // Initialize Buttons
+  pinMode(MODEBUTTON, INPUT_PULLUP);
+  pinMode(DOWNBUTTON, INPUT_PULLUP);
+  pinMode(UPBUTTON, INPUT_PULLUP);
+  pinMode(SWITCHBUTTON, INPUT_PULLUP);
+
+  //Interupts (maybe switch to polling?)
+  attachInterrupt(digitalPinToInterrupt(MODEBUTTON), ISR_modeButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(DOWNBUTTON), ISR_minusButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(UPBUTTON), ISR_plusButton, FALLING);
+  attachInterrupt(digitalPinToInterrupt(SWITCHBUTTON), ISR_selectButton, FALLING);
 
 
   //** Fetch parameters from non-volatile memory
@@ -476,6 +471,8 @@ void updateModeIndicator() {
 
 // Mode Handlers
 void handleMode0() {
+
+  normalLoop();
   if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     minusButtonPressed = false;

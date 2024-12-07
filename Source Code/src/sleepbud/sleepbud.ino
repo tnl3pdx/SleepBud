@@ -88,6 +88,8 @@ Preferences nvsObj;
 //***** Global Variables *****//
 uint8_t hms[3];
 uint8_t alrm[] = {23, 22, 0};
+
+/* Not Flipped
 uint8_t ledRef[10][7] = {
   {1, 1, 1, 1, 1, 1, 0},    // 0
   {0, 0, 0, 0, 1, 1, 0},    // 1
@@ -100,6 +102,24 @@ uint8_t ledRef[10][7] = {
   {1, 1, 1, 1, 1, 1, 1},    // 8
   {1, 1, 0, 1, 1, 1, 1},    // 9
 };
+*/
+
+// Flipped
+uint8_t ledRef[10][7] = {
+  {1, 1, 1, 1, 1, 1, 0},    // 0
+  {0, 1, 1, 0, 0, 0, 0},    // 1
+  {1, 0, 1, 1, 0, 1, 1},    // 2
+  {1, 1, 1, 1, 0, 0, 1},    // 3
+  {0, 1, 1, 0, 1, 0, 1},    // 4
+  {1, 1, 0, 1, 1, 0, 1},    // 5
+  {1, 1, 0, 1, 1, 1, 1},    // 6
+  {0, 1, 1, 1, 0, 0, 0},    // 7
+  {1, 1, 1, 1, 1, 1, 1},    // 8
+  {1, 1, 1, 1, 1, 0, 1},    // 9
+
+
+*/
+
 
 //* Configuration Variables
 bool timeUpdate;
@@ -131,7 +151,7 @@ void setup() {
 
 void loop() {
 
-
+  /*
   // Handle mode button press
   if (modeButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
@@ -159,6 +179,7 @@ void loop() {
       handleMode4();
       break;
   }
+  */
 
 // Should this be added into mode 0????
 
@@ -234,7 +255,11 @@ void genSetup() {
   // Setup PIR pin
   pinMode(PIRPIN, INPUT_PULLDOWN);
 
-    // Initialize Buttons
+  // Setup Buzzer Pin
+  pinMode(BUZZPIN, OUTPUT);
+  digitalWrite(BUZZPIN, LOW);
+
+  // Initialize Buttons
   pinMode(MODEBUTTON, INPUT_PULLUP);
   pinMode(DOWNBUTTON, INPUT_PULLUP);
   pinMode(UPBUTTON, INPUT_PULLUP);
@@ -304,7 +329,7 @@ void genSetup() {
   FastLED.show();
 
   //** RTC Setup
-  if (!RTC.begin()) {
+  if (!RTC.isConnected()) {
     Serial.printf("RTC object failed to start, looping...\n");
     while(1);
   }
@@ -496,7 +521,7 @@ void handleMode0() {
     selectButtonPressed = false;
     alarmActive = false;
     Serial.println("Alarm snoozed");
-    Serial.printf("Time adjusted: %02d:%02d\n", setDisplayTime[0] * 10 + setDisplayTime[1], setDisplayTime[2] * 10 + setDisplayTime[3]);
+    //Serial.printf("Time adjusted: %02d:%02d\n", setDisplayTime[0] * 10 + setDisplayTime[1], setDisplayTime[2] * 10 + setDisplayTime[3]);
   }
 }
 
@@ -504,13 +529,13 @@ void handleMode1() {
   if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     minusButtonPressed = false;
-    adjustTimeField(alarmTime, false);
+    //adjustTimeField(alarmTime, false);
   }
 
   if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     plusButtonPressed = false;
-    adjustTimeField(alarmTime, true);
+    //adjustTimeField(alarmTime, true);
   }
 
   if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
@@ -564,13 +589,13 @@ void handleMode3() {
     minusButtonPressed = false;
     //UTC_offset_array[start_UTC_array]
 
-    adjustTimeField(utcOffset, false);
+    //adjustTimeField(utcOffset, false);
   }
 
   if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     plusButtonPressed = false;
-    adjustTimeField(utcOffset, true);
+    //adjustTimeField(utcOffset, true);
   }
 
   if (selectButtonPressed && millis() - lastPressTime > debounceInterval) {
@@ -586,7 +611,7 @@ void handleMode4() {
   if (minusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     minusButtonPressed = false;
-    adjustTimeField(setDisplayTime, false); // Decrease selected field
+    //adjustTimeField(setDisplayTime, false); // Decrease selected field
     Serial.println("Minus button pressed: Time adjusted");
   }
 
@@ -594,7 +619,7 @@ void handleMode4() {
   if (plusButtonPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     plusButtonPressed = false;
-    adjustTimeField(setDisplayTime, true); // Increase selected field
+    //adjustTimeField(setDisplayTime, true); // Increase selected field
     Serial.println("Plus button pressed: Time adjusted");
   }
 
@@ -608,7 +633,7 @@ void handleMode4() {
 
   // Provide LED feedback for the selected field
   FastLED.clear();
-  leds[currentField] = CRGB::Orange; // Highlight the current field in Orange
+  //leds[currentField] = CRGB::Orange; // Highlight the current field in Orange
   FastLED.show();
 }
 

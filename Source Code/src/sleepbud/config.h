@@ -5,10 +5,11 @@
 */
 
 // LED Pin Defines
-#define DIGIPIN0 13
-#define DIGIPIN1 12
-#define DIGIPIN2 10
-#define DIGIPIN3 9
+#define DIGIPIN0 9
+#define DIGIPIN1 10
+#define DIGIPIN2 12
+#define DIGIPIN3 13
+
 #define MODEPIN  11
 #define LAMPPIN  14
 

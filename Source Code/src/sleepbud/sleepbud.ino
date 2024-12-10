@@ -47,6 +47,7 @@ Does mode 4 manually set the time correctly (check mode 0 for time changed)
 
 //***** Defines *****//
 #define DEBUG
+#define TOTALBUTTONS 4
 
 //***** Function Prototypes *****//
 
@@ -131,17 +132,17 @@ uint8_t ledRef[10][7] = {
 volatile bool minusPressed  = 0;
 volatile bool plusPressed   = 0;
 volatile bool selectPressed = 0;
-volatile bool pressed = 0;
+volatile bool pressed[TOTALBUTTONS] = {0};
 
 //* Menu UI Variables
 int     modeCounter     = 0;  // Modes: 0 - 3
 bool    alarmSet        = 0;  // Alarm state (off/on)
 bool    alarmActive     = 1;  // Alarm currently ringing
-uint8_t currentField    = 0;  // Field selector for modes 1 and 3
+uint8_t currentField    = 0;  // Field select or for modes 1 and 3
 
 //* Timer for Debounce
 unsigned long       lastPressTime     = 0;    // Last button press time
-const unsigned long debounceInterval  = 75;  // Debounce interval
+const unsigned long debounceInterval  = 40;   // Debounce interval
 
 //* Data Values for Clock
 uint8_t hms[3];
@@ -205,36 +206,60 @@ void pollButtons() {
 
   // Reset pressed state for mode button
   if (digitalRead(MODEBUTTON) == 1) {
-    pressed = 0;
+    pressed[0] = 0;
+  }
+
+    // Reset pressed state for UP button
+  if (digitalRead(UPBUTTON) == 1) {
+    pressed[1] = 0;
+  }
+
+    // Reset pressed state for DOWN button
+  if (digitalRead(DOWNBUTTON) == 1) {
+    pressed[2] = 0;
+  }
+  
+  // Reset pressed state for select button
+  if (digitalRead(SWITCHBUTTON) == 1) {
+    pressed[3] = 0;
   }
   
 	// Check if there has been a button pressed recently
   if (millis() - lastPressTime > debounceInterval) {
 		if (digitalRead(MODEBUTTON) == 0) {
       // Check if mode button has been released (one press -> one action only)
-      if (!pressed) {
+      if (!pressed[0]) {
         modeCounter = (modeCounter + 1) % 5;
         #ifdef DEBUG
         Serial.printf("Mode changed to: %d\n", modeCounter);
         #endif
         updateModeIndicator();
-        pressed = 1;
+        pressed[0] = 1;
       }
     } else if (digitalRead(UPBUTTON) == 0) {
-      plusPressed = 1;
-      #ifdef DEBUG
-      Serial.printf("Plus Pressed\n");
-      #endif
+      if (!pressed[1]) {
+        plusPressed = 1;
+        #ifdef DEBUG
+        Serial.printf("Plus Pressed\n");
+        #endif
+        pressed[1] = 1;
+      }
     } else if (digitalRead(DOWNBUTTON) == 0) {
-      minusPressed = 1;
-      #ifdef DEBUG
-      Serial.printf("Minus Pressed\n");
-      #endif
+      if (!pressed[2]) {
+        minusPressed = 1;
+        #ifdef DEBUG
+        Serial.printf("Minus Pressed\n");
+        #endif
+        pressed[2] = 1;
+      }
     } else if (digitalRead(SWITCHBUTTON) == 0) {
-      selectPressed = 1;
-      #ifdef DEBUG
-      Serial.printf("Select Pressed\n");
-      #endif
+      if (!pressed[3]) {
+        selectPressed = 1;
+        #ifdef DEBUG
+        Serial.printf("Select Pressed\n");
+        #endif
+        pressed[3] = 1;
+      }
     }
 		lastPressTime = millis();
 	}

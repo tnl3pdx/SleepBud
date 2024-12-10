@@ -5,20 +5,23 @@
 */
 
 // LED Pin Defines
-#define DIGIPIN0 9
-#define DIGIPIN1 10
-#define DIGIPIN2 12
-#define DIGIPIN3 13
+#define DIGIPIN0  9
+#define DIGIPIN1  10
+#define DIGIPIN2  12
+#define DIGIPIN3  13
 
-#define MODEPIN  11
-#define LAMPPIN  14
+#define MODEPIN   11
+#define LAMPPIN   14
 
 // I2C Pins
-#define SDAPIN  36
-#define SCLPIN  35
+#define SDAPIN    36
+#define SCLPIN    35
 
 // TXS0108E Pins
-#define TXSPIN   38
+#define TXSPIN    38
+
+// DS3231SN Pins
+#define DSINT     37
 
 // Number of LEDS for LED arrays
 #define NDIGILEDS 7

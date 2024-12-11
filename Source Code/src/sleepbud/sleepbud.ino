@@ -74,7 +74,7 @@ void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
 
 // Debug Functions
 void testLEDs();
-
+void testDigits();
 
 
 //***** Objects *****//
@@ -178,7 +178,11 @@ void setup() {
 
 void loop() {
 	
-	pollButtons();
+	//pollButtons();
+
+  //testLEDs();
+
+  testDigits();
 	
   /*
   // Handle modes
@@ -685,3 +689,18 @@ void testLEDs() {
 
 }
 
+void testDigits() {
+  int i = 0;
+  int j = 0;
+
+  for (i = 0; i < 9; i++) {
+    for (j = 0; j < 4; j++) {
+      setDigitLED(i, 0, 0, 50, j);
+    }
+  }
+  setAuxLED(0, 0, 0, 50);
+  setAuxLED(1, 0, 0, 50);
+
+  FastLED.show();
+  delay(5000);
+}

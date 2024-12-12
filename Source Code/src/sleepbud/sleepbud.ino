@@ -48,6 +48,7 @@ Does mode 4 manually set the time correctly (check mode 0 for time changed)
 //***** Defines *****//
 #define DEBUG
 #define TOTALBUTTONS 4
+#define TOTALCOLORS 6
 
 //***** Function Prototypes *****//
 
@@ -83,6 +84,16 @@ void testDigits();
 CRGB digiLEDS[4][NDIGILEDS];
 CRGB modeLEDS[NMODELEDS];
 CRGB lampLEDS[NLAMPLEDS];
+
+// Define an array of colors
+int colorTable[TOTALCOLORS][2] = {
+    {0, 0},       // White
+    {0, 255},     // Red
+    {85, 255},    // Green
+    {170, 255},   // Blue
+    {42, 255},    // Yellow
+    {212, 255}    // Purple
+};
 
 //* RTC and WiFi Objects
 static DS3231 RTC;
@@ -276,9 +287,9 @@ void updateModeIndicator() {
 
   switch (modeCounter) {
     case 0: hue = 0; sat = 0;       break;    // White
-    case 1: hue = 0; sat = 192;     break;    // Red
-    case 2: hue = 0; sat = 0;       break;    // Green
-    case 3: hue = 0; sat = 0;       break;    // Blue
+    case 1: hue = 0; sat = 255;     break;    // Red
+    case 2: hue = 85; sat = 255;       break;    // Green
+    case 3: hue = 170; sat = 255;       break;    // Blue
   }
 
   setAuxLED(0, hue, sat, dispBrightVal);

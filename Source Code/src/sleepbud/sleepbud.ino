@@ -55,6 +55,7 @@ Does mode 4 manually set the time correctly (check mode 0 for time changed)
 
 // Menu UI Functions
 void pollButtons();
+void pollPIR();
 void updateModeIndicator();
 void ui_normalLoop();
 void ui_configTime();
@@ -72,6 +73,8 @@ void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select)
 void timeDisplay(uint8_t hue, uint8_t sat);
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
 
+// ISR Functions
+void alarmISR();
 
 // Debug Functions
 void testLEDs();
@@ -186,6 +189,8 @@ void setup() {
   }
 
   Serial.println("Setup complete");
+  setAuxLED(0, 0, 0, dispBrightVal);
+  setAuxLED(1, 0, 0, lampBrightVal);
 }
 
 void loop() {
@@ -281,15 +286,21 @@ void pollButtons() {
 
 }
 
+void pollPIR () {
+  return;
+}
+
 // Update Mode Indicator
 void updateModeIndicator() {
   uint8_t hue, sat;
 
   switch (modeCounter) {
-    case 0: hue = 0; sat = 0;       break;    // White
-    case 1: hue = 0; sat = 255;     break;    // Red
-    case 2: hue = 85; sat = 255;       break;    // Green
-    case 3: hue = 170; sat = 255;       break;    // Blue
+    case 0: hue = 0; sat = 0;         break;    // White
+    case 1: hue = 0; sat = 255;       break;    // Red
+    case 2: hue = 85; sat = 255;      break;    // Green
+    case 3: hue = 170; sat = 255;     break;    // Blue
+    case 4: hue = 42; sat = 255;      break;    // Yellow
+    case 5: hue = 212; sat = 255;     break;    // Purple
   }
 
   setAuxLED(0, hue, sat, dispBrightVal);
@@ -302,33 +313,40 @@ void ui_normalLoop() {
   // Display Time
   if(RTC.isRunning()) {
     #ifdef DEBUG
-    Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
+    //Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
     timeDisplay(0, 0);
-    setAuxLED(0, 0, 0, 204);
-    setAuxLED(1, 0, 0, 204);
     FastLED.show();
   }
 
   if (plusPressed) {
     lampBrightVal = constrain(lampBrightVal + 10, 0, maxLampBright);
 
-    //setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+    setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
 
     Serial.printf("Brightness increased to: %d\n", lampBrightVal);
+
+    nvsObj.begin("config", false);
+    nvsObj.putInt("lampBrightVal", lampBrightVal);
+    nvsObj.end();
 
     plusPressed = 0;
   } else if (minusPressed) {
     lampBrightVal = constrain(lampBrightVal - 10, 0, maxLampBright);
 
-    //setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+    setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
 
     Serial.printf("Brightness decreased to: %d\n", lampBrightVal);
+
+    nvsObj.begin("config", false);
+    nvsObj.putInt("lampBrightVal", lampBrightVal);
+    nvsObj.end();
 
     minusPressed = 0;
   } else if (selectPressed) {
     if (alarmActive) {
       RTC.clearAlarm1();
+      digitalWrite(BUZZPIN, LOW);
       alarmActive = 0;
     } else {
       colorPick = (colorPick + 1) % TOTALCOLORS;
@@ -344,7 +362,7 @@ void ui_normalLoop() {
 
 void ui_configTime() {
 
-  return;
+  
 
   /*
   // Decrease selected field value
@@ -417,52 +435,54 @@ void ui_alarmSet() {
   */
 }
 
-
 void ui_selectUTC() {
 
   if (plusPressed) {
     utcOffset = constrain(utcOffset + 1, 0, 37);
     Serial.printf("UTC Array Selection: %d\n", utcOffset);
 
+    nvsObj.begin("config", false);
+    nvsObj.putInt("utcOffset", utcOffset);
+    nvsObj.end();
+
     plusPressed = 0;
   } else if (minusPressed) {
     utcOffset = constrain(utcOffset - 1, 0, 37);
     Serial.printf("UTC Array Selection: %d\n", utcOffset);
+
+    nvsObj.begin("config", false);
+    nvsObj.putInt("utcOffset", utcOffset);
+    nvsObj.end();
 
     minusPressed = 0;
   } else if (selectPressed) {
     selectPressed = 0; 
   }
 
-
-
-
-  int start_UTC_array= 15; //start at 0
-
-  if (minusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    minusPressed = false;
-    //UTC_offset_array[start_UTC_array]
-
-    //adjustTimeField(utcOffset, false);
-  }
-
-  if (plusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    plusPressed = false;
-    //adjustTimeField(utcOffset, true);
-  }
-
-  if (selectPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    selectPressed = false;
-    currentField = (currentField + 1) % 4;
-    Serial.printf("Selected field: %d\n", currentField);
-  }
 }
 
 void ui_enableNTPUpdate() {
-  return;
+    if (plusPressed) {
+    utcOffset = constrain(utcOffset + 1, 0, 37);
+    Serial.printf("UTC Array Selection: %d\n", utcOffset);
+
+    nvsObj.begin("config", false);
+    nvsObj.putInt("utcOffset", utcOffset);
+    nvsObj.end();
+
+    plusPressed = 0;
+  } else if (minusPressed) {
+    utcOffset = constrain(utcOffset - 1, 0, 37);
+    Serial.printf("UTC Array Selection: %d\n", utcOffset);
+
+    nvsObj.begin("config", false);
+    nvsObj.putInt("utcOffset", utcOffset);
+    nvsObj.end();
+
+    minusPressed = 0;
+  } else if (selectPressed) {
+    selectPressed = 0; 
+  }
 }
 
 void genSetup() {
@@ -484,19 +504,15 @@ void genSetup() {
   pinMode(BUZZPIN, OUTPUT);
   digitalWrite(BUZZPIN, LOW);
 
+  // Setup RTC Interrupt Pin
+  pinMode(DSINT, INPUT);
+  attachInterrupt(digitalPinToInterrupt(DSINT), alarmISR, FALLING);
+
   // Initialize Buttons
   pinMode(MODEBUTTON, INPUT_PULLUP);
   pinMode(DOWNBUTTON, INPUT_PULLUP);
   pinMode(UPBUTTON, INPUT_PULLUP);
   pinMode(SWITCHBUTTON, INPUT_PULLUP);
-
-  /*
-  //Interupts (maybe switch to polling?)
-  attachInterrupt(digitalPinToInterrupt(MODEBUTTON), ISR_modeButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(DOWNBUTTON), ISR_minusButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(UPBUTTON), ISR_plusButton, FALLING);
-  attachInterrupt(digitalPinToInterrupt(SWITCHBUTTON), ISR_selectButton, FALLING);
-  */
 
   //** Fetch parameters from non-volatile memory
   
@@ -512,7 +528,7 @@ void genSetup() {
 
     // Load config namespace with parameters
     nvsObj.putBool("timeUpdate", 1);
-    nvsObj.putInt("lampBrightnessVal", 50);
+    nvsObj.putInt("lampBrightVal", 50);
     nvsObj.putInt("utcOffset", 15);
 
     nvsObj.putBool("configInit", 1);        // Set "already init" status for namespace
@@ -526,6 +542,8 @@ void genSetup() {
   timeUpdate = nvsObj.getBool("timeUpdate");
   lampBrightVal = nvsObj.getInt("lampBrightVal");
   utcOffset = nvsObj.getInt("utcOffset");
+
+  nvsObj.end();
 
   #ifdef DEBUG
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
@@ -554,7 +572,7 @@ void genSetup() {
     Serial.printf("RTC object failed to start, looping...\n");
     while(1);
   }
-  RTC.setHourMode(CLOCK_H24);
+  RTC.setHourMode(CLOCK_H12);
   RTC.enableAlarmPin();
 
   #ifdef DEBUG
@@ -688,6 +706,11 @@ void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
   } 
 }
 
+void alarmISR() {
+  digitalWrite(BUZZPIN, HIGH);
+  alarmActive = 1;
+}
+
 // Adjust Time Field Helper Function
 void adjustTimeField(uint8_t* timeArray, bool increase) {
   if (currentField == 0) {
@@ -700,8 +723,6 @@ void adjustTimeField(uint8_t* timeArray, bool increase) {
 
   Serial.printf("Time adjusted: %02d:%02d\n", timeArray[0] * 10 + timeArray[1], timeArray[2] * 10 + timeArray[3]);
 }
-
-
 
 /*  Debugging Functions   */
 void testLEDs() {

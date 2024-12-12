@@ -693,14 +693,14 @@ void testDigits() {
   int i = 0;
   int j = 0;
 
-  for (i = 0; i < 9; i++) {
+  for (i = 0; i < 10; i++) {
     for (j = 0; j < 4; j++) {
       setDigitLED(i, 0, 0, 50, j);
+      setAuxLED(0, 0, 0, 50);
+      setAuxLED(1, 0, 0, 50);
+      FastLED.show();
     }
   }
-  setAuxLED(0, 0, 0, 50);
-  setAuxLED(1, 0, 0, 50);
-
-  FastLED.show();
+  
   delay(5000);
 }

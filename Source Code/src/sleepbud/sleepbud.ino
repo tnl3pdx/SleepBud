@@ -277,8 +277,8 @@ void updateModeIndicator() {
   switch (modeCounter) {
     case 0: hue = 0; sat = 0;       break;    // White
     case 1: hue = 0; sat = 192;     break;    // Red
-    case 2: hue = 0; sat = 0;       break;    // Alarm active mode
-    case 3: hue = 0; sat = 0;       break;    // UTC offset mode
+    case 2: hue = 0; sat = 0;       break;    // Green
+    case 3: hue = 0; sat = 0;       break;    // Blue
   }
 
   setAuxLED(0, hue, sat, dispBrightVal);

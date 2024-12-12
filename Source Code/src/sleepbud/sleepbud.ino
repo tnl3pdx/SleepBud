@@ -715,3 +715,22 @@ void testDigits() {
   
   delay(5000);
 }
+
+// Function to convert hms to total seconds
+uint32_t hmsToSeconds(uint8_t hms[3]) {
+    uint8_t hours = hms[0];
+    uint8_t minutes = hms[1];
+    uint8_t seconds = hms[2];
+    return (hours * 3600) + (minutes * 60) + seconds;
+}
+
+//UTC offset
+uint32_t UTCToSeconds(short utcOffsetArray[38][3]) {
+    short hours = hms[0];
+    short minutes = hms[1];
+    short is_pos = hms[2];
+    if (is_pos == 0) { //0 means negative 1 means 0 and 2 means positive
+      return -1 * ((hours * 3600) + (minutes * 60));
+    }
+    return (hours * 3600) + (minutes * 60);
+}

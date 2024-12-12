@@ -48,6 +48,7 @@ Does mode 4 manually set the time correctly (check mode 0 for time changed)
 //***** Defines *****//
 #define DEBUG
 #define TOTALBUTTONS 4
+#define NUMMODES  6
 #define TOTALCOLORS 6
 
 //***** Function Prototypes *****//
@@ -70,7 +71,6 @@ void wifiNTP();
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
 void timeDisplay(uint8_t hue, uint8_t sat);
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
-
 
 
 // Debug Functions
@@ -148,7 +148,7 @@ volatile bool pressed[TOTALBUTTONS] = {0};
 //* Menu UI Variables
 int     modeCounter     = 0;  // Modes: 0 - 3
 bool    alarmSet        = 0;  // Alarm state (off/on)
-bool    alarmActive     = 1;  // Alarm currently ringing
+bool    alarmActive     = 0;  // Alarm currently ringing
 uint8_t currentField    = 0;  // Field select or for modes 1 and 3
 
 //* Timer for Debounce
@@ -162,7 +162,6 @@ uint8_t rtcAlarm[3];
 //* Configuration Variables
 bool      timeUpdate;
 uint8_t   lampBrightVal;
-uint8_t   sleepTime[2];
 uint8_t   utcOffset;
 
 //* WiFi Credentials
@@ -171,7 +170,9 @@ const char *pswrd = WIFI_PASSWORD;
 
 //* Setting Variables
 bool resetNVS = 0;
-uint8_t dispBrightVal = 50;
+uint8_t dispBrightVal = 50;   // Default display brightness
+uint8_t maxLampBright = 204;  // 80% of max brightness
+uint8_t colorPick = 0;
 
 
 //***** Main Program *****//
@@ -189,32 +190,31 @@ void setup() {
 
 void loop() {
 	
-	//pollButtons();
-
-  //testLEDs();
-
-  testDigits();
+	pollButtons();
 	
-  /*
+
   // Handle modes
   switch (modeCounter) {
     case 0:
-      handleMode0();
+      ui_normalLoop();
       break;
     case 1:
-      handleMode1();
+      ui_configTime();
       break;
     case 2:
-      handleMode2();
+      ui_enableAlarm();
       break;
     case 3:
-      handleMode3();
+      ui_alarmSet();
       break;
     case 4:
-      handleMode4();
+      ui_selectUTC();
       break;
+    case 5:
+      ui_enableNTPUpdate();
+      break;  
   }
-  */
+
 }
 
 void pollButtons() {
@@ -244,7 +244,7 @@ void pollButtons() {
 		if (digitalRead(MODEBUTTON) == 0) {
       // Check if mode button has been released (one press -> one action only)
       if (!pressed[0]) {
-        modeCounter = (modeCounter + 1) % 5;
+        modeCounter = (modeCounter + 1) % NUMMODES;
         #ifdef DEBUG
         Serial.printf("Mode changed to: %d\n", modeCounter);
         #endif
@@ -310,34 +310,43 @@ void ui_normalLoop() {
     FastLED.show();
   }
 
-  if (minusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    minusPressed = false;
-    lampBrightVal = max(lampBrightVal - 10, 0);
-    FastLED.setBrightness(lampBrightVal);
-    FastLED.show();
-    Serial.printf("Brightness decreased to: %d\n", lampBrightVal);
-  }
+  if (plusPressed) {
+    lampBrightVal = constrain(lampBrightVal + 10, 0, maxLampBright);
 
-  if (plusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    plusPressed = false;
-    lampBrightVal = min(lampBrightVal + 10, 255);
-    FastLED.setBrightness(lampBrightVal);
-    FastLED.show();
+    //setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+
     Serial.printf("Brightness increased to: %d\n", lampBrightVal);
+
+    plusPressed = 0;
+  } else if (minusPressed) {
+    lampBrightVal = constrain(lampBrightVal - 10, 0, maxLampBright);
+
+    //setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+
+    Serial.printf("Brightness decreased to: %d\n", lampBrightVal);
+
+    minusPressed = 0;
+  } else if (selectPressed) {
+    if (alarmActive) {
+      RTC.clearAlarm1();
+      alarmActive = 0;
+    } else {
+      colorPick = (colorPick + 1) % TOTALCOLORS;
+
+      setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+
+      Serial.printf("Color selected is: %d\n", colorPick);
+    }
+  selectPressed = 0; 
   }
 
-  if (selectPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    selectPressed = false;
-    alarmActive = false;
-    Serial.println("Alarm snoozed");
-    //Serial.printf("Time adjusted: %02d:%02d\n", setDisplayTime[0] * 10 + setDisplayTime[1], setDisplayTime[2] * 10 + setDisplayTime[3]);
-  }
 }
 
 void ui_configTime() {
+
+  return;
+
+  /*
   // Decrease selected field value
   if (minusPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
@@ -366,9 +375,12 @@ void ui_configTime() {
   FastLED.clear();
   //leds[currentField] = CRGB::Orange; // Highlight the current field in Orange
   FastLED.show();
+  */
 }
 
 void ui_enableAlarm() {
+  return;
+  /*
   if (selectPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     selectPressed = false;
@@ -378,9 +390,12 @@ void ui_enableAlarm() {
     modeLEDS[1] = alarmSet ? CRGB::White : CRGB::Black; // Indicate alarm set with a white LED
     FastLED.show();
   }
+  */
 }
 
 void ui_alarmSet() {
+  return;
+  /*
   if (minusPressed && millis() - lastPressTime > debounceInterval) {
     lastPressTime = millis();
     minusPressed = false;
@@ -399,11 +414,28 @@ void ui_alarmSet() {
     currentField = (currentField + 1) % 4;
     Serial.printf("Selected field: %d\n", currentField);
   }
+  */
 }
 
+
 void ui_selectUTC() {
-// This should be an integer value that is either positive or negative or zero
-// This requires a HH:MM to a int seconds value to pass to utcoffset func
+
+  if (plusPressed) {
+    utcOffset = constrain(utcOffset + 1, 0, 37);
+    Serial.printf("UTC Array Selection: %d\n", utcOffset);
+
+    plusPressed = 0;
+  } else if (minusPressed) {
+    utcOffset = constrain(utcOffset - 1, 0, 37);
+    Serial.printf("UTC Array Selection: %d\n", utcOffset);
+
+    minusPressed = 0;
+  } else if (selectPressed) {
+    selectPressed = 0; 
+  }
+
+
+
 
   int start_UTC_array= 15; //start at 0
 
@@ -430,7 +462,7 @@ void ui_selectUTC() {
 }
 
 void ui_enableNTPUpdate() {
-
+  return;
 }
 
 void genSetup() {
@@ -481,9 +513,7 @@ void genSetup() {
     // Load config namespace with parameters
     nvsObj.putBool("timeUpdate", 1);
     nvsObj.putInt("lampBrightnessVal", 50);
-    nvsObj.putInt("sleepHR", 0);
-    nvsObj.putInt("sleepMIN", 0);
-    nvsObj.putInt("utcOffset", 0);
+    nvsObj.putInt("utcOffset", 15);
 
     nvsObj.putBool("configInit", 1);        // Set "already init" status for namespace
   }
@@ -495,14 +525,11 @@ void genSetup() {
   // Obtain values from namespace
   timeUpdate = nvsObj.getBool("timeUpdate");
   lampBrightVal = nvsObj.getInt("lampBrightVal");
-  sleepTime[0] = nvsObj.getInt("sleepHR");
-  sleepTime[1] = nvsObj.getInt("sleepMIN");
   utcOffset = nvsObj.getInt("utcOffset");
 
   #ifdef DEBUG
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
   Serial.printf("lampBrightVal obtained is: %d\n", lampBrightVal);
-  Serial.printf("sleepTime obtained is: %d:%d\n", sleepTime[0], sleepTime[1]);
   Serial.printf("utcOffset obtained is: %d\n", utcOffset);
   #endif
 
@@ -566,7 +593,8 @@ void wifiNTP() {
 
   //** Start NTP Communication to fetch current time
   timeClient.begin();
-  timeClient.setTimeOffset(utcOffset);     // Set time offset from saved parameters
+  //timeClient.setTimeOffset(utcOffsetArray[utcOffset]);     // Set time offset from saved parameters
+  timeClient.setTimeOffset(0);
 
   #ifdef DEBUG
   Serial.printf("timeClient started! Time offset set is: %d\n", utcOffset);

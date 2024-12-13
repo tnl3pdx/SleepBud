@@ -44,7 +44,7 @@ Mode 2: (enable alarm mode indicated by green colored colon)
 - (minus button) Button 2 pressed in mode 2 will toggle off (0).
 
 
-Mode 3: (configuration alarm mode indicated by blue colored colon)
+Mode 3: (configuration alarm mode indicated by purple colored colon)
 - This is for setting the alarm time.
 - (mode button) Button 0 pressed in mode 3 will cycle to the next mode and set the new alarm time.
 - (plus button) Button 1 pressed in mode 3 will increase the value of the selected section for the alarm time.
@@ -61,7 +61,7 @@ Mode 4: (select UTC mode indicated by yellow colored colon)
 - In mode 4, when indicating what UTC offset you want when adding a positive offset the digits will be green.
 - In mode 4, when indicating what UTC offset you want when adding a negative offset the digits will be red.
 
-Mode 5: (enable NTP update mode indicated by purple colored colon)
+Mode 5: (enable NTP update mode indicated by pink colored colon)
 - This enables time fetch from wifi and applies UTC offset.
 - (mode button) Button 0 pressed in mode 5 will cycle to the next mode and set enable NTP.
 - (plus button) Button 1 pressed in mode 5 will toggle on (1).

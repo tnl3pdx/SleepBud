@@ -60,7 +60,7 @@ void updateModeIndicator();
 void ui_normalLoop();
 void ui_configTime();
 void ui_enableAlarm();
-void ui_alarmSet();
+void ui_configAlarm();
 void ui_selectUTC();
 void ui_enableNTPUpdate();
 
@@ -70,8 +70,10 @@ void wifiNTP();
 
 // Helper Functions
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
-void timeDisplay(uint8_t hue, uint8_t sat, bool mode);
+void timeDisplay(uint8_t hue, uint8_t sat, uint8_t mode);
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
+uint32_t hmsToSeconds(uint8_t hms[3]);
+long UTCToSeconds(short utcOffsetTriplet[]);
 
 // ISR Functions
 void alarmISR();
@@ -165,7 +167,7 @@ const unsigned int  pirDelay        = 3000;
 
 //* Data Values for Clock
 uint8_t hms[3];
-uint8_t rtcAlarm[3];
+uint8_t rtcAlarm[2];
 
 //* Configuration Variables
 bool      timeUpdate;
@@ -178,10 +180,13 @@ const char *pswrd = WIFI_PASSWORD;
 
 //* Setting Variables
 volatile bool lampEN = 1;
+bool uiDoOnce = 0;
 bool resetNVS = 0;
+int selected_digit = 0;
 uint8_t dispBrightVal = 50;   // Default display brightness
 uint8_t maxLampBright = 204;  // 80% of max brightness
 uint8_t colorPick = 0;
+
 
 
 //***** Main Program *****//
@@ -200,11 +205,6 @@ void setup() {
   }
 
   attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
-
-  // TEST CODE
-  RTC.setAlarm1(23, 56, 0);
-  RTC.enableAlarm1();
-
   Serial.println("Setup complete");
   
 }
@@ -214,6 +214,12 @@ void loop() {
   // Reattach PIR Interrupt
   if ((millis() - lastPIRTrigger > pirDelay) && (!digitalRead(PIRPIN))) {
     attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
+  }
+
+  if (lampEN == 1) {
+    setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+  } else {
+    setAuxLED(1, 0, 0, 0);
   }
 
 	pollButtons();
@@ -230,7 +236,7 @@ void loop() {
       ui_enableAlarm();
       break;
     case 3:
-      ui_alarmSet();
+      ui_configAlarm();
       break;
     case 4:
       ui_selectUTC();
@@ -239,6 +245,8 @@ void loop() {
       ui_enableNTPUpdate();
       break;  
   }
+
+  FastLED.show();
 
 }
 
@@ -278,7 +286,23 @@ void pollButtons() {
             RTC.setTime(hms[0], hms[1], hms[2]);
             RTC.startClock();
           }
+        } else if (modeCounter == 3) {
+            if(RTC.isRunning()) {
+              RTC.setAlarm1(rtcAlarm[0], rtcAlarm[1], 0);
+            }
+            nvsObj.begin("config", false);
+            nvsObj.putInt("alarmHr", rtcAlarm[0]);
+            nvsObj.putInt("alarmMin", rtcAlarm[1]);
+            nvsObj.end();
+        } else if (modeCounter == 4) {
+            nvsObj.begin("config", false);
+            nvsObj.putInt("utcOffset", utcOffset);
+            nvsObj.end();
+            #ifdef DEBUG
+            Serial.printf("UTC changed to: %d\n", utcOffset);
+            #endif
         }
+
         modeCounter = (modeCounter + 1) % NUMMODES;
 
         #ifdef DEBUG
@@ -286,6 +310,9 @@ void pollButtons() {
         #endif
 
         updateModeIndicator();
+
+        selected_digit = 0;
+        uiDoOnce = 0;
         pressed[0] = 1;
       }
     } else if (digitalRead(UPBUTTON) == 0) {
@@ -337,7 +364,7 @@ void updateModeIndicator() {
   uint8_t hue, sat;
 
   switch (modeCounter) {
-    case 0: hue = 0; sat = 0;         break;    // White
+    case 0: hue = 100; sat = 127;     break;    // Teal
     case 1: hue = 0; sat = 255;       break;    // Red
     case 2: hue = 85; sat = 255;      break;    // Green
     case 3: hue = 170; sat = 255;     break;    // Blue
@@ -346,7 +373,6 @@ void updateModeIndicator() {
   }
 
   setAuxLED(0, hue, sat, dispBrightVal);
-  FastLED.show();
 }
 
 // Mode Handlers
@@ -357,17 +383,13 @@ void ui_normalLoop() {
     #ifdef DEBUG
     //Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
-    timeDisplay(0, 0, 0);
 
-    if (lampEN == 1) {
-      setAuxLED(1, colorTable[colorPick][0], colorTable[colorPick][1], lampBrightVal);
+    if (RTC.getHours() > 12) {
+      timeDisplay(0, 0, 0);
     } else {
-      setAuxLED(1, 0, 0, 0);
+      timeDisplay(20, 179, 0);
     }
-
-    FastLED.show();
-
-    Serial.printf("Status of lampEN: %d\n", lampEN);
+    //Serial.printf("Status of lampEN: %d\n", lampEN);
   }
 
   if (plusPressed) {
@@ -405,120 +427,139 @@ void ui_normalLoop() {
 }
 
 void ui_configTime() {
-
   // Start by showing all 0's 
-  hms[0] = RTC.getHours();
-  hms[1] = RTC.getMinutes();
-  hms[2] = 0;
+  if (uiDoOnce == 0) {
+    hms[0] = RTC.getHours();
+    hms[1] = RTC.getMinutes();
+    hms[2] = 0;
+    uiDoOnce = 1;
+  }
 
-  int selected_digit = 0;
-
-// 0 - 24 (hours) and 0 - 59 (minutes) feild
-  if (selectPressed){
+  // 0 - 24 (hours) and 0 - 59 (minutes) feild
+  if (selectPressed) {
     if (selected_digit){
-      selected_digit = 0
+      selected_digit = 0;
     }else if (selected_digit == 0)
     {
-      selected_digit = 1
+      selected_digit = 1;
     }
+    selectPressed = 0;
   }
 
   //Chnaging first and second digits (hours)
   if (selected_digit == 0) {
-    if (plusPressed){
-      hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 24) // only setting 1 or zero for hour
+    if (plusPressed) {
+      hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 24); // only setting 1 or zero for hour
+      plusPressed = 0;
     }
-    if (minusPressed){
-      hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24) // only setting 1 or zero for hour
+    if (minusPressed) {
+      hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
+      minusPressed = 0;
     }
-    timeDisplay(0, 0)
-    FastLED.show();
+    timeDisplay(0, 0, 1);
   }
 
   //Chnaging second and third digits (minutes)
   if (selected_digit == 1) {
     if (plusPressed){
-      hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 59) // only setting 1 or zero for hour
+      hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 59); // only setting 1 or zero for hour
+      plusPressed = 0;
     }
     if (minusPressed){
-      hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59) // only setting 1 or zero for hour
+      hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
+      minusPressed = 0;
     }
-    timeDisplay(0, 0)
-    FastLED.show();
+    timeDisplay(0, 0, 1);
   }
 
-  /*
-  // Decrease selected field value
-  if (minusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    minusPressed = false;
-    //adjustTimeField(setDisplayTime, false); // Decrease selected field
-    Serial.println("Minus button pressed: Time adjusted");
-  }
-
-  // Increase selected field value
-  if (plusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    plusPressed = false;
-    //adjustTimeField(setDisplayTime, true); // Increase selected field
-    Serial.println("Plus button pressed: Time adjusted");
-  }
-
-  // Move to the next field
-  if (selectPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    selectPressed = false;
-    currentField = (currentField + 1) % 4; // Cycle through fields 0 to 3
-    Serial.printf("Field selected: %d\n", currentField);
-  }
-
-  // Provide LED feedback for the selected field
-  FastLED.clear();
-  //leds[currentField] = CRGB::Orange; // Highlight the current field in Orange
-  FastLED.show();
-  */
 }
 
 void ui_enableAlarm() {
-  return;
-  /*
-  if (selectPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    selectPressed = false;
-    alarmSet = !alarmSet;
-    Serial.printf("Alarm set: %s\n", alarmSet ? "ON" : "OFF");
-    modeLEDS[0] = alarmSet ? CRGB::White : CRGB::Black; // Indicate alarm set with a white LED
-    modeLEDS[1] = alarmSet ? CRGB::White : CRGB::Black; // Indicate alarm set with a white LED
-    FastLED.show();
+  
+  hms[0] = 0;
+  hms[1] = (uint8_t)alarmSet;
+
+  timeDisplay(0, 0, 1);
+
+  if (plusPressed) {
+    alarmSet = 1;
+
+    #ifdef DEBUG
+    Serial.printf("alarmSet is: %d\n", alarmSet);
+    #endif
+
+    RTC.enableAlarm1();
+    hms[1] = alarmSet;
+    plusPressed = 0;
+  } else if (minusPressed) {
+    alarmSet = 0;
+
+    #ifdef DEBUG
+    Serial.printf("alarmSet is: %d\n", alarmSet);
+    #endif
+
+    RTC.disableAlarm1();
+    hms[1] = alarmSet;
+    minusPressed = 0;
+  } else if (selectPressed) {
+    selectPressed = 0; 
   }
-  */
 }
 
-void ui_alarmSet() {
-  return;
-  /*
-  if (minusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    minusPressed = false;
-    //adjustTimeField(alarmTime, false);
+void ui_configAlarm() {
+
+  // 0 - 24 (hours) and 0 - 59 (minutes) field
+  if (selectPressed) {
+    if (selected_digit){
+      selected_digit = 0;
+    } else if (selected_digit == 0)
+    {
+      selected_digit = 1;
+    }
+    selectPressed = 0;
   }
 
-  if (plusPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    plusPressed = false;
-    //adjustTimeField(alarmTime, true);
+  //Chnaging first and second digits (hours)
+  if (selected_digit == 0) {
+    if (plusPressed) {
+      rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] + 1, 0, 24); // only setting 1 or zero for hour
+      plusPressed = 0;
+    }
+    if (minusPressed) {
+      rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
+      minusPressed = 0;
+    }
+    timeDisplay(0, 0, 2);
   }
 
-  if (selectPressed && millis() - lastPressTime > debounceInterval) {
-    lastPressTime = millis();
-    selectPressed = false;
-    currentField = (currentField + 1) % 4;
-    Serial.printf("Selected field: %d\n", currentField);
+  //Chnaging second and third digits (minutes)
+  if (selected_digit == 1) {
+    if (plusPressed){
+      rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] + 1, 0, 59); // only setting 1 or zero for hour
+      plusPressed = 0;
+    }
+    if (minusPressed){
+      rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
+      minusPressed = 0;
+    }
+    timeDisplay(0, 0, 2);
   }
-  */
 }
 
 void ui_selectUTC() {
+
+  hms[0] = utcOffsetArray[utcOffset][0];
+  hms[1] = utcOffsetArray[utcOffset][1];
+
+
+  if (UTCToSeconds(utcOffsetArray[utcOffset]) < 0) {
+    timeDisplay(0, 255, 1);
+  } else if (UTCToSeconds(utcOffsetArray[utcOffset]) > 0) {
+    timeDisplay(85, 255, 1);
+  } else {
+    timeDisplay(0, 0, 1);
+  }
+  
 
   if (plusPressed) {
     utcOffset = constrain(utcOffset + 1, 0, 37);
@@ -527,10 +568,6 @@ void ui_selectUTC() {
     Serial.printf("UTC Array Selection: %d\n", utcOffset);
     #endif
 
-    nvsObj.begin("config", false);
-    nvsObj.putInt("utcOffset", utcOffset);
-    nvsObj.end();
-
     plusPressed = 0;
   } else if (minusPressed) {
     utcOffset = constrain(utcOffset - 1, 0, 37);
@@ -538,10 +575,6 @@ void ui_selectUTC() {
     #ifdef DEBUG
     Serial.printf("UTC Array Selection: %d\n", utcOffset);
     #endif
-
-    nvsObj.begin("config", false);
-    nvsObj.putInt("utcOffset", utcOffset);
-    nvsObj.end();
 
     minusPressed = 0;
   } else if (selectPressed) {
@@ -556,7 +589,6 @@ void ui_enableNTPUpdate() {
   hms[1] = (uint8_t)timeUpdate;
 
   timeDisplay(0, 0, 1);
-  FastLED.show();
 
   if (plusPressed) {
     timeUpdate = 1;
@@ -633,7 +665,9 @@ void genSetup() {
     // Load config namespace with parameters
     nvsObj.putBool("timeUpdate", 1);
     nvsObj.putInt("lampBrightVal", 50);
-    nvsObj.putInt("utcOffset", 15);
+    nvsObj.putInt("utcOffset", 14);
+    nvsObj.putInt("alarmHr", 0);
+    nvsObj.putInt("alarmMin", 0);
 
     nvsObj.putBool("configInit", 1);        // Set "already init" status for namespace
   }
@@ -645,7 +679,9 @@ void genSetup() {
   // Obtain values from namespace
   timeUpdate = nvsObj.getBool("timeUpdate");
   lampBrightVal = nvsObj.getInt("lampBrightVal");
-  utcOffset = nvsObj.getInt("utcOffset");
+  utcOffset = nvsObj.getLong("utcOffset");
+  rtcAlarm[0] = nvsObj.getInt("alarmHr");
+  rtcAlarm[1] = nvsObj.getInt("alarmMin");
 
   nvsObj.end();
 
@@ -653,6 +689,9 @@ void genSetup() {
   Serial.printf("timeUpdate obtained is: %d\n", timeUpdate);
   Serial.printf("lampBrightVal obtained is: %d\n", lampBrightVal);
   Serial.printf("utcOffset obtained is: %d\n", utcOffset);
+  Serial.printf("rtcAlarm[0] obtained is: %d\n", rtcAlarm[0]);
+  Serial.printf("rtcAlarm[1] obtained is: %d\n", rtcAlarm[1]);
+  Serial.printf("alarmSet obtained is: %d\n", alarmSet);
   #endif
 
   //** FastLED Setup
@@ -676,10 +715,12 @@ void genSetup() {
     Serial.printf("RTC object failed to start, looping...\n");
     while(1);
   }
-  RTC.setHourMode(CLOCK_H12);
+  RTC.setHourMode(CLOCK_H24);
   RTC.enableAlarmPin();
+  alarmSet = RTC.isAlarm1Enabled();
 
   #ifdef DEBUG
+  Serial.printf("alarmSet obtained is: %d\n", alarmSet);
   Serial.printf("genSetup has finished successfully.\n");
   #endif
 }
@@ -715,11 +756,12 @@ void wifiNTP() {
 
   //** Start NTP Communication to fetch current time
   timeClient.begin();
-  //timeClient.setTimeOffset(utcOffsetArray[utcOffset]);     // Set time offset from saved parameters
-  timeClient.setTimeOffset(0);
+  timeClient.setTimeOffset(UTCToSeconds(utcOffsetArray[utcOffset]));     // Set time offset from saved parameters
 
   #ifdef DEBUG
-  Serial.printf("timeClient started! Time offset set is: %d\n", utcOffset);
+  Serial.printf("timeClient started!\n");
+  Serial.printf("Time offset is: %d:%d\n", utcOffsetArray[utcOffset][0], utcOffsetArray[utcOffset][1]);
+  Serial.printf("Time offset in seconds is: %ld\n", UTCToSeconds(utcOffsetArray[utcOffset]));
   Serial.printf("Stopping RTC clock for configuration\n");
   #endif
 
@@ -775,7 +817,7 @@ void wifiNTP() {
 
 }
 
-void timeDisplay(uint8_t hue, uint8_t sat, bool mode) {
+void timeDisplay(uint8_t hue, uint8_t sat, uint8_t mode) {
   // Mode 0: Normal time fetch from RTC
   // Mode 1: Custom Numbers on display from HMS array
 
@@ -788,9 +830,12 @@ void timeDisplay(uint8_t hue, uint8_t sat, bool mode) {
   if (mode == 0) {
     hour = RTC.getHours();
     min = RTC.getMinutes();
-  } else {
+  } else if (mode == 1) {
     hour = hms[0];
     min = hms[1];
+  } else if (mode == 2) {
+    hour = rtcAlarm[0];
+    min = rtcAlarm[1];
   }
 
   //partH[2] = {(uint8_t)(hour/10), (uint8_t)(hour%10)};
@@ -823,8 +868,14 @@ void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select)
 }
 
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
-  if (type == 0) {              // Configure Mode Color
-    fill_solid(modeLEDS, NMODELEDS, CHSV(hue, sat, val));
+  // Configure Mode Color
+  if (type == 0) {              
+    if (alarmSet == 1 && modeCounter == 0) {
+      modeLEDS[0].setHSV(0, 255, val);
+    } else {
+      modeLEDS[0].setHSV(hue, sat, val);
+    }
+    modeLEDS[1].setHSV(hue, sat, val);
   } else if (type == 1) {       // Configure Lamp Color
     fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, val));
   } 
@@ -909,11 +960,11 @@ uint32_t hmsToSeconds(uint8_t hms[3]) {
     return (hours * 3600) + (minutes * 60) + seconds;
 }
 
-//UTC offset
-uint32_t UTCToSeconds(short utcOffsetArray[38][3]) {
-    short hours = hms[0];
-    short minutes = hms[1];
-    short is_pos = hms[2];
+// UTC offset
+long UTCToSeconds(short utcOffsetTriplet[]) {
+    short hours = utcOffsetTriplet[0];
+    short minutes = utcOffsetTriplet[1];
+    short is_pos = utcOffsetTriplet[2];
     if (is_pos == 0) { //0 means negative 1 means 0 and 2 means positive
       return -1 * ((hours * 3600) + (minutes * 60));
     }

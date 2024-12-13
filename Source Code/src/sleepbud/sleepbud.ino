@@ -249,6 +249,16 @@ void pollButtons() {
 		if (digitalRead(MODEBUTTON) == 0) {
       // Check if mode button has been released (one press -> one action only)
       if (!pressed[0]) {
+
+        // we just left mode 1 and this sets the time
+        if (modeCounter == 1){
+          // This is for after all digits are selected correctly
+          if(RTC.isRunning()) {  // Stop clock for configuration 
+            RTC.stopClock();
+            RTC.setTime(hms[0], hms[1], hms[2]);
+            RTC.startClock();
+          }
+        }
         modeCounter = (modeCounter + 1) % NUMMODES;
         #ifdef DEBUG
         Serial.printf("Mode changed to: %d\n", modeCounter);
@@ -362,7 +372,46 @@ void ui_normalLoop() {
 
 void ui_configTime() {
 
-  
+  // Start by showing all 0's 
+  hms[0] = RTC.getHours();
+  hms[1] = RTC.getMinutes();
+  hms[2] = 0;
+
+  int selected_digit = 0;
+
+// 0 - 24 (hours) and 0 - 59 (minutes) feild
+  if (selectPressed){
+    if (selected_digit){
+      selected_digit = 0
+    }else if (selected_digit == 0)
+    {
+      selected_digit = 1
+    }
+  }
+
+  //Chnaging first and second digits (hours)
+  if (selected_digit == 0) {
+    if (plusPressed){
+      hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 24) // only setting 1 or zero for hour
+    }
+    if (minusPressed){
+      hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24) // only setting 1 or zero for hour
+    }
+    timeDisplay(0, 0)
+    FastLED.show();
+  }
+
+  //Chnaging second and third digits (minutes)
+  if (selected_digit == 1) {
+    if (plusPressed){
+      hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 59) // only setting 1 or zero for hour
+    }
+    if (minusPressed){
+      hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59) // only setting 1 or zero for hour
+    }
+    timeDisplay(0, 0)
+    FastLED.show();
+  }
 
   /*
   // Decrease selected field value

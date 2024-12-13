@@ -43,8 +43,6 @@ Does mode 4 manually set the time correctly (check mode 0 for time changed)
 #include "creds.h"
 #include "config.h"
 
-
-
 //***** Defines *****//
 #define DEBUG
 #define TOTALBUTTONS 4
@@ -72,7 +70,6 @@ void wifiNTP();
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select);
 void timeDisplay(uint8_t hue, uint8_t sat, uint8_t mode);
 void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val);
-uint32_t hmsToSeconds(uint8_t hms[3]);
 long UTCToSeconds(short utcOffsetTriplet[]);
 
 // ISR Functions
@@ -90,16 +87,6 @@ void testDigits();
 CRGB digiLEDS[4][NDIGILEDS];
 CRGB modeLEDS[NMODELEDS];
 CRGB lampLEDS[NLAMPLEDS];
-
-// Define an array of colors
-int colorTable[TOTALCOLORS][2] = {
-    {0, 0},       // White
-    {0, 255},     // Red
-    {85, 255},    // Green
-    {170, 255},   // Blue
-    {42, 255},    // Yellow
-    {212, 255}    // Purple
-};
 
 //* RTC and WiFi Objects
 static DS3231 RTC;
@@ -131,6 +118,7 @@ short utcOffsetArray[38][3] = {
 	{13, 0, 2},   {14, 0, 2}
 };
 
+//* 7 Segment LED Reference Data
 uint8_t ledRef[10][7] = {
 	{1, 1, 1, 1, 1, 1, 0},    // 0
 	{0, 1, 1, 0, 0, 0, 0},    // 1
@@ -141,11 +129,20 @@ uint8_t ledRef[10][7] = {
 	{1, 1, 0, 1, 1, 1, 1},    // 6
   {0, 1, 1, 1, 0, 0, 0},    // 7
   {1, 1, 1, 1, 1, 1, 1},    // 8
-  {1, 1, 1, 1, 1, 0, 1},    // 9
+  {1, 1, 1, 1, 1, 0, 1}    // 9
 };
 
+//* Color table that holds hue/sat for mode select
+int colorTable[TOTALCOLORS][2] = {
+    {0, 0},       // White
+    {0, 255},     // Red
+    {85, 255},    // Green
+    {170, 255},   // Blue
+    {42, 255},    // Yellow
+    {212, 255}    // Purple
+};
 
-// Button States
+//* Button States
 volatile bool minusPressed  = 0;
 volatile bool plusPressed   = 0;
 volatile bool selectPressed = 0;
@@ -164,6 +161,11 @@ const unsigned int  debounceInterval  = 40;   // Debounce interval
 //* Timer for PIR
 unsigned long       lastPIRTrigger  = 0;
 const unsigned int  pirDelay        = 3000;
+
+//* Timer for blink
+unsigned long       lastBlink       = 0;
+const unsigned int  blinkDelay      = 500;
+bool blinkToggle = 0;
 
 //* Data Values for Clock
 uint8_t hms[3];
@@ -186,7 +188,6 @@ int selected_digit = 0;
 uint8_t dispBrightVal = 50;   // Default display brightness
 uint8_t maxLampBright = 204;  // 80% of max brightness
 uint8_t colorPick = 0;
-
 
 
 //***** Main Program *****//
@@ -367,9 +368,9 @@ void updateModeIndicator() {
     case 0: hue = 100; sat = 127;     break;    // Teal
     case 1: hue = 0; sat = 255;       break;    // Red
     case 2: hue = 85; sat = 255;      break;    // Green
-    case 3: hue = 170; sat = 255;     break;    // Blue
+    case 3: hue = 170; sat = 255;     break;    // Purple
     case 4: hue = 42; sat = 255;      break;    // Yellow
-    case 5: hue = 212; sat = 255;     break;    // Purple
+    case 5: hue = 212; sat = 255;     break;    // Pink
   }
 
   setAuxLED(0, hue, sat, dispBrightVal);
@@ -387,7 +388,7 @@ void ui_normalLoop() {
     if (RTC.getHours() > 12) {
       timeDisplay(0, 0, 0);
     } else {
-      timeDisplay(20, 179, 0);
+      timeDisplay(35, 167, 0);
     }
     //Serial.printf("Status of lampEN: %d\n", lampEN);
   }
@@ -427,7 +428,7 @@ void ui_normalLoop() {
 }
 
 void ui_configTime() {
-  // Start by showing all 0's 
+  // Obtain RTC Data to put as initial values
   if (uiDoOnce == 0) {
     hms[0] = RTC.getHours();
     hms[1] = RTC.getMinutes();
@@ -456,7 +457,6 @@ void ui_configTime() {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
       minusPressed = 0;
     }
-    timeDisplay(0, 0, 1);
   }
 
   //Chnaging second and third digits (minutes)
@@ -469,7 +469,6 @@ void ui_configTime() {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
       minusPressed = 0;
     }
-    timeDisplay(0, 0, 1);
   }
 
 }
@@ -743,12 +742,27 @@ void wifiNTP() {
   }
 
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
+    if (millis() - lastBlink > blinkDelay) {
+      if (blinkToggle == 0) {
+        digiLEDS[3][0].setHSV(0, 0, dispBrightVal);
+        blinkToggle = 1;
+      } else {
+        digiLEDS[3][0].setHSV(0, 0, 0);
+        blinkToggle = 0;
+      }
+      #ifdef DEBUG
+      Serial.printf(".");
+      #endif
 
-    #ifdef DEBUG
-    Serial.printf(".");
-    #endif
+      FastLED.show();
+      lastBlink = millis();
+    }
   }
+
+  blinkToggle = 1;
+
+  FastLED.clear();
+  FastLED.show();
 
   #ifdef DEBUG
   Serial.printf("\nWifi successfully connected!\n");
@@ -852,7 +866,10 @@ void timeDisplay(uint8_t hue, uint8_t sat, uint8_t mode) {
     setDigitLED(partH[i], hue, sat, dispBrightVal, i);
     setDigitLED(partM[i], hue, sat, dispBrightVal, i + 2);
   }
+
 }
+
+/*  Helper Functions  */
 
 void setDigitLED(int num, uint8_t hue, uint8_t sat, uint8_t val, uint8_t select) {
   uint8_t j;
@@ -871,7 +888,7 @@ void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
   // Configure Mode Color
   if (type == 0) {              
     if (alarmSet == 1 && modeCounter == 0) {
-      modeLEDS[0].setHSV(0, 255, val);
+      modeLEDS[0].setHSV(170, 255, val);
     } else {
       modeLEDS[0].setHSV(hue, sat, val);
     }
@@ -880,6 +897,19 @@ void setAuxLED(bool type, uint8_t hue, uint8_t sat, uint8_t val) {
     fill_solid(lampLEDS, NLAMPLEDS, CHSV(hue, sat, val));
   } 
 }
+
+// UTCToSeconds() - used to convert utcOffset array data into signed seconds
+long UTCToSeconds(short utcOffsetTriplet[]) {
+    short hours = utcOffsetTriplet[0];
+    short minutes = utcOffsetTriplet[1];
+    short is_pos = utcOffsetTriplet[2];
+    if (is_pos == 0) { //0 means negative 1 means 0 and 2 means positive
+      return -1 * ((hours * 3600) + (minutes * 60));
+    }
+    return (hours * 3600) + (minutes * 60);
+}
+
+/*  ISR Functions  */
 
 void alarmISR() {
   digitalWrite(BUZZPIN, HIGH);
@@ -896,19 +926,6 @@ void isrPIR() {
   }
 
   detachInterrupt(digitalPinToInterrupt(PIRPIN));
-}
-
-// Adjust Time Field Helper Function
-void adjustTimeField(uint8_t* timeArray, bool increase) {
-  if (currentField == 0) {
-		timeArray[currentField] = increase ? (timeArray[currentField] == 1 ? 0 : 1) : (timeArray[currentField] == 0 ? 1 : 0);
-	} else if (currentField == 2) {
-    timeArray[currentField] = increase ? (timeArray[currentField] + 1) % 6 : (timeArray[currentField] == 0 ? 5 : timeArray[currentField] - 1);
-	} else {
-		timeArray[currentField] = increase ? (timeArray[currentField] + 1) % 10 : (timeArray[currentField] == 0 ? 9 : timeArray[currentField] - 1);
-  }
-
-  Serial.printf("Time adjusted: %02d:%02d\n", timeArray[0] * 10 + timeArray[1], timeArray[2] * 10 + timeArray[3]);
 }
 
 /*  Debugging Functions   */
@@ -950,23 +967,4 @@ void testDigits() {
   }
   
   delay(5000);
-}
-
-// Function to convert hms to total seconds
-uint32_t hmsToSeconds(uint8_t hms[3]) {
-    uint8_t hours = hms[0];
-    uint8_t minutes = hms[1];
-    uint8_t seconds = hms[2];
-    return (hours * 3600) + (minutes * 60) + seconds;
-}
-
-// UTC offset
-long UTCToSeconds(short utcOffsetTriplet[]) {
-    short hours = utcOffsetTriplet[0];
-    short minutes = utcOffsetTriplet[1];
-    short is_pos = utcOffsetTriplet[2];
-    if (is_pos == 0) { //0 means negative 1 means 0 and 2 means positive
-      return -1 * ((hours * 3600) + (minutes * 60));
-    }
-    return (hours * 3600) + (minutes * 60);
 }

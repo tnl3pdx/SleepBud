@@ -201,7 +201,7 @@ void setup() {
     wifiNTP();
   }
 
-  setAuxLED(0, 0, 0, dispBrightVal);
+  setAuxLED(0, 100, 127, dispBrightVal);
   if (lampEN == 1) {
     setAuxLED(1, 0, 0, lampBrightVal);
   }
@@ -283,7 +283,7 @@ void pollButtons() {
       if (!pressed[0]) {
 
         // we just left mode 1 and this sets the time
-        if (modeCounter == 1){
+        if (modeCounter == 1) {
           // This is for after all digits are selected correctly
           if (RTC.isRunning() && (madeEdit == 1)) {  // Stop clock for configuration 
             Serial.printf("Changed Time\n");
@@ -299,7 +299,6 @@ void pollButtons() {
               RTC.disableAlarm1();
             }
           }
-
         } else if (modeCounter == 3) {
             if (RTC.isRunning() && (madeEdit == 1)) {
               Serial.printf("Changed Alarm\n");
@@ -444,8 +443,13 @@ void ui_normalLoop() {
   } else if (selectPressed) {
     if (alarmActive) {
       RTC.clearAlarm1();
+      RTC.disableAlarm1();
       digitalWrite(BUZZPIN, LOW);
+      setAuxLED(0, 100, 127, dispBrightVal);
+      FastLED.show();
       alarmActive = 0;
+      alarmSet = 0;
+
     } else {
       colorPick = (colorPick + 1) % TOTALCOLORS;
       
@@ -489,6 +493,7 @@ void ui_configTime() {
       minusPressed = 0;
     }
     madeEdit = 1;
+    timeDisplay(0, 0, 1);
   }
 
   //Chnaging second and third digits (minutes)
@@ -502,6 +507,7 @@ void ui_configTime() {
       minusPressed = 0;
     }
     madeEdit = 1;
+    timeDisplay(0, 0, 1);
   }
 
 }

@@ -44,7 +44,7 @@ Does mode 4 manually set the time correctly (check mode 0 for time changed)
 #include "config.h"
 
 //***** Defines *****//
-#define DEBUG
+//#define DEBUG
 #define TOTALBUTTONS 4
 #define NUMMODES  6
 #define TOTALCOLORS 6
@@ -184,6 +184,7 @@ const char *pswrd = WIFI_PASSWORD;
 volatile bool lampEN = 1;
 bool uiDoOnce = 0;
 bool resetNVS = 0;
+bool madeEdit = 0;
 int selected_digit = 0;
 uint8_t dispBrightVal = 50;   // Default display brightness
 uint8_t maxLampBright = 204;  // 80% of max brightness
@@ -206,7 +207,9 @@ void setup() {
   }
 
   attachInterrupt(digitalPinToInterrupt(PIRPIN), isrPIR, RISING);
+  #ifdef DEBUG
   Serial.println("Setup complete");
+  #endif
   
 }
 
@@ -282,26 +285,47 @@ void pollButtons() {
         // we just left mode 1 and this sets the time
         if (modeCounter == 1){
           // This is for after all digits are selected correctly
-          if(RTC.isRunning()) {  // Stop clock for configuration 
+          if (RTC.isRunning() && (madeEdit == 1)) {  // Stop clock for configuration 
+            Serial.printf("Changed Time\n");
             RTC.stopClock();
             RTC.setTime(hms[0], hms[1], hms[2]);
             RTC.startClock();
           }
-        } else if (modeCounter == 3) {
-            if(RTC.isRunning()) {
-              RTC.setAlarm1(rtcAlarm[0], rtcAlarm[1], 0);
+        } else if (modeCounter == 2) {
+          if (madeEdit = 1) {
+            if (alarmSet = 1) {
+              RTC.enableAlarm1();
+            } else {
+              RTC.disableAlarm1();
             }
-            nvsObj.begin("config", false);
-            nvsObj.putInt("alarmHr", rtcAlarm[0]);
-            nvsObj.putInt("alarmMin", rtcAlarm[1]);
-            nvsObj.end();
+          }
+
+        } else if (modeCounter == 3) {
+            if (RTC.isRunning() && (madeEdit == 1)) {
+              Serial.printf("Changed Alarm\n");
+              RTC.setAlarm1(rtcAlarm[0], rtcAlarm[1], 0);
+              nvsObj.begin("config", false);
+              nvsObj.putInt("alarmHr", rtcAlarm[0]);
+              nvsObj.putInt("alarmMin", rtcAlarm[1]);
+              nvsObj.end();
+            }
         } else if (modeCounter == 4) {
+            if (madeEdit == 1) {
+              Serial.printf("Changed UTC offset\n");
+              nvsObj.begin("config", false);
+              nvsObj.putInt("utcOffset", utcOffset);
+              nvsObj.end();
+              #ifdef DEBUG
+              Serial.printf("UTC changed to: %d\n", utcOffset);
+              #endif
+            }
+        } else if (modeCounter == 5) {
+          if (madeEdit == 1) {
+            Serial.printf("Changed Boot Option\n");
             nvsObj.begin("config", false);
-            nvsObj.putInt("utcOffset", utcOffset);
+            nvsObj.putBool("timeUpdate", timeUpdate);
             nvsObj.end();
-            #ifdef DEBUG
-            Serial.printf("UTC changed to: %d\n", utcOffset);
-            #endif
+          }
         }
 
         modeCounter = (modeCounter + 1) % NUMMODES;
@@ -312,6 +336,7 @@ void pollButtons() {
 
         updateModeIndicator();
 
+        madeEdit = 0;
         selected_digit = 0;
         uiDoOnce = 0;
         pressed[0] = 1;
@@ -382,7 +407,7 @@ void ui_normalLoop() {
   // Display Time
   if(RTC.isRunning()) {
     #ifdef DEBUG
-    //Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
+    Serial.printf("Current Time: %d:%d:%d\n", RTC.getHours(), RTC.getMinutes(), RTC.getSeconds());
     #endif
 
     if (RTC.getHours() > 12) {
@@ -390,13 +415,14 @@ void ui_normalLoop() {
     } else {
       timeDisplay(35, 167, 0);
     }
-    //Serial.printf("Status of lampEN: %d\n", lampEN);
   }
 
   if (plusPressed) {
     lampBrightVal = constrain(lampBrightVal + 10, 0, maxLampBright);
 
+    #ifdef DEBUG
     Serial.printf("Brightness increased to: %d\n", lampBrightVal);
+    #endif
 
     nvsObj.begin("config", false);
     nvsObj.putInt("lampBrightVal", lampBrightVal);
@@ -406,7 +432,9 @@ void ui_normalLoop() {
   } else if (minusPressed) {
     lampBrightVal = constrain(lampBrightVal - 10, 0, maxLampBright);
 
+    #ifdef DEBUG
     Serial.printf("Brightness decreased to: %d\n", lampBrightVal);
+    #endif
 
     nvsObj.begin("config", false);
     nvsObj.putInt("lampBrightVal", lampBrightVal);
@@ -420,10 +448,12 @@ void ui_normalLoop() {
       alarmActive = 0;
     } else {
       colorPick = (colorPick + 1) % TOTALCOLORS;
-
+      
+      #ifdef DEBUG
       Serial.printf("Color selected is: %d\n", colorPick);
+      #endif
     }
-  selectPressed = 0; 
+    selectPressed = 0; 
   }
 }
 
@@ -444,6 +474,7 @@ void ui_configTime() {
     {
       selected_digit = 1;
     }
+    madeEdit = 1;
     selectPressed = 0;
   }
 
@@ -457,6 +488,7 @@ void ui_configTime() {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
       minusPressed = 0;
     }
+    madeEdit = 1;
   }
 
   //Chnaging second and third digits (minutes)
@@ -469,6 +501,7 @@ void ui_configTime() {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
       minusPressed = 0;
     }
+    madeEdit = 1;
   }
 
 }
@@ -487,7 +520,7 @@ void ui_enableAlarm() {
     Serial.printf("alarmSet is: %d\n", alarmSet);
     #endif
 
-    RTC.enableAlarm1();
+    madeEdit = 1;
     hms[1] = alarmSet;
     plusPressed = 0;
   } else if (minusPressed) {
@@ -497,7 +530,7 @@ void ui_enableAlarm() {
     Serial.printf("alarmSet is: %d\n", alarmSet);
     #endif
 
-    RTC.disableAlarm1();
+    madeEdit = 1;
     hms[1] = alarmSet;
     minusPressed = 0;
   } else if (selectPressed) {
@@ -515,6 +548,7 @@ void ui_configAlarm() {
     {
       selected_digit = 1;
     }
+    madeEdit = 1;
     selectPressed = 0;
   }
 
@@ -528,6 +562,7 @@ void ui_configAlarm() {
       rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
       minusPressed = 0;
     }
+    madeEdit = 1;
     timeDisplay(0, 0, 2);
   }
 
@@ -541,6 +576,7 @@ void ui_configAlarm() {
       rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
       minusPressed = 0;
     }
+    madeEdit = 1;
     timeDisplay(0, 0, 2);
   }
 }
@@ -567,6 +603,7 @@ void ui_selectUTC() {
     Serial.printf("UTC Array Selection: %d\n", utcOffset);
     #endif
 
+    madeEdit = 1;
     plusPressed = 0;
   } else if (minusPressed) {
     utcOffset = constrain(utcOffset - 1, 0, 37);
@@ -575,6 +612,7 @@ void ui_selectUTC() {
     Serial.printf("UTC Array Selection: %d\n", utcOffset);
     #endif
 
+    madeEdit = 1;
     minusPressed = 0;
   } else if (selectPressed) {
     selectPressed = 0; 
@@ -596,10 +634,7 @@ void ui_enableNTPUpdate() {
     Serial.printf("timeUpdate is: %d\n", timeUpdate);
     #endif
 
-    nvsObj.begin("config", false);
-    nvsObj.putBool("timeUpdate", timeUpdate);
-    nvsObj.end();
-
+    madeEdit = 1;
     hms[1] = timeUpdate;
     plusPressed = 0;
   } else if (minusPressed) {
@@ -609,10 +644,7 @@ void ui_enableNTPUpdate() {
     Serial.printf("timeUpdate is: %d\n", timeUpdate);
     #endif
 
-    nvsObj.begin("config", false);
-    nvsObj.putBool("timeUpdate", timeUpdate);
-    nvsObj.end();
-
+    madeEdit = 1;
     hms[1] = timeUpdate;
     minusPressed = 0;
   } else if (selectPressed) {
@@ -652,7 +684,10 @@ void genSetup() {
   //** Fetch parameters from non-volatile memory
   
   if (!nvsObj.begin("config", false)) {
+    #ifdef DEBUG
     Serial.printf("nvsObj object failed to start, looping...\n");
+    #endif
+
     while(1);
   }
 
@@ -710,11 +745,15 @@ void genSetup() {
   FastLED.show();
 
   //** RTC Setup
-  if (!RTC.isConnected()) {
+  if (!RTC.begin()) {
+    #ifdef DEBUG
     Serial.printf("RTC object failed to start, looping...\n");
+    #endif
+
     while(1);
   }
   RTC.setHourMode(CLOCK_H24);
+  RTC.setEpoch((time_t)timeClient.getEpochTime(), 0);     // Set epoch from NTP using non-unix epoch
   RTC.enableAlarmPin();
   alarmSet = RTC.isAlarm1Enabled();
 
@@ -737,7 +776,10 @@ void wifiNTP() {
 
   //** Start WiFi connection
   if (!WiFi.begin(ssid, pswrd)) {
+    #ifdef DEBUG
     Serial.printf("WiFi object failed to start, looping...\n");
+    #endif
+
     while(1);
   }
 
@@ -795,14 +837,9 @@ void wifiNTP() {
   // Obtain new data from RTC module
   formatTime = timeClient.getFormattedTime();
 
-  // Turn off time and WiFi
-  timeClient.end();
-  WiFi.disconnect();
-
   #ifdef DEBUG
   Serial.printf("Data received from NTP server: ");
   Serial.println(formatTime);
-  Serial.printf("\nWiFi and NTP setup successful.\n\n");
   #endif
 
   // Parse string to get hour, minute, and second data
@@ -826,8 +863,15 @@ void wifiNTP() {
   #endif 
 
   RTC.setTime(hms[0], hms[1], hms[2]);
-  RTC.setEpoch((time_t)timeClient.getEpochTime(), 0);     // Set epoch from NTP using non-unix epoch
   RTC.startClock();
+
+  // Turn off time and WiFi
+  timeClient.end();
+  WiFi.disconnect();
+  
+  #ifdef DEBUG
+  Serial.printf("\nWiFi and NTP setup successful.\n\n");
+  #endif
 
 }
 
@@ -938,7 +982,11 @@ void testLEDs() {
 
   for (k = 10; k > 0; k--) {
     percent = 1.00 - (0.05 * k);
+
+    #ifdef DEBUG
     Serial.printf("Percentage is %f\n\n", percent);
+    #endif
+    
     for (i = 0; i < 4; i++) {
       for (j = 0; j < NDIGILEDS; j++) {
         digiLEDS[i][j].setHSV(0, 0, (int)(255.0 * percent));

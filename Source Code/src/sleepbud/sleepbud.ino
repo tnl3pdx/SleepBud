@@ -286,14 +286,13 @@ void pollButtons() {
         if (modeCounter == 1) {
           // This is for after all digits are selected correctly
           if (RTC.isRunning() && (madeEdit == 1)) {  // Stop clock for configuration 
-            Serial.printf("Changed Time\n");
             RTC.stopClock();
             RTC.setTime(hms[0], hms[1], hms[2]);
             RTC.startClock();
           }
         } else if (modeCounter == 2) {
-          if (madeEdit = 1) {
-            if (alarmSet = 1) {
+          if (madeEdit == 1) {
+            if (alarmSet == 1) {
               RTC.enableAlarm1();
             } else {
               RTC.disableAlarm1();
@@ -301,7 +300,6 @@ void pollButtons() {
           }
         } else if (modeCounter == 3) {
             if (RTC.isRunning() && (madeEdit == 1)) {
-              Serial.printf("Changed Alarm\n");
               RTC.setAlarm1(rtcAlarm[0], rtcAlarm[1], 0);
               nvsObj.begin("config", false);
               nvsObj.putInt("alarmHr", rtcAlarm[0]);
@@ -310,7 +308,6 @@ void pollButtons() {
             }
         } else if (modeCounter == 4) {
             if (madeEdit == 1) {
-              Serial.printf("Changed UTC offset\n");
               nvsObj.begin("config", false);
               nvsObj.putInt("utcOffset", utcOffset);
               nvsObj.end();
@@ -320,7 +317,6 @@ void pollButtons() {
             }
         } else if (modeCounter == 5) {
           if (madeEdit == 1) {
-            Serial.printf("Changed Boot Option\n");
             nvsObj.begin("config", false);
             nvsObj.putBool("timeUpdate", timeUpdate);
             nvsObj.end();
@@ -486,13 +482,14 @@ void ui_configTime() {
   if (selected_digit == 0) {
     if (plusPressed) {
       hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 24); // only setting 1 or zero for hour
+      madeEdit = 1;
       plusPressed = 0;
     }
     if (minusPressed) {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
+      madeEdit = 1;
       minusPressed = 0;
     }
-    madeEdit = 1;
     timeDisplay(0, 0, 1);
   }
 
@@ -500,13 +497,14 @@ void ui_configTime() {
   if (selected_digit == 1) {
     if (plusPressed){
       hms[selected_digit] = constrain(hms[selected_digit] + 1, 0, 59); // only setting 1 or zero for hour
+      madeEdit = 1;
       plusPressed = 0;
     }
     if (minusPressed){
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
+      madeEdit = 1;
       minusPressed = 0;
     }
-    madeEdit = 1;
     timeDisplay(0, 0, 1);
   }
 
@@ -562,13 +560,14 @@ void ui_configAlarm() {
   if (selected_digit == 0) {
     if (plusPressed) {
       rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] + 1, 0, 24); // only setting 1 or zero for hour
+      madeEdit = 1;
       plusPressed = 0;
     }
     if (minusPressed) {
       rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
+      madeEdit = 1;
       minusPressed = 0;
     }
-    madeEdit = 1;
     timeDisplay(0, 0, 2);
   }
 
@@ -576,13 +575,14 @@ void ui_configAlarm() {
   if (selected_digit == 1) {
     if (plusPressed){
       rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] + 1, 0, 59); // only setting 1 or zero for hour
+      madeEdit = 1;
       plusPressed = 0;
     }
     if (minusPressed){
       rtcAlarm[selected_digit] = constrain(rtcAlarm[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
+      madeEdit = 1;
       minusPressed = 0;
     }
-    madeEdit = 1;
     timeDisplay(0, 0, 2);
   }
 }

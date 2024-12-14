@@ -200,7 +200,7 @@ void setup() {
     wifiNTP();
   }
 
-  setAuxLED(0, 0, 0, dispBrightVal);
+  setAuxLED(0, 100, 127, dispBrightVal);
   if (lampEN == 1) {
     setAuxLED(1, 0, 0, lampBrightVal);
   }
@@ -280,7 +280,7 @@ void pollButtons() {
       if (!pressed[0]) {
 
         // we just left mode 1 and this sets the time
-        if (modeCounter == 1){
+        if (modeCounter == 1) {
           // This is for after all digits are selected correctly
           if(RTC.isRunning()) {  // Stop clock for configuration 
             RTC.stopClock();
@@ -390,7 +390,6 @@ void ui_normalLoop() {
     } else {
       timeDisplay(35, 167, 0);
     }
-    //Serial.printf("Status of lampEN: %d\n", lampEN);
   }
 
   if (plusPressed) {
@@ -416,8 +415,13 @@ void ui_normalLoop() {
   } else if (selectPressed) {
     if (alarmActive) {
       RTC.clearAlarm1();
+      RTC.disableAlarm1();
       digitalWrite(BUZZPIN, LOW);
+      setAuxLED(0, 100, 127, dispBrightVal);
+      FastLED.show();
       alarmActive = 0;
+      alarmSet = 0;
+
     } else {
       colorPick = (colorPick + 1) % TOTALCOLORS;
 
@@ -457,6 +461,7 @@ void ui_configTime() {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 24); // only setting 1 or zero for hour
       minusPressed = 0;
     }
+    timeDisplay(0, 0, 1);
   }
 
   //Chnaging second and third digits (minutes)
@@ -469,6 +474,7 @@ void ui_configTime() {
       hms[selected_digit] = constrain(hms[selected_digit] - 1, 0, 59); // only setting 1 or zero for hour
       minusPressed = 0;
     }
+    timeDisplay(0, 0, 1);
   }
 
 }
@@ -488,6 +494,7 @@ void ui_enableAlarm() {
     #endif
 
     RTC.enableAlarm1();
+
     hms[1] = alarmSet;
     plusPressed = 0;
   } else if (minusPressed) {
